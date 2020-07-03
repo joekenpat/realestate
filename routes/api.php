@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login','API\AuthController@login');
+Route::post('register','API\AuthController@store');
+Route::middleware('auth:api')->group(function(){
+  Route::get('/user/list', 'API\AuthController@index');
+  Route::post('/product/new', 'API\ProductController@store');
+  Route::get('/product/list', 'API\ProductController@index');
+  Route::post('/product/update/{id}', 'API\ProductController@update');
+  Route::get('/product/remove/{id}', 'API\ProductController@destroy');
+  Route::get('/category/list', 'API\CategoryController@index');
+  Route::get('/subcategory/list', 'API\SubcategoryController@index');
 });
