@@ -53,8 +53,6 @@
           </button>
         </div>
       </div>
-      <div class="uk-margin">
-        <div class="uk-form-control uk-text-center">
           @if (Route::has('password.request'))
           <a class="uk-button uk-button-link uk-margin-left" href="{{ route('password.request') }}">
             {{ __('Reset Password?') }}
@@ -62,7 +60,6 @@
           @endif
         </div>
       </div>
-    </form>
   </div>
 </div>
 @endsection

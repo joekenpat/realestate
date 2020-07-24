@@ -4,7 +4,6 @@
     <div class="uk-visible@m uk-width-1-4 uk-padding-small">
       <div
         class="uk-card uk-border-rounded uk-card-default uk-card-body uk-padding-remove"
-        uk-sticky="offset:115"
       >
         <form class="">
           <div class="uk-padding-small">

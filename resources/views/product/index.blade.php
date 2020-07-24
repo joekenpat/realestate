@@ -225,9 +225,9 @@
 </style>
 @endpush
 <div class="uk-grid-collapse" uk-grid>
-  <div class="uk-width-1-4 uk-padding-small">
+  <div class="uk-visible@m uk-width-1-4 uk-padding-small">
     <div class="uk-card uk-card-default uk-margin uk-border-rounded uk-padding-remove uk-overflow-auto"
-      uk-sticky="offset:115" style="background:white;">
+      style="background:white;">
       <div class="uk-card-body uk-padding-remove">
           <div class="uk-text-center">
             <img src="{{asset(sprintf("images/users/profile/%s/%s", Auth()->user()->id,Auth()->user()->avatar))}}" class="uk-border-circle uk-margin-top profile_image" alt="Your Profile image">

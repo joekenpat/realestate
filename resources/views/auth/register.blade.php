@@ -3,11 +3,9 @@
 @section('content')
 
 
-<div class="uk-container uk-padding-small content1">
-  <div uk-grid>
-    <div class="uk-width-1-1 ">
-      <div class="uk-card uk-card-default uk-card-body my-card">
-        <h2 class="uk-card-title" style="color:white;">Registration</h2>
+<div class="uk-section uk-section-small uk-section-muted uk-padding-small uk-grid  uk-flex uk-flex-center">
+      <div class="uk-card uk-card-default uk-card-body my-card uk-width-1-1 uk-width-5-6@s uk-width-3-4@m uk-width-1-2@l">
+        <h2 class="uk-card-title" style="color:#3D9FB9;">Registration</h2>
         <form method="POST" action="{{ route('register')  }}" class="uk-form-stacked">
           @csrf
           <div class="uk-grid-small" uk-grid>
@@ -17,7 +15,7 @@
               </label>
               <div class="uk-form-control">
                 <div class="uk-inline uk-width-1-1">
-                  <span class="uk-form-icon" uk-icon="icon: user" style="color: white"></span>
+                  <span class="uk-form-icon" uk-icon="icon: user" style="color: #3D9FB9;"></span>
                   <input class="uk-input uk-width-1-1 @error('last_name') uk-form-danger @enderror" id="last_name"
                     name="last_name" type="text" value="{{ old('last_name') }}" required autocomplete="family-name"
                     autofocus>
@@ -33,7 +31,7 @@
               </label>
               <div class="uk-form-control">
                 <div class="uk-inline uk-width-1-1">
-                  <span class="uk-form-icon" uk-icon="icon: user" style="color: white"></span>
+                  <span class="uk-form-icon" uk-icon="icon: user" style="color: #3D9FB9;"></span>
                   <input class="uk-input uk-width-1-1 @error('first_name') uk-form-danger @enderror" id="first_name"
                     name="first_name" type="text" value="{{ old('first_name') }}" required autocomplete="given-name">
                 </div>
@@ -48,7 +46,7 @@
               </label>
               <div class="uk-form-control">
                 <div class="uk-inline uk-width-1-1">
-                  <span class="uk-form-icon" uk-icon="icon: user" style="color: white"></span>
+                  <span class="uk-form-icon" uk-icon="icon: user" style="color: #3D9FB9;"></span>
                   <input class="uk-input uk-width-1-1 @error('username') uk-form-danger @enderror" id="username"
                     name="username" type="text" value="{{ old('username') }}" required >
                 </div>
@@ -63,7 +61,7 @@
               </label>
               <div class="uk-form-control">
                 <div class="uk-inline uk-width-1-1">
-                  <span class="uk-form-icon" uk-icon="icon: receiver" style="color: white"></span>
+                  <span class="uk-form-icon" uk-icon="icon: receiver" style="color: #3D9FB9;"></span>
                   <input class="uk-input uk-width-1-1 @error('phone') uk-form-danger @enderror" id="phone"
                     name="phone" type="tel" value="{{ old('phone') }}" required autocomplete="tel">
                 </div>
@@ -78,7 +76,7 @@
               </label>
               <div class="uk-form-control">
                 <div class="uk-inline uk-width-1-1">
-                  <span class="uk-form-icon" uk-icon="icon: mail" style="color: white"></span>
+                  <span class="uk-form-icon" uk-icon="icon: mail" style="color: #3D9FB9;"></span>
                   <input class="uk-input uk-width-1-1 @error('email') uk-form-danger @enderror" id="email" name="email"
                     type="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                 </div>
@@ -93,7 +91,7 @@
               </label>
               <div class="uk-form-control">
                 <div class="uk-inline uk-width-1-1">
-                  <span class="uk-form-icon" uk-icon="icon: lock" style="color: white"></span>
+                  <span class="uk-form-icon" uk-icon="icon: lock" style="color: #3D9FB9;"></span>
                   <input id="password" type="password"
                     class="uk-input uk-width-1-1 @error('password') uk-form-danger @enderror" name="password" required
                     autocomplete="new-password">
@@ -114,8 +112,6 @@
           </div>
         </form>
       </div>
-    </div>
-  </div>
 </div>
 
 @endsection
