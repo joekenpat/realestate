@@ -17,7 +17,6 @@ class CreateForeignKeys extends Migration
       $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
       $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
       $table->foreign('subcategory_id')->references('id')->on('subcategories')->cascadeOnDelete();
-      $table->foreign('country_id')->references('id')->on('countries')->cascadeOnDelete();
       $table->foreign('state_id')->references('id')->on('states')->cascadeOnDelete();
       $table->foreign('city_id')->references('id')->on('cities')->cascadeOnDelete();
     });
@@ -26,12 +25,8 @@ class CreateForeignKeys extends Migration
       $table->foreign('category_id')->references('id')->on('categories')->cascadeOnDelete();
     });
 
-    Schema::table('states', function (Blueprint $table) {
-      $table->foreign('country_iso2')->references('iso2')->on('countries')->cascadeOnDelete();
-    });
-
     Schema::table('cities', function (Blueprint $table) {
-      $table->foreign('country_iso2')->references('iso2')->on('countries')->cascadeOnDelete();
+      $table->foreign('state_code')->references('code')->on('states')->cascadeOnDelete();
     });
 
     Schema::table('posts', function (Blueprint $table) {
@@ -78,7 +73,6 @@ class CreateForeignKeys extends Migration
       $table->dropForeign('user_id');
       $table->dropForeign('category_id');
       $table->dropForeign('subcategory_id');
-      $table->dropForeign('country_id');
       $table->dropForeign('state_id');
       $table->dropForeign('city_id');
     });
@@ -87,12 +81,8 @@ class CreateForeignKeys extends Migration
       $table->dropForeign('category_id');
     });
 
-    Schema::table('states', function (Blueprint $table) {
-      $table->dropForeign('country_iso2');
-    });
-
     Schema::table('cities', function (Blueprint $table) {
-      $table->dropForeign('country_iso2');
+      $table->dropForeign('state_code');
     });
 
     Schema::table('post', function (Blueprint $table) {

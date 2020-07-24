@@ -23,9 +23,9 @@ class Product extends Model
    */
   protected $fillable = [
     'title','price','images','views','likes','address',
-    'user_id','expired','reported','category_id','subcategory_id',
-    'country_id','state_id','city_id','phone','status','list_as',
-    'plan','description','expires_at','reported_at'
+    'user_id','category_id','subcategory_id','phone','currency_id',
+    'country_id','state_id','city_id','status','list_as',
+    'plan','description','expired_at','reported_at'
   ];
 
   /**
@@ -43,8 +43,6 @@ class Product extends Model
   protected $casts = [
     'expires_at' => 'datetime',
     'reported_at' => 'datetime',
-    'reported' => 'Boolean',
-    'expired' => 'Boolean',
     'images' => 'Array'
   ];
 
@@ -56,7 +54,7 @@ class Product extends Model
 
   public function user()
   {
-      return $this->belongsTo(User::class, 'user_id');
+      return $this->belongsTo(User::class, 'user_id',);
   }
 
   public function category()
@@ -69,14 +67,9 @@ class Product extends Model
       return $this->belongsTo(Subcategory::class, 'subcategory_id');
   }
 
-  public function country()
-  {
-      return $this->belongsTo(Country::class, 'country_id');
-  }
-
   public function state()
   {
-      return $this->belongsTo(State::class, 'country_id');
+      return $this->belongsTo(State::class, 'state_id');
   }
 
   public function city()
@@ -91,5 +84,15 @@ class Product extends Model
   public function amenities()
   {
       return $this->belongsToMany(Amenity::class, 'amenity_product', 'product_id', 'amenity_id')->withPivot('value');
+  }
+
+  public function complaint()
+  {
+      return $this->hasMany(Complaint::class, 'product_id');
+  }
+
+  public function is_reported()
+  {
+      return ($this->status == 'reported' || $this->reported_at != null);
   }
 }

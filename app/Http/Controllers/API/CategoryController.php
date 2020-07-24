@@ -21,20 +21,12 @@ class CategoryController extends Controller
   public function index()
   {
     try {
-
-      $categories = Category::with('subcategories')->paginate(10);
-      $success['data'] = $categories;
-      return response()->json([
-        'success' => $success,
-      ], Response::HTTP_OK);
+      $categories = Category::with('subcategories')->get();
+      return response()->json($categories, Response::HTTP_OK);
     } catch (ModelNotFoundException $mnt) {
-      return response()->json([
-        'error' => 'No Item Found',
-      ], Response::HTTP_NOT_FOUND);
+      return response()->json('No Item Found', Response::HTTP_NOT_FOUND);
     } catch (\Exception $e) {
-      return response()->json([
-        'error' => $e->getMessage(),
-      ], Response::HTTP_INTERNAL_SERVER_ERROR);
+      return response()->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -70,12 +62,12 @@ class CategoryController extends Controller
       ]);
 
       //adding images
-        $image = $request->file('image');
-        $img_ext = $image->getClientOriginalExtension();
-        $img_name = sprintf("CICN_%s.%s", $request->input('name'), $img_ext);
-        $image->storeAs("images/categories", $img_name);
-        $new_cat->images = $img_name;
-        $new_cat->save();
+      $image = $request->file('image');
+      $img_ext = $image->getClientOriginalExtension();
+      $img_name = sprintf("CICN_%s.%s", $request->input('name'), $img_ext);
+      $image->storeAs("images/categories", $img_name);
+      $new_cat->images = $img_name;
+      $new_cat->save();
     } catch (Exception $e) {
     }
   }

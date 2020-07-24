@@ -1,122 +1,323 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <!-- Styles -->
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <style>
+    @media (max-width: 740px) {
+      .my-slide {
+        padding-top: none
+      }
+    }
+
+    html {
+      background-color: white;
+    }
+
+    .navigation {
+      background-color: black !important;
+      width: 100%;
+      margin: 0px;
+      margin-top: 0px;
+      padding-top: 0px;
+    }
+
+    .navigation-small {
+      background-color: black !important;
+      width: 100%;
+      margin: 0px;
+      margin-top: 0px;
+      padding-top: 0px;
+    }
+
+    .btn-nav-login {
+      background: white !important;
+      color: black;
+      text-decoration-style: solid;
+      border-radius: 50px;
+      margin-right: 10px;
+    }
+
+    .btn-nav-login:hover {
+      background-color: yellow;
+    }
+
+    .btn-nav-register {
+      background: red !important;
+      color: white;
+      text-decoration-style: solid;
+      border-radius: 50px;
+    }
+
+    .btn-bg-none {
+      background: none !important;
+      color: white;
+    }
+
+    .content {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .top-p-image {
+      border-radius: 20px;
+      padding: 5px
+    }
+
+
+    .uk-fixed-navigation {
+      position: fixed;
+      right: 0;
+      left: 0;
+      top: 0;
+      z-index: 1030;
+    }
+
+    .my-card-title {
+      margin: -20px
+    }
+
+    .my-card-text {
+      margin-bottom: -20px
+    }
+
+    .my-card-text-blog {
+      font-size: 0.8em
+    }
+
+    .my-card {
+      border-radius: 20px;
+    }
+
+    .my-card-blog {
+      border-radius: 0px 20px 20px 0px;
+    }
+
+    .city {
+      background: whitesmoke;
+      padding-bottom: 50px;
+    }
+
+    .city-text-s {
+      font-size: 0.7em
+    }
+
+
+
+    .footer {
+      background-color: none;
+    }
+  </style>
+  @stack('style_top')
+  @stack('scripts_top')
 </head>
+
 <body>
-<div id="app">
-    <div class="uk-background-primary uk-light">
-        <nav class="uk-navbar-container uk-navbar-transparent">
-            <div class="uk-container">
-                <div class="uk-navbar" data-uk-navbar>
-                    <div class="uk-navbar-left">
-                        <a class="uk-navbar-item uk-logo" href="/">{{ config('app.name', 'Laravel') }}</a>
+  <div id="app">
+    <!----offcanvas start here---->
+    <div id="offcanvas-push" uk-offcanvas="mode: push; overlay: true">
+      <div class="uk-offcanvas-bar sidenav ">
 
-                        <ul class="uk-navbar-nav">
-                            <li><a href="{{ route('demo') }}">Theme Demo</a></li>
-                            <li>
-                                <a href="#">Useful Links</a>
-                                <div class="uk-navbar-dropdown uk-navbar-dropdown-width-3">
-                                    <div class="uk-navbar-dropdown-grid uk-child-width-1-3" data-uk-grid>
-                                        <div>
-                                            <ul class="uk-nav uk-navbar-dropdown-nav">
-                                                <li class="uk-nav-header">Laravel</li>
-                                                @include('laravel')
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <ul class="uk-nav uk-navbar-dropdown-nav">
-                                                <li class="uk-nav-header">UIkit</li>
-                                                @include('uikit')
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <ul class="uk-nav uk-navbar-dropdown-nav">
-                                                <li class="uk-nav-header">Vue.js</li>
-                                                @include('vuejs')
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="uk-navbar-right">
-                        <ul class="uk-navbar-nav">
-                            <!-- Authentication Links -->
-                            @guest
-                                @if (Route::has('login'))
-                                    <li>
-                                        <a href="{{ route('login') }}">{{ __('Log In') }}</a>
-                                    </li>
-                                @endif
-                                @if (Route::has('register'))
-                                    <li>
-                                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </li>
-                                @endif
-                            @else
-                                <li>
-                                    <a href="#">
-                                        {{ Auth::user()->name }}
-                                    </a>
-                                    <div class="uk-navbar-dropdown">
-                                        <ul class="uk-nav uk-navbar-dropdown-nav">
-                                            <li>
-                                                <a href="{{ route('logout') }}"
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                    {{ __('Log Out') }}
-                                                </a>
+        <!-----usefull links ends here---->
+        <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
+          <li class="uk-parent">
+            <a href="#"><b>Menu</b></a>
+            <ul class="uk-nav-sub">
 
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                    style="display: none;">
-                                                    @csrf
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            @endguest
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+              <ul>
+                <li>
+                  <div class="uk-padding-small">
+                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                        style="background-color:black;  color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>HOME</b></button></a>
+                  </div>
+                </li>
+                <li>
+                  <div class="uk-padding-small">
+                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                        style="background-color:black;  color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>PRICING</b></button></a>
+                  </div>
+                </li>
+                <li>
+                  <div class="uk-padding-small">
+                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                        style="background-color:black;   color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>ABOUT
+                          US
+                        </b></button></a>
+                  </div>
+                </li>
+                <li>
+                  <div class="uk-padding-small">
+                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                        style="background-color:black;   color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>CONTACT
+                          US
+                        </b></button></a>
+                  </div>
+                </li>
+                <li>
+                  <div class="uk-padding-small">
+                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                        style="background-color:black; color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>Blog
+                        </b></button></a>
+                  </div>
+                </li>
+              </ul>
+          </li>
+        </ul>
+        </li>
+
+        </ul>
+        <div class="uk-padding-remove">
+          <hr>
+        </div>
+
+        <!-----usefull links ends here---->
+        <ul class="uk-nav uk-nav-default">
+          <div class="uk-padding-small">
+            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                style="background-color:black;  color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>EDIT
+                  PROFILE</b></button></a>
+          </div>
+        </ul>
+        <ul class="uk-nav uk-nav-default">
+          <div class="uk-padding-small">
+            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                style="background-color:black;   color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>MY
+                  ADS
+                </b></button></a>
+          </div>
+        </ul>
+        <ul class="uk-nav uk-nav-default">
+          <div class="uk-padding-small">
+            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                style="background-color:black; color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>MY
+                  FAVOURITE
+                </b></button></a>
+          </div>
+        </ul>
+        <ul class="uk-nav uk-nav-default">
+          <div class="uk-padding-small">
+            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                style="background-color:black; color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>PAYMENT
+                </b></button></a>
+          </div>
+        </ul>
+
+        <ul class="uk-nav uk-nav-default">
+          <div class="uk-padding-small">
+            <a href="{{route('user_create_product')}}"> <button class=" uk-animation-shake uk-button uk-button-large"
+                style="background-color:black;color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>POST
+                  ADS</b></button></a>
+          </div>
+        </ul>
+
+        <ul class="uk-nav uk-nav-default">
+          <div class="uk-padding-small">
+            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
+                style="background-color:red; color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>LOG
+                  OUT
+                </b></button></a>
+          </div>
+        </ul>
+
+      </div>
     </div>
+    <!----offcanvas ended here---->
+
+    <!----navbar start here ---->
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+      <nav class="uk-navbar-container  navigation uk-visible@s" uk-navbar>
+        <div class="uk-navbar-let">
+          <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
+              style="height: 100px; "></a>
+        </div>
+
+        <div class="uk-navbar-left uk-visible@s">
+          <ul class="uk-navbar-nav">
+
+          </ul>
+        </div>
+
+        <div class="uk-navbar-right uk-visible@s">
+          <ul class="uk-navbar-nav uk-flex uk-flex-middle">
+            <li>
+              <a href="{{route('home')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
+                style="color:white;">Home</a>
+            </li>
+            <li>
+              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">About US</a>
+            </li>
+            <li>
+              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Contact Us</a>
+            </li>
+            <li>
+              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Blog</a>
+            </li>
+            <a href="{{route('user_create_product')}}"
+              style="background-color:#00a86b;color:#fff;height:35px !important;padding-top:5px;"
+              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:play"
+                style="color:#fff;"></i> Post Ad</a>
+            @guest
+            <a href="{{route('login')}}"
+              style="background-color:#fff;color:#00;height:35px !important;padding-top:5px;"
+              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:sign-in"
+                style="color:#f00;"></i> Login</a>
+            <a href="{{route('register')}}"
+              style="background-color:#f00;color:white;height:35px !important;padding-top:5px;"
+              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:user"
+                style="color:white;"></i> Register</a>
+            @endguest
+          </ul>
+        </div>
+        <div class="uk-navbar-right uk-visible@s">
+          <ul class="uk-navbar-nav">
+
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+    <!----navbar ends here ---->
+
+    <!---------offcanva for desktop end here----------->
+
+    <!----navbar for mobile start here ---->
+    <nav class="uk-navbar-container   navigation-small uk-hidden@s" uk-navbar>
+      <div class="uk-navbar-let">
+        <a class="uk-navbar-item uk-logo" href="#"><img src="images/logo.png" style="height: 100px;  "></a>
+      </div>
+
+      <div class="uk-navbar-right ">
+        <ul class="uk-navbar-nav">
+          <li>
+            <div class="uk-navbar-toggle " uk-toggle="target: #offcanvas-push">
+              <i class="mdi  mdi-backburger"
+                style="color:white; font-size: 30px;position: fixed;background-color: black;  z-index: 1; padding-right: 20px"></i>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!----navbar for mobile ends here ---->
+
+    <!-----dashboard start here----->
 
     <main>
-        @yield('content')
+      @yield('content')
     </main>
+  </div>
 
-    <footer class="uk-section uk-section-xsmall uk-section-secondary">
-        <div class="uk-container">
-            <div class="uk-grid uk-text-center uk-text-left@s uk-flex-middle" data-uk-grid>
-                <div class="uk-text-small uk-text-muted uk-width-1-3@s">
-                    Lovingly cobbled together by
-                    <a target="_blank" href="https://torrix.uk/">Matt Fletcher at Torrix</a>
-                </div>
-                <div class="uk-text-center uk-width-1-3@s">
-                    <a target="_blank" href="https://twitter.com/mattfletcher"
-                       class="uk-icon-button uk-margin-small-right" data-uk-icon="twitter"></a>
-                    <a target="_blank" href="https://github.com/Torrix"
-                       class="uk-icon-button" data-uk-icon="github"></a>
-                </div>
-                <div class="uk-text-small uk-text-muted uk-text-center uk-text-right@s uk-width-1-3@s">
-                    Built with <a target="_blank" href="http://getuikit.com"><span data-uk-icon="uikit"></span></a>
-                </div>
-            </div>
-        </div>
-    </footer>
-</div>
-<script src="{{ asset('js/app.js') }}" defer></script>
+  <!-----userdashboard end here----->
+  <script src="{{ asset('js/app.js') }}" defer></script>
+  @stack('scripts_bottom')
 </body>
+
 </html>

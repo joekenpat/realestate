@@ -14,8 +14,6 @@ class DatabaseSeeder extends Seeder
     $this->call(CategorySeeder::class);
     $this->call(SubcategorySeeder::class);
     $this->call(AmenitySeeder::class);
-    $this->call(CountrySeeder::class);
-    $this->call(CurrencySeeder::class);
     $this->call(StateSeeder::class);
     $this->call(CitySeeder::class);
     // $this->call(SpecificationSeeder::class);

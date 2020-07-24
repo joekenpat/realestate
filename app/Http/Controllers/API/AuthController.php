@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use PulkitJalan\GeoIP\Facades\GeoIP;
@@ -28,6 +29,10 @@ class AuthController extends Controller
     ];
     if (auth()->attempt($credentials)) {
       $user = Auth::user();
+      $user->update([
+        'last_login' => now()->format('Y-m-d H:i:s.u'),
+        'last_ip' => $request->getClientIp(),
+      ]);
       $success['token'] = $user->createToken('realstate')->accessToken;
       $success['data'] = $user;
       return response()->json([
@@ -35,7 +40,7 @@ class AuthController extends Controller
       ], Response::HTTP_CREATED);
     } else {
       return response()->json([
-        'error' => 'Unauthorised',
+        'error' => 'Invalid Credentials',
       ], Response::HTTP_UNAUTHORIZED);
     }
   }
@@ -94,7 +99,7 @@ class AuthController extends Controller
       //   ->orderBy('created_at', $user_sort())
       //   ->paginate($user_result_count());
 
-        $users = User::where('role', $user_role())
+      $users = User::where('role', $user_role())
         ->orderBy('created_at', $user_sort())
         ->paginate($user_result_count());
       foreach ($users as $key => $user) {
@@ -123,20 +128,14 @@ class AuthController extends Controller
    */
   public function store(Request $request)
   {
-    $validator = Validator::make($request->all(), [
+    $this->validate($request, [
       'first_name' => 'required|alpha|max:25|min:2',
       'last_name' => 'required|alpha|max:25|min:2',
       'username' => 'required|alpha_dash|max:25|min:2',
       'phone' => 'required|string|max:15|min:8',
-      'email' => 'required|email:rfc,dns|max:150|min:5',
+      'email' => 'required|email|max:150|min:5',
       'password' => 'required|string',
     ]);
-    if ($validator->fails()) {
-      return response()->json([
-        'error' => $validator->$validator->errors()
-      ]);
-    }
-
     $data = $request->all();
     $data['password'] = Hash::make($data['password']);
     $data['country_id'] = GeoIP::getCountry();
@@ -145,6 +144,10 @@ class AuthController extends Controller
     $data['last_login'] = now();
     $user = User::create($data);
     if ($user) {
+      $user->update([
+        'last_login' => now()->format('Y-m-d H:i:s.u'),
+        'last_ip' => $request->getClientIp(),
+      ]);
       $success['token'] = $user->createToken('realstate')->accessToken;
       $success['data'] = $user;
       return response()->json([
@@ -175,52 +178,49 @@ class AuthController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
-  { {
-      $validator = Validator::make($request->all(), [
-        'first_name' => 'required|alpha|max:25|min:2',
-        'last_name' => 'required|alpha|max:25|min:2',
-        'username' => 'required|alpha_dash|max:25|min:2',
-        'phone' => 'required|string|max:15|min:8',
-        'email' => 'required|email:rfc,dns|max:150|min:5',
-        'password' => 'required|string',
-        'bio' => 'string|min:5|max:255',
-        'avatar_file' => 'file|image|mimes:jpg,jpeg,png,gif|max:2048',
-        'twitter' => 'string|',
-        'facebook' => 'string|',
-        'instagram' => 'string|',
-        'google' => 'string|',
-      ]);
-      if ($validator->fails()) {
-        return response()->json([
-          'error' => $validator->$validator->errors()
-        ]);
-      }
-      try {
-        $data = $request->all();
-        $data['country_id'] = GeoIP::getCountry();
-        $data['city_id'] = GeoIP::getCity();
-        //adding images
-        $image = $request->file('avatar_file');
+  public function update(Request $request)
+  {
+    $this->validate($request, [
+      'first_name' => 'required|alpha|max:25|min:2',
+      'last_name' => 'required|alpha|max:25|min:2',
+      'username' => 'required|alpha_dash|max:25|min:2',
+      'phone' => 'required|string|max:15|min:8',
+      'city_id' => 'required|numeric|',
+      'state_id' => 'required|numeric|',
+      'bio' => 'required|string|min:5|max:255',
+      'address' => 'required|string|min:5|max:255',
+      'avatar' => 'file|image|mimes:jpg,jpeg,png,gif|max:2048',
+    ]);
+    try {
+      $user = User::where('id', Auth()->user()->id)->firstOrFail();
+      $data = $request->all();
+      //adding images
+      if ($request->hasFile('avatar')) {
+        $image = $request->file('avatar');
         $img_ext = $image->getClientOriginalExtension();
-        $img_name = sprintf("UPIMG_%s.%s", $id, $img_ext);
-        $image->storeAs("images/users/profile", $img_name);
+        $img_name = sprintf("A%s.%s", Auth()->user()->id, $img_ext);
+        $image->move(public_path("images/users/profile/" . Auth()->user()->id), $img_name);
         $data['avatar'] = $img_name;
-        User::where('id', $id)->update($data);
-        $updated_user = User::where('id', $id)->firstOrFail();
-        $success['data'] = $updated_user;
-        return response()->json([
-          'success' => $success,
-        ], Response::HTTP_OK);
-      } catch (ModelNotFoundException $mnt) {
-        return response()->json([
-          'error' => 'User not Found',
-        ], Response::HTTP_NOT_FOUND);
-      } catch (\Exception $e) {
-        return response()->json([
-          'error' => $e->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        if (File::exists("images/users/profile/" . Auth()->user()->id)) {
+          File::delete("images/users/profile/" . Auth()->user()->id);
+        }
+        $user->avatar = $data['avatar'];
       }
+
+      $user->first_name = $data['first_name'];
+      $user->last_name = $data['last_name'];
+      $user->username = $data['username'];
+      $user->city_id = $data['city_id'];
+      $user->state_id = $data['state_id'];
+      $user->bio = $data['bio'];
+      $user->address = $data['address'];
+      $user->update();
+
+      return response()->json('Profile Updated', Response::HTTP_OK);
+    } catch (ModelNotFoundException $mnt) {
+      return response()->json('User not Found', Response::HTTP_NOT_FOUND);
+    } catch (\Exception $e) {
+      return response()->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -308,11 +308,11 @@ class AuthController extends Controller
    * @param  int  $role, $id
    * @return \Illuminate\Http\Response
    */
-  public function swapUserRole($role = null, $id)
+  public function swap_user_role($role, $id)
   {
     $user_role = function () use ($role) {
-      $action_map = [0 => 'user', 1 => 'admin', 2 => 'agent'];
-      if (in_array($role, array_keys($action_map))) {
+      $action_map = ['user', 'admin', 'agent'];
+      if (in_array($role, $action_map)) {
         return $action_map[$role];
       } else {
         return null;

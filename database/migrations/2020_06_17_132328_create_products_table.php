@@ -23,14 +23,11 @@ class CreateProductsTable extends Migration
       $table->string('phone');
       $table->string('address');
       $table->uuid('user_id');
-      $table->boolean('expired')->default(false);
-      $table->boolean('reported')->default(false);
       $table->unsignedBigInteger('category_id');
       $table->unsignedBigInteger('subcategory_id');
-      $table->unsignedBigInteger('country_id');
       $table->unsignedBigInteger('state_id');
       $table->unsignedBigInteger('city_id');
-      $table->enum('status',['open','closed'])->default('open');
+      $table->enum('status',['pending','active','disabled','reported','expired','closed'])->default('active');
       $table->enum('list_as',['rent','sale'])->default('sale');
       $table->enum('plan',['free','distress','featured'])->default('free');
       $table->text('description');

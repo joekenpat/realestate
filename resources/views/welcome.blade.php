@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+{{-- @section('content')
     <div class="uk-section uk-section-small uk-section-muted">
         <div class="uk-container">
             <h1 class="uk-heading-divider">UIkit frontend UI preset for Laravel</h1>
@@ -37,4 +37,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}

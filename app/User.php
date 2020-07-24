@@ -20,10 +20,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name','username','phone','email','status','blocked',
-        'avatar','gender','country_id','city_id','verification_status',
-        'role','facebook','instagram','google','twitter','last_ip','password',
-        'address','bio','last_login','activated_at','blocked_at'
+        'first_name', 'last_name', 'username', 'phone', 'email', 'status',
+        'avatar', 'gender', 'country_id', 'state_id', 'city_id', 'currency_id',
+        'verification_status', 'role', 'last_ip', 'password', 'address', 'bio',
+        'last_login', 'activated_at', 'blocked_at'
     ];
 
     /**
@@ -32,7 +32,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','last_ip'
+        'password', 'remember_token', 'last_ip'
     ];
 
     protected $dateFormat = 'Y-m-d H:i:s.u';
@@ -44,40 +44,69 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'last_login'=> 'datetime',
-        'blocked_at'=>'datetime',
-        'activated_at'=>'datetime',
+        'last_login' => 'datetime',
+        'blocked_at' => 'datetime',
+        'activated_at' => 'datetime',
     ];
 
     public function products()
     {
-      return $this->hasMany(Product::class, 'user_id');
+        return $this->hasMany(Product::class, 'user_id');
     }
 
+    public function get_full_name()
+    {
+        return sprintf("%s %s", $this->last_name,$this->first_name);
+    }
 
-      /**
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'user_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'state_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+
+    /**
      * The functions for checking roles
      *
      * @var bool
      */
 
-    public function isUser()
+    public function is_user()
     {
-      return (Auth::check() && $this->role == 'user');
+        return (Auth::check() && $this->role == 'user');
     }
 
-    public function isAgent()
+    public function is_agent()
     {
-      return (Auth::check() && $this->role == 'agent');
+        return (Auth::check() && $this->role == 'agent');
     }
 
-    public function isAdmin()
+    public function is_admin()
     {
-      return (Auth::check() && $this->role == 'admin');
+        return (Auth::check() && $this->role == 'admin');
     }
 
-    public function isSuperAdmin()
+    public function is_super_admin()
     {
-      return (Auth::check() && $this->role == 'super_admin');
+        return (Auth::check() && $this->role == 'super_admin');
+    }
+
+    public function is_blocked()
+    {
+        return (Auth::check() && ($this->status == 'blocked' || $this->blocked_at != null));
+    }
+
+    public function is_reported()
+    {
+        return (Auth::check() && ($this->status == 'reported' || $this->blocked_at != null));
     }
 }

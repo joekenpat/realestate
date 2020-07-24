@@ -5,41 +5,68 @@ use Illuminate\Support\Facades\DB;
 
 class StateSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-      $row = 1;
-      $states = [];
-      if(($handle = fopen(base_path("public/includes/states.csv"), "r")) !== false){
-        $stateProgressBar = $this->command->getOutput()->createProgressBar(4856);
-        while (($data = fgetcsv($handle, 0, ",")) !== false){
-          if($row === 1){
-            $row++;
-            continue;
-          }
-          $row++;
-          $state = [
-            'name' => $data[1],
-            'code' => $data[4],
-            'country_iso2' => $data[3],
-            'created_at'=> now()->format('Y-m-d H:i:s.u'),
-            'updated_at'=> now()->format('Y-m-d H:i:s.u'),
-            'deleted_at'=> null,
-          ];
-          $states [] = $state;
-          if(($row % 100 == 0) || ($row == 4856)){
-            DB::table('states')->insert($states);
-            $states = [];
-          }
-          $state = [];
-          $stateProgressBar->advance();
-        }
-        fclose($handle);
-        $stateProgressBar->finish();
-      }
+  /**
+   * Run the database seeds.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    $row = 1;
+    $states_data = [
+      'FC' => 'Abuja',
+      'AB' => 'Abia',
+      'AD' => 'Adamawa',
+      'AK' => 'Akwa Ibom',
+      'AN' => 'Anambra',
+      'BA' => 'Bauchi',
+      'BY' => 'Bayelsa',
+      'BE' => 'Benue',
+      'BO' => 'Borno',
+      'CR' => 'Cross River',
+      'DE' => 'Delta',
+      'EB' => 'Ebonyi',
+      'ED' => 'Edo',
+      'EK' => 'Ekiti',
+      'EN' => 'Enugu',
+      'GO' => 'Gombe',
+      'IM' => 'Imo',
+      'JI' => 'Jigawa',
+      'KD' => 'Kaduna',
+      'KN' => 'Kano',
+      'KT' => 'Katsina',
+      'KE' => 'Kebbi',
+      'KO' => 'Kogi',
+      'KW' => 'Kwara',
+      'LA' => 'Lagos',
+      'NA' => 'Nasarawa',
+      'NI' => 'Niger',
+      'OG' => 'Ogun',
+      'ON' => 'Ondo',
+      'OS' => 'Osun',
+      'OY' => 'Oyo',
+      'PL' => 'Plateau',
+      'RI' => 'Rivers',
+      'SO' => 'Sokoto',
+      'TA' => 'Taraba',
+      'YO' => 'Yobe',
+      'ZA' => 'Zamfara',
+    ];
+    $states_count = count($states_data);
+    $stateProgressBar = $this->command->getOutput()->createProgressBar($states_count);
+    foreach ($states_data as $state_code => $state_data) {
+      $time = now()->format('Y-m-d H:i:s.u');
+      $state = [
+        'name' => $state_data,
+        'code' => $state_code,
+        'created_at' => $time,
+        'updated_at' => $time,
+        'deleted_at' => null,
+      ];
+      DB::table('states')->insert($state);
+      $state = [];
+      $stateProgressBar->advance();
     }
+    $stateProgressBar->finish();
+  }
 }

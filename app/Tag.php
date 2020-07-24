@@ -29,4 +29,16 @@ class Tag extends Model
    */
   protected $casts = [
   ];
+
+  // declaring tag-product relationship
+  public function products()
+  {
+      return $this->belongsToMany(Product::class, 'product_tag', 'tag_id', 'product_id');
+  }
+
+  // // declaring tag-articles relationship
+  // public function Articles()
+  // {
+  //     return $this->belongsToMany(Article::class, 'Article_tag', 'tag_id', 'article_id');
+  // }
 }
