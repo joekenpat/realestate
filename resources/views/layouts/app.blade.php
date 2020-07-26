@@ -137,6 +137,14 @@
       background-color: none;
     }
   </style>
+  <script>
+    window.Laravel = @php echo json_encode([
+      'csrfToken'=> csrf_token(),
+    ]) @endphp;
+    @if(!auth()->guest())
+      window.Laravel.userId = "{{auth()->user()->id}}";
+    @endif
+  </script>
   @stack('style_top')
   @stack('scripts_top')
 </head>
