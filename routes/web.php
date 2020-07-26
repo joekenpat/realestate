@@ -42,4 +42,4 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
 });
 Route::get('/product/view/{product_id}', 'ProductController@show')->name('view_product');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::redirect('/', '/home', 301);
+Route::get('/', 'HomeController@index')->name('home');

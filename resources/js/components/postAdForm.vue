@@ -615,7 +615,7 @@ export default {
     load_state(searchText) {
       if (searchText.length > 0) {
         axios
-          .get(`http://localhost:8000/api/user/state/find/${searchText}`)
+          .get(`${window.location.origin}/api/user/state/find/${searchText}`)
           .then(res => {
             this.state_data = res.data.success;
           })
@@ -628,7 +628,7 @@ export default {
       if (searchText.length > 0) {
         axios
           .get(
-            `http://localhost:8000/api/user/city/find/${searchText}/in/${this.state.code}`
+            `${window.location.origin}/api/user/city/find/${searchText}/in/${this.state.code}`
           )
           .then(res => {
             this.city_data = res.data.success;

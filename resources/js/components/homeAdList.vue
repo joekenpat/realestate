@@ -362,7 +362,7 @@ export default {
   methods: {
     load_state() {
       axios
-        .get(`http://localhost:8000/api/state/list/`)
+        .get(`${this.base_url}/api/state/list/`)
         .then(res => {
           this.state_data = res.data;
         })
