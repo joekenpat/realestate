@@ -35,11 +35,11 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
-  Route::get('/product', 'productController@index')->name('user_list_product');
+  Route::get('/product', 'ProductController@index')->name('user_list_product');
   Route::get('/profile/edit', 'HomeController@edit')->name('edit_profile');
-  Route::get('/product/create', 'productController@create')->name('user_create_product');
-  Route::get('/product/edit/{product_id}', 'productController@edit')->name('user_edit_product');
+  Route::get('/product/create', 'ProductController@create')->name('user_create_product');
+  Route::get('/product/edit/{product_id}', 'ProductController@edit')->name('user_edit_product');
 });
-Route::get('/product/view/{product_id}', 'productController@show')->name('view_product');
+Route::get('/product/view/{product_id}', 'ProductController@show')->name('view_product');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::redirect('/', '/home', 301);
