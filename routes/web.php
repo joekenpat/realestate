@@ -13,11 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-  return view('welcome');
-});
-
 /* Authentication Routes */
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
@@ -41,5 +38,5 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
   Route::get('/product/edit/{product_id}', 'ProductController@edit')->name('user_edit_product');
 });
 Route::get('/product/view/{product_id}', 'ProductController@show')->name('view_product');
+Route::redirect('/', '/home', 301);
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@index')->name('home');
