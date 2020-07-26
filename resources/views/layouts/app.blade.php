@@ -425,8 +425,7 @@
           Owners</p>
       </div>
 
-  </div>
-  </footer>
+    </footer>
   </div>
 
   <!-----userdashboard end here----->

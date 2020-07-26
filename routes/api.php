@@ -28,7 +28,6 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
 
   Route::group(['prefix' => 'product'], function () {
     Route::post('/save', 'API\ProductController@store')->name('api_save_new_product');
-    Route::post('/list', 'API\ProductController@index')->name('api_list_product');
     Route::post('/update/{product_id}', 'API\ProductController@update')->name('api_update_product');
     Route::get('/delete/{product_id}', 'API\ProductController@destroy');
     Route::get('/like/{product_id}', 'API\ProductController@like');
@@ -69,6 +68,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
   });
 });
 Route::post('/product/find/', 'API\ProductController@find');
+Route::post('/product/list', 'API\ProductController@index')->name('api_list_product');
 Route::get('/state/list', 'API\StateController@index');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:api', 'is_admin']], function () {
