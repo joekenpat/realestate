@@ -17,8 +17,6 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::view('/demo', 'demo')->name('demo');
-
 /* Authentication Routes */
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
