@@ -23,6 +23,8 @@ class HomeController extends Controller
     {
       $min_val = Product::where('status','active')->min('price');
       $max_val = Product::where('status','active')->max('price');
+      $ad_min_val = $min_val?:0;
+      $ad_max_val = $max_val?:999999999;
         return view('home',['min_val'=>$min_val,'max_val'=>$max_val]);
     }
 
