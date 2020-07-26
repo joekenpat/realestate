@@ -371,7 +371,7 @@ export default {
         });
     },
     load_filter_data() {
-      this.data_url = `${this.base_url}/api/user/product/list`;
+      this.data_url = `${this.base_url}/api/product/list`;
       let filter_data = {
         category: this.categories,
         plan: this.product_plan,

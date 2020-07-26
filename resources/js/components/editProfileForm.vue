@@ -220,11 +220,11 @@ export default {
           (this.address = this.init_data.address),
           (this.username = this.init_data.username),
           (this.city = {
-            id: this.init_data.city ? init_data.city.id : null,
+            id: this.init_data.city ?  this.init_data.city.id : null,
             name: this.init_data.city ? this.init_data.city.name : ""
           }),
           this.city_data.push({
-            id: this.init_data.city ? init_data.city.id : null,
+            id: this.init_data.city ? this.init_data.city.id : null,
             name: this.init_data.city ? this.init_data.city.name : ""
           }),
           (this.state = {

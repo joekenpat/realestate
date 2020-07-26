@@ -27,6 +27,7 @@ Route::middleware('auth:api')->group(function () {
 Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
 
   Route::group(['prefix' => 'product'], function () {
+    Route::post('/list', 'API\ProductController@user_index')->name('api_user_list_product');
     Route::post('/save', 'API\ProductController@store')->name('api_save_new_product');
     Route::post('/update/{product_id}', 'API\ProductController@update')->name('api_update_product');
     Route::get('/delete/{product_id}', 'API\ProductController@destroy');
@@ -37,6 +38,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     Route::get('/disable/{product_id}', 'API\ProductController@disable');
   });
 
+});
   Route::group(['prefix' => 'category'], function () {
     Route::get('/list', 'API\CategoryController@index');
   });
@@ -66,7 +68,6 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     Route::get('/list_for/{state_code}', 'API\CityController@list_city_for_state_code')->name('api_list_city_for_state_code');
     Route::get('/find/{findable}/in/{state_code}', 'API\CityController@find_city_in_state')->name('api_find_city_in_state');
   });
-});
 Route::post('/product/find/', 'API\ProductController@find');
 Route::post('/product/list', 'API\ProductController@index')->name('api_list_product');
 Route::get('/state/list', 'API\StateController@index');

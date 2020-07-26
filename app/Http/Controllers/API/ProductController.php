@@ -160,6 +160,166 @@ class ProductController extends Controller
       }
     };
 
+    try {
+      $products = Product::with('user:first_name,last_name,username,phone,email,avatar,verification_status')
+        ->with('tags:name')
+        ->with('amenities:name,value')
+        ->with('specifications:name,value')
+        ->with('category')
+        ->with('subcategory')
+        ->with('state')
+        ->with('city')
+        ->whereIn('category_id', $item_category())
+        ->whereIn('subcategory_id', $item_subcategory())
+        ->whereIn('status', $item_status())
+        ->whereIn('plan', $item_plan())
+        ->whereIn('list_as', $item_list_as())
+        ->whereBetween('price', [$item_min_price, $item_max_price])
+        ->orderBy($item_sort_by(), $item_sort_type())
+        ->paginate($item_result_count());
+      return response()->json($products, Response::HTTP_OK);
+    } catch (\Exception $e) {
+      return response()->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function user_index(Request $request)
+  {
+    $categories = Category::select('id')->get();
+    $subcategories = Subcategory::select('id')->get();
+    $category_map = [];
+    $subcategory_map = [];
+    foreach ($categories as $category) {
+      $category_map[] = $category->id;
+    }
+    foreach ($subcategories as $subcategory) {
+      $subcategory_map[] = $subcategory->id;
+    }
+    $category = $request->has('category') ? $request->category : null;
+    $subcategory = $request->has('subcategory') ? $request->subcategory : null;
+    $status = $request->has('status') ? $request->status : null;
+    $list_as = $request->has('list_as') ? $request->list_as : null;
+    $plan = $request->has('plan') ? $request->plan : null;
+    $sort_type = $request->has('sort_type') ? $request->sort_type : null;
+    $sort_by = $request->has('sort_by') ? $request->sort_by : null;
+    $min_price = $request->has('min_price') ? $request->min_price : 0;
+    $max_price = $request->has('max_price') ? $request->max_price : 99999999999999;
+    $result_count = $request->has('result_count') ? $request->result_count : 9;
+
+    $item_status = function () use ($status) {
+      $item_status_map = [
+        'all',
+        'closed',
+        'active',
+        'pending',
+        'reported',
+        'expired'
+      ];
+      if (in_array($status, $item_status_map)) {
+        if ($status == 'all') {
+          return [
+            'closed',
+            'active',
+            'pending',
+            'reported',
+            'expired'
+          ];
+        }
+        return [$status];
+      } else {
+        return ["active"];
+      }
+    };
+
+    $item_list_as = function () use ($list_as) {
+      $item_list_as_map = [
+        'all',
+        'rent',
+        'sale',
+      ];
+      if (in_array($list_as, $item_list_as_map)) {
+        if ($list_as == 'all') {
+          return [
+            'rent',
+            'sale',
+          ];
+        }
+        return [$list_as];
+      } else {
+        return [
+          'rent',
+          'sale',
+        ];
+      }
+    };
+
+    $item_plan = function () use ($plan) {
+      $item_plan_map = [
+        'all',
+        'free',
+        'distress',
+        'featured',
+      ];
+      if (in_array($plan, $item_plan_map)) {
+        if ($plan == 'all') {
+          return ['free', 'distress', 'featured',];
+        }
+        return [$plan];
+      } else {
+        return ['free', 'distress', 'featured',];
+      }
+    };
+
+    $item_category = function () use ($category, $category_map) {
+      if (in_array($category, $category_map)) {
+        return [$category];
+      } else {
+        return $category_map;
+      }
+    };
+
+    $item_subcategory = function () use ($subcategory, $subcategory_map) {
+      if (in_array($subcategory, $subcategory_map)) {
+        return [$subcategory];
+      } else {
+        return $subcategory_map;
+      }
+    };
+
+    $item_sort_type = function () use ($sort_type) {
+      $sort_type_map = ["asc", 'desc'];
+      if (in_array($sort_type, $sort_type_map)) {
+        return $sort_type;
+      } else {
+        return $sort_type_map[1];
+      }
+    };
+
+    $item_sort_by = function () use ($sort_by) {
+      $sort_by_map = ["created_at", 'price'];
+      if (in_array($sort_by, $sort_by_map)) {
+        return $sort_by;
+      } else {
+        return $sort_by_map[1];
+      }
+    };
+
+    $item_min_price = $min_price;
+    $item_max_price = $max_price;
+
+    $item_result_count = function () use ($result_count) {
+      if (in_array($result_count, [9, 18, 36, 72, 90, 108])) {
+        return $result_count;
+      } else {
+        return 9;
+      }
+    };
+
     if (Auth()->user()->is_user()) {
       try {
         $products = Product::with('user:first_name,last_name,username,phone,email,avatar,verification_status')
@@ -170,6 +330,7 @@ class ProductController extends Controller
           ->with('subcategory')
           ->with('state')
           ->with('city')
+          ->where('user_id', Auth()->user()->id)
           ->whereIn('category_id', $item_category())
           ->whereIn('subcategory_id', $item_subcategory())
           ->whereIn('status', $item_status())
@@ -190,6 +351,7 @@ class ProductController extends Controller
           ->with('specifications:name,value')
           ->with('categories:name')
           ->with('subcategories:name')
+          ->where('user_id', Auth()->user()->id)
           ->whereIn('category_id', $item_category())
           ->whereIn('subcategory_id', $item_subcategory())
           ->where('status', $item_status())
@@ -217,6 +379,7 @@ class ProductController extends Controller
           ->with('specifications:name,value')
           ->with('categories:name')
           ->with('subcategories:name')
+          ->where('user_id', Auth()->user()->id)
           ->whereIn('category_id', $item_category())
           ->whereIn('subcategory_id', $item_subcategory())
           ->where('status', $item_status())
@@ -239,7 +402,6 @@ class ProductController extends Controller
       }
     }
   }
-
 
 
   public function find(Request $request)

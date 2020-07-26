@@ -470,7 +470,7 @@
         <div class="uk-width-2-3@s uk-align-center">
           <div class="uk-margin-small-top">
             <button
-            :disabled="loading"
+              :disabled="loading"
               type="submit"
               class="uk-button uk-button-default uk-width-1-1 uk-margin-small-top"
             >
@@ -566,10 +566,10 @@ export default {
         });
     },
     load_init_data() {
-      this.init_data.tags.forEach(tag => {
-        this.tags.push(tag.name);
-      });
       if (this.init_data !== null) {
+        this.init_data.tags.forEach(tag => {
+          this.tags.push(tag.name);
+        });
         (this.title = this.init_data.title),
           (this.images = this.init_data.images),
           (this.list_as = this.init_data.list_as),
