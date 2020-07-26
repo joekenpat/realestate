@@ -224,7 +224,8 @@
       uk-sticky="offset:115" style="background:white;">
       <div class="uk-card-body uk-padding-remove">
           <div class="uk-text-center">
-            <img src="{{asset(sprintf("images/users/profile/%s/%s", Auth()->user()->id,Auth()->user()->avatar))}}" class="uk-border-circle uk-margin-top profile_image" alt="Your Profile image">
+            <img src="{{Auth()->user()->avatar != null?URL::to(sprintf("images/users/profile/%s/%s",Auth()->user()->id,Auth()->user()->avatar)):asset("images/misc/default_avatar.png") }}"
+            class="uk-border-circle uk-margin-top profile_image" alt="Your Profile image">
           </div>
           <p class="uk-text-center uk-margin-remove-bottom uk-margin-small-top uk-text-capitalize"><b>{{Auth()->user()->get_full_name()}}</b></p>
           <p class="uk-text-center uk-margin-remove uk-text-muted uk-text-small">{{Auth()->user()->email}}</p>

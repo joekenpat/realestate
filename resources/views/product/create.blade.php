@@ -224,7 +224,7 @@
      style="background:white;">
       <div class="uk-card-body uk-padding-remove">
         <div class="uk-text-center">
-          <img src="{{asset(sprintf("images/users/profile/%s/%s", Auth()->user()->id,Auth()->user()->avatar))}}"
+          <img src="{{Auth()->user()->avatar != null?URL::to(sprintf("images/users/profile/%s/%s",Auth()->user()->id,Auth()->user()->avatar)):asset("images/misc/default_avatar.png") }}"
             class="uk-border-circle uk-margin-top profile_image" alt="Your Profile image">
         </div>
         <p class="uk-text-center uk-margin-remove-bottom uk-margin-small-top uk-text-capitalize">

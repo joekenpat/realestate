@@ -338,7 +338,7 @@
           <hr>
         </div>
         <div class="uk-padding-small uk-text-center">
-          <img src="{{asset(sprintf("images/users/profile/%s/%s", $product->user->id,$product->user->avatar))}}"
+          <img src="{{$product->user->avatar != null?URL::to(sprintf("images/users/profile/%s/%s",$product->user->id,$product->user->avatar)):asset("images/misc/default_avatar.png") }}"
             class="uk-border-circle profile_image" alt="ad user image">
           <p class="uk-margin-remove-bottom uk-text-boldicon">{{$product->user->get_full_name()}}</p>
           <div>
