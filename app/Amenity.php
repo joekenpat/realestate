@@ -29,8 +29,8 @@ class Amenity extends Model
    */
   protected $casts = [];
 
-  public function products()
+  public function properties()
   {
-    return $this->belongsToMany(Product::class,  'amenity_product', 'amenity_id', 'product_id');
+    return $this->belongsToMany(Property::class,  'amenity_property', 'amenity_id', 'property_id');
   }
 }

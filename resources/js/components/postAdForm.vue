@@ -186,7 +186,18 @@
                 v-model="plan"
                 checked
               />
-              Free $0</label
+              Free N0</label
+            ><br />
+
+            <label
+              ><input
+                class="uk-radio"
+                type="radio"
+                name="plan"
+                v-model="plan"
+                value="distress"
+              />
+              Distress N{{ plan_fee.distress }}</label
             ><br />
             <label
               ><input
@@ -196,17 +207,7 @@
                 value="featured"
                 v-model="plan"
               />
-              Featured $10</label
-            ><br />
-            <label
-              ><input
-                class="uk-radio"
-                type="radio"
-                name="plan"
-                v-model="plan"
-                value="distress"
-              />
-              Distress $20</label
+              Featured N{{ plan_fee.featured }}</label
             ><br />
             <span v-show="error.plan != null" class="uk-text-danger">{{
               error.plan
@@ -424,6 +425,27 @@
           }}</span>
         </div>
         <div class="uk-width-1-1@s">
+          <label class="uk-form-label"><b>Old Images</b></label>
+          <ul class="uk-thumbnav" uk-margin>
+            <li class="uk-active" v-for="(image, k) in old_images" :key="k">
+              <img
+                :src="`${base_url}/images/properties/${init_data.id}/${image}`"
+                width="150"
+                class=" uk-display-block"
+                style="object-fit:cover;"
+                :alt="'old_property_image_' + parseInt(k)"
+
+              /><button
+              :disabled="loading"
+              @click="delete_old_image(image)"
+                class="uk-button uk-button-small uk-button-danger uk-width-1-1"
+              >
+                Remove <span v-show="loading" uk-spinner="ratio:.5;"></span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="uk-width-1-1@s">
           <label class="uk-form-label"><b>Upload Image</b></label>
           <input
             name="sel_images"
@@ -431,6 +453,7 @@
             id="sel_images"
             accept=".jpg, .png, .jpeg"
             type="file"
+            multiple
             hidden
             @change="handleImagesUpload"
           />
@@ -443,7 +466,7 @@
                 <img
                   :ref="'image' + parseInt(k)"
                   style="max-height:120px;object-fit:cover;"
-                  :alt="'product_image_' + parseInt(k)"
+                  :alt="'property_image_' + parseInt(k)"
                   class="uk-width-1-1"
                 />
                 <div
@@ -492,12 +515,14 @@ export default {
       tags: [],
       title: "",
       images: [],
-      list_as: "",
+      old_images: [],
+      list_as: "sale",
       phone: "",
       price: 0,
       description: "",
       address: "",
-      plan: "",
+      plan: "free",
+      base_url: window.location.origin,
       categories: [],
       subcategories: [],
       specifications: [],
@@ -531,6 +556,7 @@ export default {
       (this.tags = []),
         (this.title = ""),
         (this.images = []),
+        (this.old_images = []),
         (this.list_as = ""),
         (this.phone = ""),
         (this.description = ""),
@@ -565,13 +591,56 @@ export default {
           price: null
         });
     },
+    delete_old_image(x) {
+      this.loading = true;
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: toast => {
+          toast.addEventListener("mouseenter", this.$swal.stopTimer);
+          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
+        }
+      });
+      axios
+        .get(`${this.base_url}/user/property/${this.init_data.id}/delete/image/${x}`)
+        .then(res => {
+          Toast.fire({
+            icon: "success",
+            title: res.data
+          });
+          this.loading = false;
+        })
+        .catch(err => {
+          const { status } = err.response;
+          if (status === 401) {
+            console.log(err.response.data);
+            Toast.fire({
+              icon: "error",
+              title: "Unauthorized!"
+            });
+          } else if (status === 422) {
+            Toast;
+            Toast.fire({
+              icon: "error",
+              title: err.response.data.statusText
+            });
+            console.log(err.response.data);
+          } else {
+            console.log(err.response);
+          }
+          this.loading = false;
+        });
+    },
     load_init_data() {
       if (this.init_data !== null) {
         this.init_data.tags.forEach(tag => {
           this.tags.push(tag.name);
         });
         (this.title = this.init_data.title),
-          (this.images = this.init_data.images),
+          (this.old_images = this.init_data.images),
           (this.list_as = this.init_data.list_as),
           (this.phone = this.init_data.phone),
           (this.description = this.init_data.description),
@@ -751,13 +820,21 @@ export default {
       axios
         .post(this.form_action, main_form_data, config)
         .then(res => {
-          console.log(res.data);
           this.reset_fields();
-          Toast.fire({
-            icon: "success",
-            title: res.data
-          });
-          this.loading = false;
+          if ("url" in res.data) {
+            Toast.fire({
+              icon: "success",
+              title: "Property Uploaded, Redirecting to Payment Gateway"
+            });
+            this.loading = false;
+            window.location = res.data.url;
+          } else {
+            Toast.fire({
+              icon: "success",
+              title: res.data
+            });
+            this.loading = false;
+          }
         })
         .catch(err => {
           const { status } = err.response;
@@ -840,6 +917,10 @@ export default {
       required: false,
       type: Object,
       default: null
+    },
+    plan_fee: {
+      required: true,
+      type: Object
     }
   },
   created() {

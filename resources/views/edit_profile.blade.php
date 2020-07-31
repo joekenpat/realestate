@@ -234,7 +234,7 @@
         <li class="" style="padding: .4em .1em .2em .1em"><a href="{{route('edit_profile')}}"><i class="mdi  mdi-account"
                 style="color:#adf802; "></i><b class="dashboard-link">Edit
                 Profile</b></a></li>
-          <li class="" style="padding: .4em .1em .2em .1em"><a href="{{route('user_list_product')}}"><i class="mdi  mdi-diamond-stone"
+          <li class="" style="padding: .4em .1em .2em .1em"><a href="{{route('user_list_property')}}"><i class="mdi  mdi-diamond-stone"
                 style="color:#adf802;"></i><b class="dashboard-link">My Ads</b></a>
           </li>
           <li class="" style="padding: .4em .1em .2em .1em"><a href="#"><i class="mdi  mdi-heart"
@@ -242,7 +242,7 @@
                 Favourite</b></a></li>
           <li class="" style="padding: .4em .1em .2em .1em"><a href="#"><i class="mdi  mdi-credit-card-outline"
                 style="color:#adf802; "></i><b class="dashboard-link">Payment</b></a></li>
-          <li class="" style="padding: .4em .1em .2em .1em"><a href="{{route('user_create_product')}}"><i class="mdi  mdi-telegram"
+          <li class="" style="padding: .4em .1em .2em .1em"><a href="{{route('user_create_property')}}"><i class="mdi  mdi-telegram"
                 style="color:#adf802; "></i><b class="dashboard-link">Post Ads
               </b></a></li>
           <li class="" style="padding: .4em .1em .4em .1em"><a href="#"><i class="mdi  mdi-power-settings"

@@ -241,7 +241,7 @@
 
         <ul class="uk-nav uk-nav-default">
           <div class="uk-padding-small">
-            <a href="{{route('user_create_product')}}"> <button class=" uk-animation-shake uk-button uk-button-large"
+            <a href="{{route('user_create_property')}}"> <button class=" uk-animation-shake uk-button uk-button-large"
                 style="background-color:black;color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>POST
                   ADS</b></button></a>
           </div>
@@ -289,12 +289,12 @@
             <li>
               <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Blog</a>
             </li>
-            <a href="{{route('user_create_product')}}"
+            <a href="{{route('user_create_property')}}"
               style="background-color:#00a86b;color:#fff;height:35px !important;padding-top:5px;"
               class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:play"
                 style="color:#fff;"></i> Post Ad</a>
             @guest
-            <a href="{{route('login')}}" style="background-color:#fff;color:#00;height:35px !important;padding-top:5px;"
+            <a href="{{route('login')}}" style="background-color:#fff;color:#000;height:35px !important;padding-top:5px;"
               class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:sign-in"
                 style="color:#f00;"></i> Login</a>
             <a href="{{route('register')}}"
@@ -358,7 +358,7 @@
 
     <footer id="footer" class="my-footer">
       <div class="uk-container">
-        <div uk-grid>
+        <div class=" uk-margin-top" uk-grid>
           <div class="uk-width-1-4@s width-1-1">
             <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
                 style="height: 100px; "></a>
@@ -376,8 +376,8 @@
 
           <div class="uk-width-1-6@s width-1-1">
             <p class="my-footer-content"><b>OUR PROPERTIES</b></p>
-            <li><a style="color:#fff" href="#">For Rent</a></li>
-            <li><a style="color:#fff" href="#">For Sale</a></li>
+            <li><a style="color:#fff" href="{{route('property_listing',['list_as'=>'rent'])}}">For Rent</a></li>
+            <li><a style="color:#fff" href="{{route('property_listing',['list_as'=>'sale'])}}">For Sale</a></li>
           </div>
           <div class="uk-width-1-6@s width-1-1">
             <p class="my-footer-content"><b>INFORMATION</b></p>

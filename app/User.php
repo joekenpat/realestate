@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Product;
 use App\UuidForKey;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
@@ -49,9 +48,9 @@ class User extends Authenticatable
         'activated_at' => 'datetime',
     ];
 
-    public function products()
+    public function properties()
     {
-        return $this->hasMany(Product::class, 'user_id');
+        return $this->hasMany(Property::class, 'user_id');
     }
 
     public function get_full_name()

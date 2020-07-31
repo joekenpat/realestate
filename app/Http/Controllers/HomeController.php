@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Property;
+use App\SiteConfig;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -21,11 +22,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $min_val = Product::where('status','active')->min('price');
-      $max_val = Product::where('status','active')->max('price');
-      $ad_min_val = $min_val?:0;
-      $ad_max_val = $max_val?:999999999;
-        return view('home',['min_val'=>$ad_min_val,'max_val'=>$ad_max_val]);
+     //
     }
 
     /**
@@ -38,5 +35,12 @@ class HomeController extends Controller
   {
     $user = User::with('state:id,code,name')->with('city:id,name')->where('id', Auth()->user()->id)->firstOrFail();
     return view('edit_profile',['user'=>$user]);
+  }
+
+  public function homepage()
+  {
+    $properties = Property::latest()->take(6)->get();
+    $site_home_slider = SiteConfig::where('key', 'home_slider')->firstOrFail();
+    return view('homepage',['slider_images'=> json_decode($site_home_slider->value),'properties'=>$properties]);
   }
 }

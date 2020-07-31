@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     $this->call(SubcategorySeeder::class);
     $this->call(AmenitySeeder::class);
     $this->call(StateSeeder::class);
+    $this->call(SiteConfigSeeder::class);
     $this->call(CitySeeder::class);
     // $this->call(SpecificationSeeder::class);
     // $this->call(TagSeeder::class);

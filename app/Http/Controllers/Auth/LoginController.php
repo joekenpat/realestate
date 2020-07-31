@@ -42,7 +42,7 @@ class LoginController extends Controller
 
   protected function redirectTo()
   {
-      return '/user/product';
+      return '/';
   }
 
   protected function authenticated(Request $request, $user)

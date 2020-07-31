@@ -30,10 +30,10 @@ class Tag extends Model
   protected $casts = [
   ];
 
-  // declaring tag-product relationship
-  public function products()
+  // declaring tag-Property relationship
+  public function properties()
   {
-      return $this->belongsToMany(Product::class, 'product_tag', 'tag_id', 'product_id');
+      return $this->belongsToMany(Property::class, 'property_tag', 'tag_id', 'property_id');
   }
 
   // // declaring tag-articles relationship

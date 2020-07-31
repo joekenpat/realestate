@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect()->intended(route('user_list_product'));
+            return redirect()->intended(route('user_list_property'));
         }
 
         return $next($request);

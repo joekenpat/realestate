@@ -103,7 +103,7 @@ class AuthController extends Controller
         ->orderBy('created_at', $user_sort())
         ->paginate($user_result_count());
       foreach ($users as $key => $user) {
-        $users[$key]->product_count = $user->products()->count();
+        $users[$key]->property_count = $user->properties()->count();
       }
       $success['data'] = $users;
       return response()->json([
@@ -258,7 +258,7 @@ class AuthController extends Controller
         $user->blocked_at = now();
         $user->blocked = true;
         $user->updated();
-        User::where('id', $id)->products()->update([
+        User::where('id', $id)->properties()->update([
           'status' => 'disabled',
         ]);
         return response()->json([
@@ -280,7 +280,7 @@ class AuthController extends Controller
         $user->blocked_at = null;
         $user->blocked = false;
         $user->updated();
-        User::where('id', $id)->products()->update([
+        User::where('id', $id)->properties()->update([
           'status' => 'active',
         ]);
         return response()->json([

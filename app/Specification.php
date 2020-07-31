@@ -29,8 +29,8 @@ class Specification extends Model
    */
   protected $casts = [];
 
-  public function products()
+  public function properties()
   {
-    return $this->belongsToMany(Product::class,  'product_specification','product_id','specification_id');
+    return $this->belongsToMany(Property::class,  'property_specification','property_id','specification_id');
   }
 }

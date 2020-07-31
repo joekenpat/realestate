@@ -24,7 +24,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'ipstack' => [
-        // Get your access key here: https://ipstack.com/product
+        // Get your access key here: https://ipstack.com/property
         'key' => env('GEOIP_IPSTACK_KEY'),
     ],
 

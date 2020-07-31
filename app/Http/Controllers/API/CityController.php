@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\City;
 use App\Http\Controllers\Controller;
-use App\Product;
+use App\Property;
 use App\Subcategory;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -141,8 +141,8 @@ class CityController extends Controller
   {
     try {
       $sub_cat = Subcategory::where('id', $id)->firstOrFail();
-      $associated_pro = Product::where('category_id', $sub_cat->id)->count();
-      Product::where('subcategory_id', $sub_cat->id)->update(['subcategory_id' => null]);
+      $associated_pro = Property::where('category_id', $sub_cat->id)->count();
+      Property::where('subcategory_id', $sub_cat->id)->update(['subcategory_id' => null]);
       $sub_cat->delete();
       return response()->json([
         'success' => "Sub-category Deleted! You have {$associated_pro} Uncategorized Items",
