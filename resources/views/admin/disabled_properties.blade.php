@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Disabled Properties")
 @section('content')
 
 <admin-list-property property_status="disabled" />

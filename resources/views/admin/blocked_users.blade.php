@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Blocked Users")
 @section('content')
 
 <div class="" uk-grid>

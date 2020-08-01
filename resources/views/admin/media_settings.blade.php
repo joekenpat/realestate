@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Media Settings")
 @section('content')
 
 <div class="" uk-grid>

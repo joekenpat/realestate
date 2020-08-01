@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "All Categories")
 @section('content')
 
 <div class="" uk-grid>

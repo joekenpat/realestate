@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Reported User")
 @section('content')
 
 <div class="" uk-grid>

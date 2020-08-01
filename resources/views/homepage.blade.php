@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', " Homepage")
 @push('style_top')
 <style>
   body {

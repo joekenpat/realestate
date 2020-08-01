@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Reported Properties")
 @section('content')
 
 <admin-list-property property_status="reported" />

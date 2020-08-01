@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Post Property')
 @section('content')
 <!-----dashboard start here----->
 @push('style_top')

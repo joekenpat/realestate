@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "All Properties")
 @section('content')
 
 <admin-list-property property_status="all" />

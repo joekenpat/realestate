@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Declined Propeties")
 @section('content')
 
 <admin-list-property property_status="declined" />

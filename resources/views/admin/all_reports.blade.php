@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "All Reports")
 @section('content')
 
 <reports status="all"></reports>

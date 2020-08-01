@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', "Report: $property->title")
 @section('content')
 <!-----dashboard start here----->
 @push('style_top')

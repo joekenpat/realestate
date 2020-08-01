@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Create New Category")
 @section('content')
 
 <div class="" uk-grid>

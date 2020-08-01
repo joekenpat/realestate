@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Create new Subcategory")
 @section('content')
 
 <div class="" uk-grid>

@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', "Payment Settings")
 @section('content')
 
 <div class="" uk-grid>

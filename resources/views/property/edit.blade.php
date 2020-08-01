@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Edit Property')
 @section('content')
 <!-----dashboard start here----->
 @push('style_top')
@@ -233,7 +234,7 @@
     <Post-Ad-Form form_action="{{route('api_update_property',['property_id'=>$property->id])}}"
     :init_data="{{$property}}" :plan_fee="{{json_encode($plan_fee)}}" :categories_data="{{$categories_data}}"></Post-Ad-Form>
     <!-----post ads end here----->
-    
+
   </div>
 
 

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', "Available Properties")
 @push('style_top')
 <style>
   body {
