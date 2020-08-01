@@ -233,19 +233,21 @@
           <h1 class="uk-margin-remove" style="padding-top: 100px"><b>Find Your Next Land</b></h1>
           <h5 class="uk-margin-remove" style="padding-top: 10px"><b>We Make It Easy To Get A Land Property</b></h5>
           <div class="uk-margin-remove" style="padding-top: 50px">
-            <form>
+            <form action="{{route('property_listing')}}" method="GET">
               <div class="uk-grid-small" uk-grid>
                 <div class="uk-width-1-3@m uk-width-1-1@s">
                   <div class="uk-margin">
-                    <input class="uk-input" type="text" id="location" placeholder="Enter Location, Landmark">
+                    <input class="uk-input" type="text" id="findable" name="findable" placeholder="Enter Search term">
                   </div>
                 </div>
                 <div class="uk-width-1-3@m uk-width-1-1@s">
                   <div class="uk-margin">
                     <div class="uk-form-controls">
-                      <select class="uk-select" id="form-stacked-select">
-                        <option>Option 01</option>
-                        <option>Option 02</option>
+                      <select class="uk-select" id="state" name="state">
+                        <option value="all">All</option>
+                        @foreach ($states as $state)
+                        <option value="{{$state->id}}">{{ucwords($state->name)}}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
@@ -253,17 +255,19 @@
                 <div class="uk-width-1-3@m uk-width-1-1@s">
                   <div class="uk-margin">
                     <div class="uk-form-controls">
-                      <select class="uk-select" id="form-stacked-select">
-                        <option>Option 01</option>
-                        <option>Option 02</option>
+                      <select class="uk-select" id="category" name="category">
+                        <option value="all">All</option>
+                        @foreach ($categories as $category)
+                        <option value="{{$category->id}}">{{ucwords($category->name)}}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
                 </div>
               </div>
               <div style="padding-top: 30px">
-                <button class="uk-button uk-button-large"
-                  style=" background: #87ceeb; border-radius:10px ; color: white">search</button>
+                <button type="submit" class="uk-button uk-button-large"
+                  style=" background: #87ceeb; border-radius:10px ; color: white">Search</button>
               </div>
             </form>
           </div>
@@ -334,7 +338,7 @@
                   <!--like ad start here-->
                   <button class="uk-position-top-right uk-button uk-position-small uk-border-pill"
                     style="color: #FFD700; background:#fff; padding:0px 6px">
-                    <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourite_count()}}
+                    <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourites_count}}
                   </button>
                   <!--like ad end here-->
                 </div>
@@ -379,7 +383,8 @@
 </div>
 <!---top properties view all button-->
 <div class="uk-text-center">
-  <a href="{{route('property_listing',['sort_by'=>'price','plan'=>'featured'])}}" class="uk-button " style="background-color:#87ceeb;color:white; border-radius: 10px ">View All</a>
+  <a href="{{route('property_listing',['sort_by'=>'price','plan'=>'featured'])}}" class="uk-button "
+    style="background-color:#87ceeb;color:white; border-radius: 10px ">View All</a>
 </div>
 <!---top properties end here---->
 
@@ -435,7 +440,7 @@
                   <!--like ad start here-->
                   <button class="uk-position-top-right uk-button uk-position-small uk-border-pill"
                     style="color: #FFD700; background:#fff; padding:0px 6px">
-                    <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourite_count()}}
+                    <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourites_count}}
                   </button>
                   <!--like ad end here-->
                 </div>
@@ -480,7 +485,7 @@
 </div>
 <!---latest properties view all button-->
 <div class="uk-text-center">
-<a href="{{route('property_listing',['sort_by'=>'created_at'])}}" class="uk-button "
+  <a href="{{route('property_listing',['sort_by'=>'created_at'])}}" class="uk-button "
     style="background-color:#87ceeb;color:white; border-radius: 10px; margin-bottom: 20px ">View All</a>
 </div>
 <!---top properties start here---->
@@ -496,46 +501,54 @@
     <div uk-grid>
       <div class="uk-width-1-4@m uk-width-1-2">
         <div class="uk-card uk-card-default my-card">
-          <div class="uk-card-media-top">
-            <img class="top-p-image " src="images/lagos.jpg" alt="">
-            <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
-              style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
-              <p class="city-text-s"><b>Lagos</b></p>
+          <a href="{{route('property_listing',['state'=>25])}}">
+            <div class="uk-card-media-top">
+              <img class="top-p-image " src="images/misc/lagos.jpg" alt="">
+              <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
+                style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
+                <p class="city-text-s"><b>Lagos</b></p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <div class="uk-width-1-4@m uk-width-1-2">
         <div class="uk-card uk-card-default my-card">
-          <div class="uk-card-media-top">
-            <img class="top-p-image " src="images/abj.jpg" alt="">
-            <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
-              style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
-              <p class="city-text-s"><b>Abuja</b></p>
+          <a href="{{route('property_listing',['state'=>1])}}">
+            <div class="uk-card-media-top">
+              <img class="top-p-image " src="images/misc/abj.jpg" alt="">
+              <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
+                style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
+                <p class="city-text-s"><b>Abuja</b></p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <div class="uk-width-1-4@m uk-width-1-2">
         <div class="uk-card uk-card-default my-card">
-          <div class="uk-card-media-top">
-            <img class="top-p-image " src="images/ph2.jpg" alt="">
-            <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
-              style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
-              <p class="city-text-s"><b>PortHarcourt</b></p>
+          <a href="{{route('property_listing',['state'=>33])}}">
+            <div class="uk-card-media-top">
+              <img class="top-p-image " src="images/misc/ph2.jpg" alt="">
+              <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
+                style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
+                <p class="city-text-s"><b>PortHarcourt</b></p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <div class="uk-width-1-4@m uk-width-1-2">
         <div class="uk-card uk-card-default my-card">
-          <div class="uk-card-media-top">
-            <img class="top-p-image " src="images/ot1.jpg" alt="">
-            <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
-              style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
-              <p class="city-text-s"><b>Owerri</b></p>
+          <a href="{{route('property_listing',['state'=>17])}}">
+            <div class="uk-card-media-top">
+              <img class="top-p-image " src="images/misc/ot1.jpg" alt="">
+              <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
+                style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
+                <p class="city-text-s"><b>Owerri</b></p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -545,7 +558,7 @@
 <!----properties by city end  here-->
 
 <!---blog start here---->
-<div class="top-post uk-text-center uk-margin">
+{{-- <div class="top-post uk-text-center uk-margin">
   <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Blog</b><i class="mdi  mdi-minus"
       style="color: #87ceeb; font-size: 40px;"></i></h3>
 </div>
@@ -645,11 +658,11 @@
     <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
   </div>
-</div>
-<!---latest properties view all button-->
+</div> --}}
+{{-- <!---latest properties view all button-->
 <div class="uk-text-center">
   <a href="" class="uk-button "
     style="background-color:#87ceeb;color:white; border-radius: 10px; margin-bottom: 20px ">View All</a>
-</div>
+</div> --}}
 <!---blog end here---->
 @endsection

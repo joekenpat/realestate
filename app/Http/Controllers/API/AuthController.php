@@ -242,63 +242,33 @@ class AuthController extends Controller
    * @param  int  $action, $id
    * @return \Illuminate\Http\Response
    */
-  public function switchUserStatus($action = null, $id)
+  public function switchUserStatus($status = null, $user_id)
   {
-    $user_action = function () use ($action) {
-      if (in_array($action, ['block', 'unblock'])) {
-        return $action;
+    $user_action = function () use ($status) {
+      if (in_array($status, ['blocked', 'active', 'reported'])) {
+        $user_action = $status;
       } else {
-        return null;
+        return response()->json([
+          'error' => 'Invalid Action',
+        ], Response::HTTP_UNPROCESSABLE_ENTITY);
       }
     };
-    if ($user_action() == 'block') {
-      try {
-        $user = User::where('id', $id)->firstOrFail();
-        $user->status = 'disabled';
+    try {
+      $user = User::where('id', $user_id)->firstOrFail();
+      $user->status = 'blocked';
+      if ($user_action == 'blocked') {
         $user->blocked_at = now();
-        $user->blocked = true;
-        $user->updated();
-        User::where('id', $id)->properties()->update([
-          'status' => 'disabled',
-        ]);
-        return response()->json([
-          'success' => 'User Blocked!',
-        ], Response::HTTP_OK);
-      } catch (ModelNotFoundException $mnt) {
-        return response()->json([
-          'error' => 'No Item Found',
-        ], Response::HTTP_NOT_FOUND);
-      } catch (\Exception $e) {
-        return response()->json([
-          'error' => $e->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
       }
-    } elseif ($user_action() == 'unblock') {
-      try {
-        $user = User::where('id', $id)->firstOrFail();
-        $user->status = 'active';
-        $user->blocked_at = null;
-        $user->blocked = false;
-        $user->updated();
-        User::where('id', $id)->properties()->update([
-          'status' => 'active',
-        ]);
-        return response()->json([
-          'success' => 'User Unblocked!',
-        ], Response::HTTP_OK);
-      } catch (ModelNotFoundException $mnt) {
-        return response()->json([
-          'error' => 'No Item Found',
-        ], Response::HTTP_NOT_FOUND);
-      } catch (\Exception $e) {
-        return response()->json([
-          'error' => $e->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
-      }
-    } else {
+      $user->updated();
+      return response()->json("User Status set to {$status}!", Response::HTTP_OK);
+    } catch (ModelNotFoundException $mnt) {
       return response()->json([
-        'error' => 'Invalid Action',
-      ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        'error' => 'No Item Found',
+      ], Response::HTTP_NOT_FOUND);
+    } catch (\Exception $e) {
+      return response()->json([
+        'error' => $e->getMessage(),
+      ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -308,7 +278,7 @@ class AuthController extends Controller
    * @param  int  $role, $id
    * @return \Illuminate\Http\Response
    */
-  public function swap_user_role($role, $id)
+  public function swap_user_role($user_id, $role)
   {
     $user_role = function () use ($role) {
       $action_map = ['user', 'admin', 'agent'];
@@ -320,27 +290,22 @@ class AuthController extends Controller
     };
     if ($user_role != null) {
       try {
-        $user = User::where('id', $id)->firstOrFail();
+        $user = User::where('id', $user_id)->firstOrFail();
         $user->role = $user_role();
         $user->blocked_at = now();
         $user->blocked = true;
         $user->updated();
-        return response()->json([
-          'success' => "User Changed to {$user->role}",
-        ], Response::HTTP_OK);
+        return response()->json("User Changed to {$user->role}", Response::HTTP_OK);
       } catch (ModelNotFoundException $mnt) {
-        return response()->json([
-          'error' => 'No Item Found',
-        ], Response::HTTP_NOT_FOUND);
+        return response()->json('No Item Found', Response::HTTP_NOT_FOUND);
       } catch (\Exception $e) {
-        return response()->json([
-          'error' => $e->getMessage(),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response()->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
       }
     } else {
-      return response()->json([
-        'error' => 'Invalid Action',
-      ], Response::HTTP_UNPROCESSABLE_ENTITY);
+      return response()->json(
+        'Invalid Action',
+        Response::HTTP_UNPROCESSABLE_ENTITY
+      );
     }
   }
 }

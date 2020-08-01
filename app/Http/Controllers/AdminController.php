@@ -205,32 +205,44 @@ class AdminController extends Controller
 
   public function all_properties()
   {
-    $all_properties = Property::latest()->paginate(10);
-    return view('admin.all_properties', ['properties' => $all_properties]);
+    // $all_properties = Property::latest()->paginate(10);
+    return view('admin.all_properties');
   }
 
   public function pending_properties()
   {
-    $pending_properties = Property::where('status', 'pending')->latest()->paginate(10);
-    return view('admin.pending_properties', ['properties' => $pending_properties]);
+    // $pending_properties = Property::where('status', 'pending')->latest()->paginate(10);
+    return view('admin.pending_properties');
   }
 
   public function active_properties()
   {
-    $active_properties = Property::where('status', 'active')->latest()->paginate(10);
-    return view('admin.active_properties', ['properties' => $active_properties]);
+    // $active_properties = Property::where('status', 'active')->latest()->paginate(10);
+    return view('admin.active_properties');
   }
 
   public function declined_properties()
   {
-    $declined_properties = Property::where('status', 'declined')->latest()->paginate(10);
-    return view('admin.declined_properties', ['properties' => $declined_properties]);
+    // $declined_properties = Property::where('status', 'declined')->latest()->paginate(10);
+    return view('admin.declined_properties');
   }
 
   public function closed_properties()
   {
-    $closed_properties = Property::where('status', 'closed')->latest()->paginate(10);
-    return view('admin.closed_properties', ['properties' => $closed_properties]);
+    // $closed_properties = Property::where('status', 'closed')->latest()->paginate(10);
+    return view('admin.closed_properties');
+  }
+
+  public function reported_properties()
+  {
+    // $closed_properties = Property::where('status', 'reported')->latest()->paginate(10);
+    return view('admin.reported_properties');
+  }
+
+  public function disabled_properties()
+  {
+    // $disabled_properties = Property::where('status', 'disabled')->latest()->paginate(10);
+    return view('admin.disabled_properties');
   }
 
   public function all_reports()

@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-container uk-padding-remove uk-margin my-container">
+  <div class="uk-container uk-padding-remove uk-margin">
     <div
       class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small uk-border-rounded"
     >
@@ -821,7 +821,7 @@ export default {
         .post(this.form_action, main_form_data, config)
         .then(res => {
           this.reset_fields();
-          if ("url" in res.data) {
+          if (res.data.url) {
             Toast.fire({
               icon: "success",
               title: "Property Uploaded, Redirecting to Payment Gateway"
@@ -837,6 +837,7 @@ export default {
           }
         })
         .catch(err => {
+          console.log(err)
           const { status } = err.response;
           if (status === 401) {
             console.log(err.response.data);

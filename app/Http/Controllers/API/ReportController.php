@@ -44,7 +44,6 @@ class ReportController extends Controller
         $item_status = false;
       }
 
-
       if ($request->has('sort_type')) {
         $sort_type =  $request->sort_type;
         $sort_type_map = ["asc", 'desc'];

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 
-<admin-list-property property_status="declined" />
+<admin-list-property property_status="disabled" />
 @endsection
 @push('bottom_scripts')
 <script>

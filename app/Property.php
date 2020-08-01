@@ -93,202 +93,61 @@ class Property extends Model
     return $this->hasMany(Report::class, 'property_id');
   }
 
+  public function transactions()
+  {
+    return $this->hasMany(TransactionRecord::class, 'property_id');
+  }
+
   public function is_reported()
   {
     return ($this->status == 'reported' || $this->reported_at != null);
   }
 
-  public function views_count()
+  public function views()
   {
-    return DB::table('viewed_property')->where('property_id', $this->id)->count();
+    return $this->hasMany(PropertyView::class, 'property_id');
   }
 
-  public function favourite_count()
+  public function favourites()
   {
-    return DB::table('favourite_property')->where('property_id', $this->id)->count();
+    return $this->hasMany(FavouriteProperty::class, 'property_id');
   }
 
-  public function scopeFilterByRequest($query, Request $request)
+  public function scopeSearch($query, $findable)
   {
-    $query->with('tags:name')
-      ->with('amenities:name,value')
-      ->with('specifications:name,value')
-      ->with('category')
-      ->with('subcategory')
-      ->with('state')
-      ->with('city');
-    if ($request->has('category')) {
-      $categories = Category::select('id')->get();
-      $category_map = [];
-      foreach ($categories as $category) {
-        $category_map[] = $category->id;
-      }
-      $category = $request->category;
-      $item_category = function () use ($category, $category_map) {
-        if (in_array($category, $category_map)) {
-          return [$category];
-        } else {
-          return $category_map;
+    $findable = preg_replace("/[^A-Za-z0-9_]/", '', $findable);
+    $searchValues = preg_split('/\s+/', $findable, -1, PREG_SPLIT_NO_EMPTY);
+    return $query
+      ->where(function ($query) use ($searchValues) {
+        foreach ($searchValues as $value) {
+          $query->orWhere('title', 'LIKE', "%{$value}%");
         }
-      };
-
-      $query->whereIn('category_id', $item_category());
-    }
-
-    if ($request->has('subcategory')) {
-      $subcategories = Subcategory::select('id')->get();
-      $subcategory_map = [];
-      foreach ($subcategories as $subcategory) {
-        $subcategory_map[] = $subcategory->id;
-      }
-      $subcategory = $request->subcategory;
-      $item_subcategory = function () use ($subcategory, $subcategory_map) {
-        if (in_array($subcategory, $subcategory_map)) {
-          return [$subcategory];
-        } else {
-          return $subcategory_map;
-        }
-      };
-      $query->whereIn('subcategory_id', $item_subcategory());
-    }
-
-    if ($request->has('status')) {
-      $status = $request->status;
-      $item_status = function () use ($status) {
-        $item_status_map = [
-          'all',
-          'closed',
-          'active',
-          'pending',
-          'reported',
-          'expired'
-        ];
-        if (in_array($status, $item_status_map)) {
-          if ($status == 'all') {
-            return [
-              'closed',
-              'active',
-              'pending',
-              'reported',
-              'expired'
-            ];
-          }
-          return [$status];
-        } else {
-          return ["active"];
-        }
-      };
-      $query->whereIn('status', $item_status());
-    }
-
-    if ($plan = $request->has('plan')) {
-      $plan = $request->plan;
-      $item_plan = function () use ($plan) {
-        $item_plan_map = [
-          'all',
-          'free',
-          'distress',
-          'featured',
-        ];
-        if (in_array($plan, $item_plan_map)) {
-          if ($plan == 'all') {
-            return ['free', 'distress', 'featured',];
-          }
-          return [$plan];
-        } else {
-          return ['free', 'distress', 'featured',];
-        }
-      };
-      $query->whereIn('plan', $item_plan());
-    }
-
-    if ($request->has('list_as')) {
-      $list_as = $request->list_as;
-      $item_list_as = function () use ($list_as) {
-        $item_list_as_map = [
-          'all',
-          'rent',
-          'sale',
-        ];
-        if (in_array($list_as, $item_list_as_map)) {
-          if ($list_as == 'all') {
-            return [
-              'rent',
-              'sale',
-            ];
-          }
-          return [$list_as];
-        } else {
-          return [
-            'rent',
-            'sale',
-          ];
-        }
-      };
-      $query->whereIn('list_as', $item_list_as());
-    }
-
-    if ($request->has('sort_type') && $request->has('sort_by')) {
-      $sort_type =  $request->sort_type;
-      $sort_by = $request->sort_by;
-      $item_sort_type = function () use ($sort_type) {
-        $sort_type_map = ["asc", 'desc'];
-        if (in_array($sort_type, $sort_type_map)) {
-          return $sort_type;
-        } else {
-          return $sort_type_map[1];
-        }
-      };
-      $item_sort_by = function () use ($sort_by) {
-        $sort_by_map = ["created_at", 'price'];
-        if (in_array($sort_by, $sort_by_map)) {
-          return $sort_by;
-        } else {
-          return $sort_by_map[1];
-        }
-      };
-      $query->orderBy($item_sort_by(), $item_sort_type());
-    } elseif ($request->has('sort_type')) {
-      $sort_type =  $request->sort_type;
-      $item_sort_type = function () use ($sort_type) {
-        $sort_type_map = ["asc", 'desc'];
-        if (in_array($sort_type, $sort_type_map)) {
-          return $sort_type;
-        } else {
-          return $sort_type_map[1];
-        }
-      };
-      $query->orderBy('created_at', $item_sort_type());
-    } elseif ($request->has('sort_by')) {
-      $sort_by = $request->sort_by;
-      $item_sort_by = function () use ($sort_by) {
-        $sort_by_map = ["created_at", 'price'];
-        if (in_array($sort_by, $sort_by_map)) {
-          return $sort_by;
-        } else {
-          return $sort_by_map[1];
-        }
-      };
-      $query->orderBy($item_sort_by(), 'desc');
-    } else {
-      $query->orderBy('created_at', 'desc');
-    }
-
-    if ($request->has('min_price') && $request->has('max_price')) {
-      $item_min_price = $request->min_price;
-      $item_max_price = $request->max_price;
-      $query->whereBetween('price', [$item_min_price, $item_max_price]);
-    } elseif ($request->has('min_price')) {
-      $item_min_price = $request->min_price;
-      $query->where('price', '>=', $item_min_price);
-    } elseif ($request->has('max_price')) {
-      $item_max_price = $request->max_price;
-      $query->where('price', '<=', $item_max_price);
-    } else {
-      $item_min_price = Property::where('status', 'active')->min('price');
-      $item_max_price = Property::where('status', 'active')->max('price');
-      $query->whereBetween('price', [$item_min_price, $item_max_price]);
-    }
-    return $query;
+      });
+    // ->orWhereHas('city', function ($query) use ($searchValues) {
+    //   foreach ($searchValues as $value) {
+    //     $query->orWhere('title', 'LIKE', "%{$value}%");
+    //   }
+    // })
+    // ->orWhereHas('state', function ($query) use ($searchValues) {
+    //   foreach ($searchValues as $value) {
+    //     $query->orWhere('title', 'LIKE', "%{$value}%");
+    //   }
+    // })
+    // ->orWhereHas('amenities', function ($query) use ($searchValues) {
+    //   foreach ($searchValues as $value) {
+    //     $query->orWhere('title', 'LIKE', "%{$value}%");
+    //   }
+    // })
+    // ->orWhereHas('specifications', function ($query) use ($searchValues) {
+    //   foreach ($searchValues as $value) {
+    //     $query->orWhere('title', 'LIKE', "%{$value}%");
+    //   }
+    // })
+    // ->orWhereHas('tags', function ($query) use ($searchValues) {
+    //   foreach ($searchValues as $value) {
+    //     $query->orWhere('title', 'LIKE', "%{$value}%");
+    //   }
+    // });
   }
+
 }

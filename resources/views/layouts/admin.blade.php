@@ -48,6 +48,7 @@
                 <li><a href="{{route('admin_declined_properties')}}">Declined</a></li>
                 <li><a href="{{route('admin_closed_properties')}}">Closed</a></li>
                 <li><a href="{{route('admin_expired_properties')}}">Expired</a></li>
+                <li><a href="{{route('admin_disabled_properties')}}">Disabled</a></li>
                 <li><a href="{{route('admin_reported_properties')}}">Reported</a></li>
               </ul>
             </li>
@@ -96,7 +97,7 @@
               <ul class="uk-nav-sub">
                 <li><a href="{{route('admin_media_settings')}}">Media</a></li>
                 <li><a href="{{route('admin_property_settings')}}">Property</a></li>
-                <li><a href="{{route('admin_payment_settings')}}">Payments</a></li>
+                {{-- <li><a href="{{route('admin_payment_settings')}}">Payments</a></li> --}}
               </ul>
             </li>
           </ul>

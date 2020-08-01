@@ -177,6 +177,12 @@
   /* span {
     display: none;
   } */
+  .property_title {
+    width: 235px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   @media (max-width: 740px) {
     .dashboard-main {
@@ -219,22 +225,5 @@
   }
 </style>
 @endpush
-<div class="uk-grid-collapse" uk-grid>
-  <div class="uk-visible@m uk-width-1-4 uk-padding-small">
-    @include('layouts.user_profile_card')
-  </div>
-  <!-----nav links for desktop end here----->
-
-  <!-----poast ads start here----->
-  <div class="uk-width-1-1 uk-width-3-4@m uk-padding-small">
-    <Post-Ad-Form form_action="{{route('api_save_new_property')}}" :plan_fee="{{json_encode($plan_fee)}}"
-      :categories_data="{{$categories_data}}">
-    </Post-Ad-Form>
-    <!-----post ads end here----->
-  </div>
-
-
-</div>
-
-<!-----userdashboard end here----->
+<user-favourite-list-property></user-favourite-list-property>
 @endsection

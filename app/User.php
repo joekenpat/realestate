@@ -66,13 +66,22 @@ class User extends Authenticatable
     public function state()
     {
         return $this->belongsTo(State::class, 'state_id');
-    }
+      }
 
-    public function city()
-    {
+      public function city()
+      {
         return $this->belongsTo(City::class, 'city_id');
-    }
+      }
 
+      public function favourite_properties()
+      {
+        return $this->hasManyThrough(FavouriteProperty::class,Property::class, 'user_id','property_id','id','id');
+      }
+
+      public function viewed_properties()
+      {
+        return $this->hasManyThrough(PropertyView::class,'user_id');
+      }
     /**
      * The functions for checking roles
      *
@@ -108,4 +117,5 @@ class User extends Authenticatable
     {
         return (Auth::check() && ($this->status == 'reported' || $this->blocked_at != null));
     }
+
 }

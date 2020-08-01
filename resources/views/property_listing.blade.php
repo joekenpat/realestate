@@ -46,12 +46,12 @@
     margin-top: -75px;
   }
 
-  .home_ad_list_thumb{
+  .home_ad_list_thumb {
     width: 100%;
     height: 200px;
     object-fit: cover;
     border-radius: 20px;
-	padding: 5px
+    padding: 5px
   }
 
   .tab-button {
@@ -219,5 +219,7 @@
 </style>
 @endpush
 @section('content')
-<property-listing :ad_min_val="{{$min_val}}" :ad_max_val="{{$max_val}}"/>
+
+<property-listing init_query="{{$init_query}}" :ad_min_val="{{$min_val}}"
+  :ad_max_val="{{$max_val}}"></property-listing>
 @endsection

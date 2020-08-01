@@ -5,7 +5,7 @@
       <div
         class="uk-card uk-border-rounded uk-card-default uk-card-body uk-padding-remove"
       >
-        <form class="">
+        <form id="filter_form" method="get" class="">
           <div class="uk-padding-small">
             <h5 class="uk-margin-remove uk-text-bold" style="color: #87ceeb;">
               Plan
@@ -39,15 +39,20 @@
             uk-grid
           >
             <div class="">
-              <multi-list-select
-                :list="category_data"
-                option-value="id"
-                option-text="name"
-                :selected-items="categories"
-                @select="onSelect"
-                placeholder="Choose Category"
+              <select
+                class="uk-select uk-border-rounded"
+                id="category"
+                name="category"
+                v-model="category"
               >
-              </multi-list-select>
+                <option selected value="all">All</option>
+                <option
+                  v-for="(cat, index) in category_data"
+                  :key="index"
+                  :value="cat.id"
+                  >{{ cat.name }}</option
+                >
+              </select>
             </div>
           </div>
           <hr class="uk-margin-remove" />
@@ -133,6 +138,7 @@
                   class="uk-select uk-border-rounded"
                   id="state"
                   name="state"
+                  v-model="state"
                 >
                   <option selected value="all">All</option>
                   <option
@@ -150,6 +156,7 @@
                   class="uk-select uk-border-rounded"
                   id="category"
                   name="category"
+                  v-model="category"
                 >
                   <option selected value="all">All</option>
                   <option
@@ -173,6 +180,7 @@
             </div>
             <div class="uk-width-1-4@s">
               <button
+                type="buttom"
                 :disabled="loading || search_text == ''"
                 @click="load_search_data"
                 class="uk-button uk-width-1-1 uk-border-rounded"
@@ -266,7 +274,7 @@
                         class="uk-position-top-right uk-button uk-position-small uk-border-pill"
                         style="color: #FFD700; background:#fff; padding:0px 6px"
                       >
-                        <i uk-icon="icon:heart;ratio:1"></i> 34
+                        <i uk-icon="icon:heart;ratio:1"></i> {{property.favourites_count}}
                       </button>
                       <!--like ad end here-->
                     </div>
@@ -329,7 +337,6 @@
   </div>
 </template>
 <script>
-import { MultiListSelect } from "vue-search-select";
 import jsonToFormData from "json-form-data";
 export default {
   data() {
@@ -350,12 +357,10 @@ export default {
       property_status: "active",
       property_plan: "all",
       category_data: [],
-      searchText: "",
       search_text: "",
-      state: { id: null, name: "", code: "" },
+      state: "",
       state_data: [],
-      categories: [],
-      category: [],
+      category: "",
       data_url: ""
     };
   },
@@ -371,9 +376,8 @@ export default {
         });
     },
     load_filter_data() {
-      this.data_url = `${this.base_url}/api/property/list`;
       let filter_data = {
-        category: this.categories,
+        category: this.category,
         plan: this.property_plan,
         status: this.property_status,
         list_as: this.list_as,
@@ -391,19 +395,21 @@ export default {
           return value;
         }
       };
-      this.payload = jsonToFormData(filter_data, filter_form_config);
+
+      this.payload = new URLSearchParams(
+        jsonToFormData(filter_data, filter_form_config)
+      ).toString();
+      this.data_url = `${this.base_url}/api/property/list?${this.payload}`;
       this.load_data(1);
     },
     load_search_data() {
-      this.data_url = `${this.base_url}/api/property/find`;
-      let search_form_data = document.getElementById("search_form");
-      let search_term = {
+      let search_data = {
         findable: this.search_text,
-        state: this.state.id,
+        state: this.state,
         category: this.category
       };
       let search_form_config = {
-        initialFormData: new FormData(search_form_data),
+        initialFormData: new FormData(),
         showLeafArrayIndexes: true,
         includeNullValues: false,
         mapping: function(value) {
@@ -413,19 +419,17 @@ export default {
           return value;
         }
       };
-      this.payload = jsonToFormData(search_term, search_form_config);
+      this.payload = new URLSearchParams(
+        jsonToFormData(search_data, search_form_config)
+      ).toString();
+      this.data_url = `${this.base_url}/api/property/list?${this.payload}`;
       this.load_data(1);
     },
     load_data(page = 1) {
       this.loading = !this.loading;
-      let url = `${this.data_url}?page=${page}`;
-      let config = {
-        header: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
+      let url = `${this.data_url}&page=${page}`;
       axios
-        .post(url, this.payload, config)
+        .get(url)
         .then(res => {
           this.properties = res.data.data;
           this.load_property_pagination_data(
@@ -481,18 +485,20 @@ export default {
     load_price_range() {
       (this.min_price = this.ad_min_val), (this.max_price = this.ad_max_val);
     },
-    onSelect(items) {
-      this.categories = items;
+    load_init_data() {
+      this.data_url = `${this.base_url}/api/property/list?${this.init_query}`;
+      this.load_data(1)
     }
   },
   created() {
     this.load_price_range();
     this.load_category_data();
     this.load_state();
-    this.load_filter_data();
-  },
-  components: {
-    MultiListSelect
+    if (this.init_query == null) {
+      this.load_filter_data();
+    } else {
+      this.load_init_data();
+    }
   },
   props: {
     ad_min_val: {
@@ -504,6 +510,11 @@ export default {
       required: false,
       type: Number,
       default: 999999999
+    },
+    init_query: {
+      required: false,
+      type: String,
+      default: null
     }
   }
 };

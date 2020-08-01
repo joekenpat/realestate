@@ -39,6 +39,7 @@ Route::get('/payment/callback', 'PropertyController@handleGatewayCallback')->nam
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
   Route::get('/property', 'PropertyController@user_index')->name('user_list_property');
   Route::get('/profile/edit', 'HomeController@edit')->name('edit_profile');
+  Route::get('/property/favourite', 'PropertyController@user_favourite_property')->name('user_favourite_property');
   Route::get('/property/create', 'PropertyController@create')->name('user_create_property');
   Route::get('/property/edit/{property_id}', 'PropertyController@edit')->name('user_edit_property');
   Route::get('/property/report/{property_id}', 'PropertyController@report')->name('report_property');
@@ -55,6 +56,7 @@ Route::get('/admin/property/expired', 'AdminController@expired_properties')->nam
 Route::get('/admin/property/reported', 'AdminController@reported_properties')->name('admin_reported_properties');
 Route::get('/admin/property/declined', 'AdminController@declined_properties')->name('admin_declined_properties');
 Route::get('/admin/property/closed', 'AdminController@closed_properties')->name('admin_closed_properties');
+Route::get('/admin/property/disabbled', 'AdminController@disabled_properties')->name('admin_disabled_properties');
 
 
 Route::get('/admin/users/all', 'AdminController@all_users')->name('admin_all_users');

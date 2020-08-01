@@ -33,15 +33,16 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     Route::post('/update/{property_id}', 'API\PropertyController@update')->name('api_update_property');
     Route::get('/delete/{property_id}', 'API\PropertyController@destroy');
     Route::get('/{property_id}/delete/image/{image_name}', 'API\PropertyController@delete_property_image');
+    Route::post('/upgrade', 'API\PropertyController@upgrade_property');
     Route::get('/like/{property_id}', 'API\PropertyController@like');
     Route::get('/unlike/{property_id}', 'API\PropertyController@unlike');
-    Route::get('/find/{findable}', 'API\PropertyController@find');
-    Route::get('/disable/{property_id}', 'API\PropertyController@disable');
+    Route::get('/close/{property_id}', 'API\PropertyController@userCloseProperty');
     Route::get('/favourite/add/{property_id}', 'API\PropertyController@add_favourite_property');
     Route::get('/favorite/remove/{property_id}', 'API\PropertyController@remove_favourite_property');
   });
 
 });
+
   Route::group(['prefix' => 'category'], function () {
     Route::get('/list', 'API\CategoryController@index');
   });
@@ -72,7 +73,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     Route::get('/find/{findable}/in/{state_code}', 'API\CityController@find_city_in_state')->name('api_find_city_in_state');
   });
 Route::post('/property/find/', 'API\PropertyController@find');
-Route::post('/property/list', 'API\PropertyController@index')->name('api_list_property');
+Route::get('/property/{product_id}/set_status/{status}', 'API\PropertyController@switchProductStatus');
+Route::get('/property/list', 'API\PropertyController@index')->name('api_list_property');
 Route::get('/state/list', 'API\StateController@index');
 
 // Route::group(['prefix' => 'admin', 'middleware' => ['auth:api', 'is_admin']], function () {

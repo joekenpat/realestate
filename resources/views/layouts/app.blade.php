@@ -152,108 +152,172 @@
 <body>
   <div id="app">
     <!----offcanvas start here---->
-    <div id="offcanvas-push" uk-offcanvas="mode: push; overlay: true">
+    <div id="side_menu" uk-offcanvas="mode: push; overlay: true">
       <div class="uk-offcanvas-bar sidenav ">
 
         <!-----usefull links ends here---->
-        <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
-          <li class="uk-parent">
-            <a href="#"><b>Menu</b></a>
-            <ul class="uk-nav-sub">
-
-              <ul>
-                <li>
-                  <div class="uk-padding-small">
-                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                        style="background-color:black;  color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>HOME</b></button></a>
-                  </div>
-                </li>
-                <li>
-                  <div class="uk-padding-small">
-                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                        style="background-color:black;  color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>PRICING</b></button></a>
-                  </div>
-                </li>
-                <li>
-                  <div class="uk-padding-small">
-                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                        style="background-color:black;   color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>ABOUT
-                          US
-                        </b></button></a>
-                  </div>
-                </li>
-                <li>
-                  <div class="uk-padding-small">
-                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                        style="background-color:black;   color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>CONTACT
-                          US
-                        </b></button></a>
-                  </div>
-                </li>
-                <li>
-                  <div class="uk-padding-small">
-                    <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                        style="background-color:black; color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>Blog
-                        </b></button></a>
-                  </div>
-                </li>
-              </ul>
+        <ul class="uk-nav uk-nav-default " uk-nav>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('user_create_property')}}"
+                class="uk-button green accent-4 white-text uk-width-1-1 uk-border-rounded">POST
+                ADS</a>
+            </div>
           </li>
-        </ul>
-        </li>
+          @if(Route::currentRouteName() == 'property_listing')
+          <li class="uk-parent uk-padding-remove uk-margin-small">
+            <a class="uk-button blue accent-2 white-text uk-width-1-1 uk-border-rounded" href="#">Filter Property</a>
+            <ul>
+              <li>
+                <form id="filter_form" action="{{route('property_listing')}}" method="get">
+                  <div class="uk-padding-small">
+                    <h5 class="uk-margin-remove uk-text-bold" style="color: #87ceeb;">
+                      Plan
+                    </h5>
+                  </div>
+                  <div class="uk-grid-small uk-child-width-1-1 uk-padding-small uk-padding-remove-top" uk-grid>
+                    <div>
+                      <select class="uk-select uk-border-rounded">
+                        <option selected value="all">All</option>
+                        <option value="free">Free</option>
+                        <option value="distress">Distress</option>
+                        <option value="featured">Featured</option>
+                      </select>
+                    </div>
+                  </div>
+                  <hr class="uk-margin-remove" />
+                  <div class="uk-padding-small">
+                    <h5 class="uk-margin-remove uk-text-bold" style="color: #87ceeb;">
+                      Category
+                    </h5>
+                  </div>
 
-        </ul>
-        <div class="uk-padding-remove">
-          <hr>
-        </div>
-
-        <!-----usefull links ends here---->
-        <ul class="uk-nav uk-nav-default">
-          <div class="uk-padding-small">
-            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                style="background-color:black;  color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>EDIT
-                  PROFILE</b></button></a>
-          </div>
-        </ul>
-        <ul class="uk-nav uk-nav-default">
-          <div class="uk-padding-small">
-            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                style="background-color:black;   color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>MY
-                  ADS
-                </b></button></a>
-          </div>
-        </ul>
-        <ul class="uk-nav uk-nav-default">
-          <div class="uk-padding-small">
-            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                style="background-color:black; color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>MY
-                  FAVOURITE
-                </b></button></a>
-          </div>
-        </ul>
-        <ul class="uk-nav uk-nav-default">
-          <div class="uk-padding-small">
-            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                style="background-color:black; color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>PAYMENT
-                </b></button></a>
-          </div>
-        </ul>
-
-        <ul class="uk-nav uk-nav-default">
-          <div class="uk-padding-small">
-            <a href="{{route('user_create_property')}}"> <button class=" uk-animation-shake uk-button uk-button-large"
-                style="background-color:black;color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>POST
-                  ADS</b></button></a>
-          </div>
-        </ul>
-
-        <ul class="uk-nav uk-nav-default">
-          <div class="uk-padding-small">
-            <a href="#"> <button class=" uk-animation-shake uk-button uk-button-large"
-                style="background-color:red; color:white;max-height: 50px !important; min-height: 50px !important; height:50px; width: 100%"><b>LOG
-                  OUT
-                </b></button></a>
-          </div>
+                  <div class="uk-grid-small uk-child-width-1-1 uk-padding-small uk-padding-remove-top" uk-grid>
+                    <div class="">
+                      <select class="uk-select uk-border-rounded" id="category" name="category">
+                        <option selected value="all">All</option>
+                        @foreach ($categories as $category)
+                        <option value="{{$category->id}}">{{ucwords($category->name)}}</option>
+                        @endforeach
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <hr class="uk-margin-remove" />
+                  <div class="uk-padding-small">
+                    <h5 class="uk-margin-remove uk-text-bold" style="color: #87ceeb;">
+                      Price Range
+                    </h5>
+                  </div>
+                  <div class="uk-grid-small uk-padding-small uk-padding-remove-top" uk-grid>
+                    <div class="uk-width-1-2">
+                      <label class="uk-form-label" for="form-stacked-text"><b>min</b></label>
+                      <input class="uk-input uk-border-rounded" min="{{$min_val}}" :max="{{$max_val}}" id="min_price"
+                        name="min_price" type="number" placeholder="100" />
+                    </div>
+                    <div class="uk-width-1-2">
+                      <label class="uk-form-label" for="form-stacked-text"><b>max</b></label>
+                      <input class="uk-input uk-border-rounded" min="{{$min_val}}" :max="{{$max_val}}" id="max_price"
+                        name="max_price" type="number" placeholder="100" />
+                    </div>
+                  </div>
+                  <hr class="uk-margin-remove" />
+                  <div class="uk-padding-small">
+                    <h5 class="uk-margin-remove uk-text-bold" style="color: #87ceeb;">
+                      Ad type
+                    </h5>
+                  </div>
+                  <div class="uk-grid-small uk-child-width-1-1 uk-padding-small uk-padding-remove-top" uk-grid>
+                    <div>
+                      <select class="uk-select uk-border-rounded">
+                        <option selected value="all">All</option>
+                        <option value="rent">For Rent</option>
+                        <option value="sale">For Sale</option>
+                      </select>
+                    </div>
+                    <div>
+                      <button class="uk-button uk-width-1-1 uk-border-rounded"
+                        style="color:white; background-color: #87ceeb;" type="submit">
+                        Apply Filter
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </li>
+            </ul>
+          </li>
+          @endif
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('home')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">HOME</a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('property_listing')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">ALL PROPERTY</a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">PRICING</a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">ABOUT
+                US
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">CONTACT
+                US
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">Blog
+              </a>
+            </div>
+          </li>
+          @auth
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('edit_profile')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">EDIT
+                PROFILE</a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('user_list_property')}}"
+                class="uk-button black white-text uk-width-1-1 uk-border-rounded">MY
+                ADS
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('user_favourite_property')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">MY
+                FAVOURITE
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">PAYMENT
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="#" class="uk-button white-text red uk-width-1-1 uk-border-rounded" style="">LOG
+                OUT
+              </a>
+            </div>
+          </li>
+          @endauth
         </ul>
 
       </div>
@@ -262,19 +326,14 @@
 
     <!----navbar start here ---->
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-      <nav class="uk-navbar-container  navigation uk-visible@s" uk-navbar>
+      <nav class="uk-navbar-container  navigation" uk-navbar>
         <div class="uk-navbar-let">
           <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
               style="height: 100px; "></a>
         </div>
 
-        <div class="uk-navbar-left uk-visible@s">
-          <ul class="uk-navbar-nav">
 
-          </ul>
-        </div>
-
-        <div class="uk-navbar-right uk-visible@s">
+        <div class=" uk-navbar-center uk-visible@m">
           <ul class="uk-navbar-nav uk-flex uk-flex-middle">
             <li>
               <a href="{{route('home')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
@@ -294,7 +353,8 @@
               class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:play"
                 style="color:#fff;"></i> Post Ad</a>
             @guest
-            <a href="{{route('login')}}" style="background-color:#fff;color:#000;height:35px !important;padding-top:5px;"
+            <a href="{{route('login')}}"
+              style="background-color:#fff;color:#000;height:35px !important;padding-top:5px;"
               class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:sign-in"
                 style="color:#f00;"></i> Login</a>
             <a href="{{route('register')}}"
@@ -312,44 +372,21 @@
               @csrf
             </form>
             @endauth
-            <li>
-              <button class="uk-navbar-toggle uk-button uk-button-text white-text" type="button"
-                uk-toggle="target: #side_nav"><i uk-icon="icon: menu; ratio:2;"></i></button>
-            </li>
+
           </ul>
         </div>
-        <div class="uk-navbar-right uk-visible@s">
+        <div class="uk-navbar-right uk-hidden@m">
           <ul class="uk-navbar-nav">
-
+            <li>
+              <button class="uk-navbar-toggle uk-button uk-button-text white-text" type="button"
+                uk-toggle="target: #side_menu"><i uk-icon="icon: menu; ratio:2;"></i></button>
+            </li>
           </ul>
         </div>
 
       </nav>
     </div>
     <!----navbar ends here ---->
-
-    <!---------offcanva for desktop end here----------->
-
-    <!----navbar for mobile start here ---->
-    <nav class="uk-navbar-container   navigation-small uk-hidden@s" uk-navbar>
-      <div class="uk-navbar-let">
-        <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
-            style="height: 100px; "></a>
-      </div>
-
-      <div class="uk-navbar-right ">
-        <ul class="uk-navbar-nav">
-          <li>
-            <div class="uk-navbar-toggle " uk-toggle="target: #offcanvas-push">
-              <i class="mdi  mdi-backburger"
-                style="color:white; font-size: 30px;position: fixed;background-color: black;  z-index: 1; padding-right: 20px"></i>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <!----navbar for mobile ends here ---->
-
     <!-----dashboard start here----->
 
     <main>
