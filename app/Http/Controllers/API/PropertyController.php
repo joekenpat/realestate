@@ -6,6 +6,7 @@ use App\Amenity;
 use App\Category;
 use App\FavouriteProperty;
 use App\Http\Controllers\Controller;
+use App\Notifications\PropertyStatusChanged;
 use App\Property;
 use App\PropertyView;
 use App\SiteConfig;
@@ -1225,6 +1226,8 @@ class PropertyController extends Controller
           $property->reported_at = now();
         }
         $property->update();
+        $property_owner = User::where('id',$property->user_id)->firstOrFail();
+        // $property_owner->notify(new PropertyStatusChanged($property_owner,$property));
         return response()->json(sprintf("Property is now %s !", ucwords($property_status)), Response::HTTP_OK);
       } catch (ModelNotFoundException $mnt) {
         return response()->json('No Item Found', Response::HTTP_NOT_FOUND);
