@@ -221,7 +221,7 @@ export default {
               this.$swal.showValidationMessage(`Request failed: ${error}`);
             });
         },
-        allowOutsideClick: () => !Swal.isLoading()
+        allowOutsideClick: () => !this.$swal.isLoading()
       });
     },
     edit_property(property_id) {
@@ -326,7 +326,7 @@ export default {
                 this.$swal.showValidationMessage(`Request failed: ${error}`);
               });
           },
-          allowOutsideClick: () => !Swal.isLoading()
+          allowOutsideClick: () => !this.$swal.isLoading()
         })
         .then(result => {
           if (result.value) {
@@ -378,7 +378,7 @@ export default {
                 this.$swal.showValidationMessage(`Request failed: ${error}`);
               });
           },
-          allowOutsideClick: () => !Swal.isLoading()
+          allowOutsideClick: () => !this.$swal.isLoading()
         })
         .then(result => {
           if (result.value) {

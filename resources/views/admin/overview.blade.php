@@ -3,13 +3,12 @@
 
 <div class="" uk-grid>
   <div class="uk-width-1-1">
-    <div class="uk-grid uk-grid-small uk-child-width-1-4">
+    <div class="uk-grid uk-grid-small uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-4@m">
       <div>
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:home; ratio:1.5"></span>
-            <div class="uk-label uk-align-right"> 155k</div>
-            <line-chart :width="330" :height="120" :chartdata="{{ json_encode($data) }}"
+            <line-chart :width="330" :height="120" :chartdata="{{ json_encode($pdata) }}"
               :options="{{ json_encode($options) }}" />
           </div>
         </div>
@@ -18,8 +17,7 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:users; ratio:1.5"></span>
-            <div class="uk-label uk-align-right"> 155k</div>
-            <line-chart :width="330" :height="120" :chartdata="{{ json_encode($data) }}"
+            <line-chart :width="330" :height="120" :chartdata="{{ json_encode($udata) }}"
               :options="{{ json_encode($options) }}" />
           </div>
         </div>
@@ -28,8 +26,7 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:cart; ratio:1.5"></span>
-            <div class="uk-label uk-align-right"> 155k</div>
-            <line-chart :width="330" :height="120" :chartdata="{{ json_encode($data) }}"
+            <line-chart :width="330" :height="120" :chartdata="{{ json_encode($tdata) }}"
               :options="{{ json_encode($options) }}" />
           </div>
         </div>
@@ -38,8 +35,7 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:album; ratio:1.5"></span>
-            <div class="uk-label uk-align-right"> 155k</div>
-            <line-chart :width="330" :height="120" :chartdata="{{ json_encode($data) }}"
+            <line-chart :width="330" :height="120" :chartdata="{{ json_encode($tdata) }}"
               :options="{{ json_encode($options) }}" />
           </div>
         </div>

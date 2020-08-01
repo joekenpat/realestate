@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Amenity;
 use App\Category;
+use App\FavouriteProperty;
 use App\Http\Controllers\Controller;
 use App\Property;
+use App\PropertyView;
 use App\SiteConfig;
 use App\Specification;
 use App\State;
@@ -1079,7 +1081,7 @@ class PropertyController extends Controller
   {
     try {
       if (Property::where('id', $property_id)->exists()) {
-        DB::table('favourite_property')->updateOrInsert(['property_id' => $property_id, 'user_id' => Auth()->user()->id]);
+        FavouriteProperty::updateOrCreate(['property_id' => $property_id, 'user_id' => Auth()->user()->id]);
       }
       return response()->json('Property added to favourite', Response::HTTP_OK);
     } catch (Exception $e) {
@@ -1091,15 +1093,107 @@ class PropertyController extends Controller
     }
   }
 
+  public function user_favourite_property()
+  {
+    $user = User::where('id', Auth::user()->id)->firstOrFail();
+    $properties = FavouriteProperty::where('user_id', $user->id)->with(['property', 'property.state', 'property.city', 'property.category', 'property.subcategory'])->paginate(9);
+    // return dd($properties);
+    return response()->json($properties, Response::HTTP_OK);
+  }
+
+
+  public function user_transaction(Request $request)
+  {
+    if ($request->has('status')) {
+      $status = $request->status;
+      $item_status_map = [
+        'all',
+        'success',
+        'failed',
+        'pending',
+      ];
+      if (in_array($status, $item_status_map)) {
+        if ($status == 'all') {
+          $item_status  = [
+            'success',
+            'failed',
+            'pending',
+          ];
+        } else {
+          $item_status  = [$status];
+        }
+      } else {
+        $item_status = ["success"];
+      }
+    } else {
+      $item_status = false;
+    }
+
+    if ($request->has('sort_type')) {
+      $sort_type =  $request->sort_type;
+      $sort_type_map = ["asc", 'desc'];
+      if (in_array($sort_type, $sort_type_map)) {
+        $item_sort_type =  $sort_type;
+      } else {
+        $item_sort_type =  $sort_type_map[1];
+      }
+    } else {
+      $item_sort_type = 'asc';
+    }
+
+    if ($request->has('sort_by')) {
+      $sort_by = $request->sort_by;
+      $sort_by_map = ["created_at", 'price'];
+      if (in_array($sort_by, $sort_by_map)) {
+        $item_sort_by =  $sort_by;
+      } else {
+        $item_sort_by =  $sort_by_map[1];
+      }
+    } else {
+      $item_sort_by = 'created_at';
+    }
+
+
+    if ($request->has('result_count')) {
+      $result_count =  $request->result_count;
+      if (in_array($result_count, [9, 18, 36, 72, 90, 108])) {
+        $item_result_count =  $result_count;
+      } else {
+        $item_result_count =  9;
+      }
+    } else {
+      $item_result_count =  9;
+    }
+
+    $transactions = TransactionRecord::with(['property'])
+      ->where('user_id', Auth::user()->id)
+      ->when($item_status, function ($query) use ($item_status) {
+        return $query->whereIn('status', $item_status);
+      })
+      ->orderBy($item_sort_by, $item_sort_type)
+      ->paginate($item_result_count)->appends(request()->query());
+    return response()->json($transactions, Response::HTTP_OK);
+  }
+
+
+
+  public function user_property_view()
+  {
+    $properties = PropertyView::with(['property', 'user'])->whereHas('property', function ($query) {
+      return $query->where('user_id', Auth::user()->id);
+    })->paginate(9);
+    // return dd($properties);
+    return response()->json($properties, Response::HTTP_OK);
+  }
+
   public function remove_favourite_property($property_id)
   {
-    return dd(Property::where('id', $property_id)->get());
     try {
       if (Property::where('id', $property_id)->exists()) {
-        $data = DB::table('favourite_property')->where(['property_id', '=', $property_id], ['user_id', '=', Auth()->user()->id])->get();
-        return dd($data);
+        $data = FavouriteProperty::where('property_id', $property_id)->where('user_id', Auth()->user()->id)->firstOrFail();
+        $data->delete();
+        return response()->json('Property removed from Favourite', Response::HTTP_OK);
       }
-      return response()->json('Property removed from favourite', Response::HTTP_OK);
     } catch (Exception $e) {
       $message = sprintf("message: %s. Error File: %s. Error Line: %s", $e->getMessage(), $e->getFile(), $e->getLine());
       return response()->json(

@@ -177,7 +177,7 @@
                   </div>
                   <div class="uk-grid-small uk-child-width-1-1 uk-padding-small uk-padding-remove-top" uk-grid>
                     <div>
-                      <select class="uk-select uk-border-rounded">
+                      <select name="plan" id="plan" class="uk-select uk-border-rounded">
                         <option selected value="all">All</option>
                         <option value="free">Free</option>
                         <option value="distress">Distress</option>
@@ -212,13 +212,13 @@
                   <div class="uk-grid-small uk-padding-small uk-padding-remove-top" uk-grid>
                     <div class="uk-width-1-2">
                       <label class="uk-form-label" for="form-stacked-text"><b>min</b></label>
-                      <input class="uk-input uk-border-rounded" min="{{$min_val}}" :max="{{$max_val}}" id="min_price"
-                        name="min_price" type="number" placeholder="100" />
+                      <input class="uk-input uk-border-rounded" value="{{$min_val}}" min="{{$min_val}}"
+                        :max="{{$max_val}}" id="min_price" name="min_price" type="number" placeholder="100" />
                     </div>
                     <div class="uk-width-1-2">
                       <label class="uk-form-label" for="form-stacked-text"><b>max</b></label>
-                      <input class="uk-input uk-border-rounded" min="{{$min_val}}" :max="{{$max_val}}" id="max_price"
-                        name="max_price" type="number" placeholder="100" />
+                      <input class="uk-input uk-border-rounded" value="{{$max_val}}" min="{{$min_val}}"
+                        :max="{{$max_val}}" id="max_price" name="max_price" type="number" placeholder="100" />
                     </div>
                   </div>
                   <hr class="uk-margin-remove" />
@@ -254,7 +254,8 @@
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="{{route('property_listing')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">ALL PROPERTY</a>
+              <a href="{{route('property_listing')}}"
+                class="uk-button black white-text uk-width-1-1 uk-border-rounded">ALL PROPERTY</a>
             </div>
           </li>
           <li>
@@ -299,20 +300,32 @@
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="{{route('user_favourite_property')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">MY
+              <a href="{{route('user_favourite_property')}}"
+                class="uk-button black white-text uk-width-1-1 uk-border-rounded">MY
                 FAVOURITE
               </a>
             </div>
           </li>
+          @if(Auth::user()->is_agent())
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">PAYMENT
+              <a href="{{route('user_property_view')}}"
+                class="uk-button black white-text uk-width-1-1 uk-border-rounded">PROPERTY VIEWS
+              </a>
+            </div>
+          </li>
+          @endif
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('user_list_transaction')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">PAYMENT
               </a>
             </div>
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="#" class="uk-button white-text red uk-width-1-1 uk-border-rounded" style="">LOG
+              <a href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('sidebar-logout-form').submit();"
+                class="uk-button white-text red uk-width-1-1 uk-border-rounded" style="">LOG
                 OUT
               </a>
             </div>

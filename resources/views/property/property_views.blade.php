@@ -230,9 +230,6 @@
     @include('layouts.user_profile_card')
   </div>
   <div class="uk-width-1-1 uk-width-3-4@m uk-padding-small">
-    <user-list-property></user-list-property>
+    <user-property-views></user-property-views>
   </div>
-</div>
-
-<!-----userdashboard end here----->
 @endsection

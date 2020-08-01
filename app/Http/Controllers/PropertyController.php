@@ -29,7 +29,7 @@ class PropertyController extends Controller
    */
   public function index(Request $request)
   {
-    $categories = Category::select('id','name')->get();
+    $categories = Category::select('id', 'name')->get();
     $subcategories = Subcategory::select('id')->get();
     $states = State::select('id')->get();
     $category_map = [];
@@ -200,9 +200,9 @@ class PropertyController extends Controller
     }
 
     $properties = Property::with([
-      'user','user.state', 'user.city', 'tags', 'amenities', 'specifications',
+      'user', 'user.state', 'user.city', 'tags', 'amenities', 'specifications',
       'category', 'subcategory', 'state', 'city',
-    ])->withCount(['favourites','views'])
+    ])->withCount(['favourites', 'views'])
       ->when($item_state, function ($query) use ($item_state) {
         return $query->whereIn('state_id', $item_state);
       })
@@ -236,7 +236,7 @@ class PropertyController extends Controller
     $max_val = Property::where('status', 'active')->max('price');
     $ad_min_val = $min_val ?: 0;
     $ad_max_val = $max_val ?: 999999999;
-    return view('property_listing', ['properties' => $properties, 'min_val' => $ad_min_val, 'max_val' => $ad_max_val,'categories'=>$categories ,'init_query' => $request->getQueryString()]);
+    return view('property_listing', ['properties' => $properties, 'min_val' => $ad_min_val, 'max_val' => $ad_max_val, 'categories' => $categories, 'init_query' => $request->getQueryString()]);
   }
 
   /**
@@ -461,10 +461,13 @@ class PropertyController extends Controller
 
   public function user_favourite_property()
   {
-    $user = User::where('id', Auth::user()->id)->firstOrFail();
-    $properties = $user->favourite_properties()->paginate(9);
-    return dd($properties);
-    return view('property.favourite',['properties'=>$properties]);
+
+    return view('property.favourite');
+  }
+
+  public function user_property_view()
+  {
+    return view('property.property_views');
   }
 
   /**
@@ -515,7 +518,8 @@ class PropertyController extends Controller
       $fav_status = false;
     }
     PropertyView::updateOrCreate(
-      ['property_id' => $property_id,'user_id' => $user_id,'viewer_ip' => $viewer_ip]);
+      ['property_id' => $property_id, 'user_id' => $user_id, 'viewer_ip' => $viewer_ip]
+    );
     return view('property.view', ['property' => $property, 'fav_status' => $fav_status]);
   }
 

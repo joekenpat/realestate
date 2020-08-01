@@ -18,6 +18,7 @@ class CreateTransactionRecordsTable extends Migration
       $table->string('payment_gateway');
       $table->string('amount');
       $table->enum('status', ['failed', 'pending', 'success'])->default('pending');
+      $table->enum('plan',['distress','featured']);
       $table->string('transaction_ref');
       $table->uuid('property_id');
       $table->uuid('user_id');

@@ -3,54 +3,13 @@
     <div
       class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small uk-border-rounded"
     >
-      <h5 class="uk-padding-small"><b style="color: #87ceeb">My Ads</b></h5>
+      <h3 class="uk-padding-small">
+        <b style="color: #87ceeb">My Favourite Properties</b>
+      </h3>
       <hr class="uk-margin-remove" />
-      <!---tab button start here---->
-      <div
-        uk-grid
-        class="uk-text-center uk-child-width-1-1 uk-child-width-1-2@s uk-padding-small uk-grid-small uk-flex uk-flex-center"
-      >
-        <div class="uk-form-controls uk-width-1-2">
-          <select
-            class="uk-select uk-border-rounded"
-            id="status"
-            name="status"
-            v-model="property_status"
-            @change="load_filter_data()"
-          >
-            <option selected value="all">All Status</option>
-            <option
-              v-for="(status, index) in status_map"
-              :key="index"
-              :value="status"
-              >{{ status }}</option
-            >
-          </select>
-        </div>
-        <div class="uk-form-controls uk-width-1-2">
-          <select
-            class="uk-select uk-border-rounded"
-            id="plan"
-            name="plan"
-            v-model="property_plan"
-            @change="load_filter_data()"
-          >
-            <option selected value="all">All Plan</option>
-            <option
-              v-for="(plan, index) in plan_map"
-              :key="index"
-              :value="plan"
-              >{{ plan }}</option
-            >
-          </select>
-        </div>
-      </div>
-      <hr class="uk-margin-remove" />
-      <!---tab button end here---->
       <!-----table start here-------->
-
       <table
-        class="uk-table uk-table-responsive uk-table-small uk-table-divider uk-margin-remove-bottom"
+        class="uk-table uk-table-responsive uk-table-small uk-table-divider uk-margin-remove-top"
       >
         <thead>
           <tr>
@@ -58,92 +17,60 @@
             <th><b>Item</b></th>
             <th><b>Category</b></th>
             <th><b>Price</b></th>
-            <th><b>Status</b></th>
             <th><b>Action</b></th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="property in properties"
-            :id="`item_${property.id}`"
-            :key="property.id"
+            v-for="favourite in favourites"
+            :id="`item_${favourite.property.id}`"
+            :key="favourite.property.id"
           >
             <td>
               <img
                 :src="
-                  `${base_url}/images/properties/${property.id}/${property.images[0]}`
+                  `${base_url}/images/properties/${favourite.property.id}/${favourite.property.images[0]}`
                 "
                 style="height: 100px; width: 100px"
               />
             </td>
             <td class="uk-table-link">
               <a
-                :href="`${base_url}/property/view/${property.id}`"
+                :href="`${base_url}/property/view/${favourite.property.id}`"
                 class="uk-link-reset"
               >
                 <ul class="uk-margin-remove-bottom uk-padding-remove-left">
                   <li class="property_title">
-                    {{ property.title }}
+                    {{ favourite.property.title }}
                   </li>
                   <li>
-                    <time :datetime="property.created_at">{{
-                      property.created_at
+                    <time :datetime="favourite.property.created_at">{{
+                      favourite.property.created_at
                     }}</time>
                   </li>
                   <li>
                     <span class="uk-label uk-label-success">{{
-                      property.list_as
+                      favourite.property.list_as
                     }}</span>
                   </li>
                 </ul>
               </a>
             </td>
             <td>
-              <a href="#">{{ property.category.name }}</a> &gt;
-              <a href="#">{{ property.subcategory.name }}</a>
+              <a href="#">{{ favourite.property.category.name }}</a> &gt;
+              <a href="#">{{ favourite.property.subcategory.name }}</a>
             </td>
-            <td>N{{ property.price }}</td>
-            <td>
-              <span
-                :class="[
-                  'uk-label',
-                  { 'orange lighten-1': property.status == 'pending' },
-                  { 'green lighten-1': property.status == 'active' },
-                  { red: property.status == 'disabled' },
-                  { 'red lighten-2': property.status == 'expired' },
-                  { 'red accent-2': property.status == 'declined' }
-                ]"
-                >{{ property.status }}</span
-              >
-            </td>
+            <td>N{{ favourite.property.price }}</td>
             <td>
               <button
-                @click="upgrade_property(property.id)"
-                uk-tooltip="Upgrade Property"
-                class="uk-icon-link orange-text"
-                uk-icon="icon:push; ratio:1"
-              ></button>
-              <button
-                @click="edit_property(property.id)"
-                uk-tooltip="Edit Property"
-                class="uk-icon-link blue-text"
-                uk-icon="icon:file-edit; ratio:1"
-              ></button>
-              <button
-                @click="close_property(property.id)"
-                uk-tooltip="Close Property"
+                @click="remove_fav_property(favourite.property.id)"
+                uk-tooltip="Remove Property"
                 class="uk-icon-link red-text"
                 uk-icon="icon:close; ratio:1"
               ></button>
-              <button
-                @click="delete_property(property.id)"
-                uk-tooltip="Delete Property"
-                class="uk-icon-link red-text"
-                uk-icon="icon:trash; ratio:1"
-              ></button>
             </td>
           </tr>
-          <tr v-if="Object.keys(properties).length == 0">
+          <tr v-if="Object.keys(favourites).length == 0">
             <td colspan="6" class="uk-text-center">No Data Yet</td>
           </tr>
         </tbody>
@@ -170,11 +97,10 @@
   </div>
 </template>
 <script>
-import jsonToFormData from "json-form-data";
 export default {
   data() {
     return {
-      properties: [],
+      favourites: [],
       base_url: window.location.origin,
       property_pagination_data: {
         record_count: 0,
@@ -196,81 +122,13 @@ export default {
     };
   },
   methods: {
-    delete_property(property_id) {
-      let pid = property_id;
-      this.$swal.fire({
-        title: "Delete Property",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        showCancelButton: true,
-        confirmButtonText: "Delete",
-        showLoaderOnConfirm: true,
-        preConfirm: () => {
-          return axios
-            .get(`${this.base_url}/api/user/property/delete/${pid}`)
-            .then(response => {
-              this.load_data(this.property_pagination_data.current_page);
-              return this.$swal.fire({
-                title: `${response.data}`,
-                icon: "success"
-              });
-            })
-            .catch(error => {
-              this.$swal.showValidationMessage(`Request failed: ${error}`);
-            });
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-      });
-    },
-    edit_property(property_id) {
-      this.$swal
-        .fire({
-          title: "Are you sure?",
-          text: "You want be edit this property!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Yes, Edit!"
-        })
-        .then(result => {
-          if (result.value) {
-            window.open(`${this.base_url}/user/property/edit/${property_id}`);
-          }
-        });
-    },
-    load_filter_data() {
-      this.data_url = `${this.base_url}/api/user/property/list`;
-      let filter_data = {
-        plan: this.property_plan,
-        status: this.property_status
-      };
-      let filter_form_config = {
-        initialFormData: new FormData(),
-        showLeafArrayIndexes: true,
-        includeNullValues: false,
-        mapping: function(value) {
-          if (typeof value === "boolean") {
-            return +value ? "1" : "0";
-          }
-          return value;
-        }
-      };
-      this.payload = jsonToFormData(filter_data, filter_form_config);
-      this.load_data(1);
-    },
     load_data(page = 1) {
       this.loading = !this.loading;
-      let url = `${this.data_url}?page=${page}`;
-      let config = {
-        header: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
+      let url = `${this.base_url}/api/user/property/favourite?page=${page}`;
       axios
-        .post(url, this.payload, config)
+        .get(url)
         .then(res => {
-          this.properties = res.data.data;
+          this.favourites = res.data.data;
           this.load_property_pagination_data(
             res.data.last_page,
             res.data.current_page,
@@ -297,7 +155,7 @@ export default {
         record_count: total_records
       };
     },
-    close_property(property_id) {
+    remove_fav_property(property_id) {
       const Toast = this.$swal.mixin({
         toast: true,
         position: "top-end",
@@ -312,13 +170,15 @@ export default {
       this.$swal
         .fire({
           icon: "warning",
-          title: "Close this Property",
+          title: "Remove Property",
           showCancelButton: true,
-          confirmButtonText: "Yes, CLose",
+          confirmButtonText: "Yes, Remove",
           showLoaderOnConfirm: true,
           preConfirm: upgrade_plan => {
             return axios
-              .get(`${this.base_url}/api/user/property/close/${property_id}`)
+              .get(
+                `${this.base_url}/api/user/property/favourite/remove/${property_id}`
+              )
               .then(res => {
                 return res;
               })
@@ -326,7 +186,7 @@ export default {
                 this.$swal.showValidationMessage(`Request failed: ${error}`);
               });
           },
-          allowOutsideClick: () => !Swal.isLoading()
+          allowOutsideClick: () => !this.$swal.isLoading()
         })
         .then(result => {
           if (result.value) {
@@ -334,72 +194,13 @@ export default {
               icon: "success",
               title: result.value.data
             });
-          }
-        });
-    },
-    delete_property(x) {},
-    upgrade_property(property_id) {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        onOpen: toast => {
-          toast.addEventListener("mouseenter", this.$swal.stopTimer);
-          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
-        }
-      });
-      this.$swal
-        .fire({
-          title: "Select Plan For Upgrade",
-          input: "select",
-          inputOptions: {
-            distress: "Distress",
-            featured: "Featured"
-          },
-          inputAttributes: {
-            autocapitalize: "off"
-          },
-          showCancelButton: true,
-          confirmButtonText: "Proceed",
-          showLoaderOnConfirm: true,
-          preConfirm: upgrade_plan => {
-            let payload = new FormData();
-            payload.append("property_id", property_id);
-            payload.append("plan", upgrade_plan);
-
-            return axios
-              .post(`${this.base_url}/api/user/property/upgrade`, payload)
-              .then(res => {
-                return res;
-              })
-              .catch(error => {
-                this.$swal.showValidationMessage(`Request failed: ${error}`);
-              });
-          },
-          allowOutsideClick: () => !Swal.isLoading()
-        })
-        .then(result => {
-          if (result.value) {
-            if (result.value.data.url) {
-              Toast.fire({
-                icon: "success",
-                title: "Redirecting you to make payment"
-              });
-              window.location = result.value.data.url;
-            } else {
-              Toast.fire({
-                icon: "info",
-                title: result.value.data
-              });
-            }
+            this.load_data()
           }
         });
     }
   },
   created() {
-    this.load_filter_data(1);
+    this.load_data(1);
   }
 };
 </script>

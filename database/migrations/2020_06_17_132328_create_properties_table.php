@@ -27,7 +27,7 @@ class CreatePropertiesTable extends Migration
       $table->unsignedBigInteger('subcategory_id');
       $table->unsignedBigInteger('state_id');
       $table->unsignedBigInteger('city_id');
-      $table->enum('status',['pending','active','disabled','reported','expired','closed'])->default('active');
+      $table->enum('status',['pending','active','declined','disabled','reported','expired','closed'])->default('active');
       $table->enum('list_as',['rent','sale'])->default('sale');
       $table->enum('plan',['free','distress','featured'])->default('free');
       $table->text('description');

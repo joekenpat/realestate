@@ -66,13 +66,22 @@ class CreateForeignKeys extends Migration
       $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
     });
 
-    Schema::table('favourite_property', function (Blueprint $table) {
+    Schema::table('favourite_properties', function (Blueprint $table) {
       $table->foreign('property_id')->references('id')->on('properties')->cascadeOnDelete();
       $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
     });
-    
-    Schema::table('viewed_property', function (Blueprint $table) {
+
+    Schema::table('property_views', function (Blueprint $table) {
       $table->foreign('property_id')->references('id')->on('properties')->cascadeOnDelete();
+      $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+    });
+
+    Schema::table('transaction_records', function (Blueprint $table) {
+      $table->foreign('property_id')->references('id')->on('properties')->cascadeOnDelete();
+      $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+    });
+
+    Schema::table('subscriptions', function (Blueprint $table) {
       $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
     });
   }
@@ -129,13 +138,21 @@ class CreateForeignKeys extends Migration
       $table->dropForeign('user_id');
     });
 
-    Schema::table('favourite_property', function (Blueprint $table) {
+    Schema::table('transaction_records', function (Blueprint $table) {
       $table->dropForeign('property_id');
       $table->dropForeign('user_id');
     });
 
-    Schema::table('viewed_property', function (Blueprint $table) {
+    Schema::table('favourite_properties', function (Blueprint $table) {
       $table->dropForeign('property_id');
+      $table->dropForeign('user_id');
+    });
+
+    Schema::table('property_views', function (Blueprint $table) {
+      $table->dropForeign('property_id');
+      $table->dropForeign('user_id');
+    });
+    Schema::table('subscriptions', function (Blueprint $table) {
       $table->dropForeign('user_id');
     });
   }

@@ -21,7 +21,6 @@ class CreateSubscriptionsTable extends Migration
       $table->timestamp('created_at', 6)->nullable()->default(null);
       $table->timestamp('updated_at', 6)->nullable()->default(null);
       $table->timestamp('deleted_at', 6)->nullable()->default(null);
-      $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
     });
   }
 

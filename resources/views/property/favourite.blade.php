@@ -225,5 +225,11 @@
   }
 </style>
 @endpush
-<user-favourite-list-property></user-favourite-list-property>
+<div class="uk-grid-collapse" uk-grid>
+  <div class="uk-visible@m uk-width-1-4 uk-padding-small">
+    @include('layouts.user_profile_card')
+  </div>
+  <div class="uk-width-1-1 uk-width-3-4@m uk-padding-small">
+    <user-favourite-list-property></user-favourite-list-property>
+  </div>
 @endsection

@@ -8,8 +8,10 @@ use App\Report;
 use App\SiteConfig;
 use App\Subcategory;
 use App\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
@@ -53,11 +55,71 @@ class AdminController extends Controller
 
   public function overview()
   {
-    $data = [
-      "labels" => ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    $pcounts = DB::table('properties')->selectRaw("DATE_FORMAT(created_at, '%H') as hour, count(id) as number")
+      ->where('created_at', '>=', now()->subHours(24))
+      ->groupBy('hour')
+      ->get()->toArray();
+    // return dd($counts);
+    $plabels = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',];
+    $pdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
+    foreach ($pcounts as $key =>  $count) {
+      $plabels[$key] = $count->hour;
+      $pdata[$key] = $count->number;
+    }
+    $tcounts = DB::table('transaction_records')->selectRaw("DATE_FORMAT(created_at, '%H') as hour, count(id) as number")
+      ->where('created_at', '>=', now()->subHours(24))
+      ->where('status','success')
+      ->groupBy('hour')
+      ->get()->toArray();
+    // return dd($counts);
+    $tlabels = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',];
+    $tdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
+    foreach ($tcounts as $key =>  $count) {
+      $tlabels[$key] = $count->hour;
+      $tdata[$key] = $count->number;
+    }
+    $ucounts = DB::table('users')->selectRaw("DATE_FORMAT(created_at, '%H') as hour, count(id) as number")
+      ->where('created_at', '>=', now()->subHours(24))
+      ->groupBy('hour')
+      ->get()->toArray();
+    // return dd($counts);
+    $ulabels = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',];
+    $udata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
+    foreach ($ucounts as $key =>  $count) {
+      $ulabels[$key] = $count->hour;
+      $udata[$key] = $count->number;
+    }
+    $pdata = [
+      "labels" => $plabels,
       "datasets" => [[
-        "label" => '# of Votes',
-        "data" => [12, 19, 3, 5, 4, 3],
+        "label" => 'No of Properties',
+        "data" => $pdata,
+        "backgroundColor" => 'rgba(255, 159, 64,0.6)',
+        "borderColor" => 'rgb(255, 159, 64)',
+        "pointRadius" => 0,
+        "borderWidth" => 2,
+        "barPercentage" => 0.9,
+        "categoryPercentage" => 1.0,
+      ]]
+    ];
+    $tdata = [
+      "labels" => $tlabels,
+      "datasets" => [[
+        "label" => 'No of Transaction',
+        "data" => $tdata,
+        "backgroundColor" => 'rgba(255, 159, 64,0.6)',
+        "borderColor" => 'rgb(255, 159, 64)',
+        "pointRadius" => 0,
+        "borderWidth" => 2,
+        "barPercentage" => 0.9,
+        "categoryPercentage" => 1.0,
+      ]]
+    ];
+    $udata = [
+      "labels" => $ulabels,
+      "datasets" => [[
+        "label" => 'No of Users',
+        "data" => $udata,
         "backgroundColor" => 'rgba(255, 159, 64,0.6)',
         "borderColor" => 'rgb(255, 159, 64)',
         "pointRadius" => 0,
@@ -86,7 +148,7 @@ class AdminController extends Controller
     ];
     $lastest_properties = Property::latest()->take(5)->get();
     $lastest_users = User::latest()->take(5)->get();
-    return view('admin.overview', ['data' => $data, 'options' => $options, 'latest_properties' => $lastest_properties, 'latest_users' => $lastest_users]);
+    return view('admin.overview', ['pdata' => $pdata,'tdata' => $tdata,'udata' => $udata, 'options' => $options, 'latest_properties' => $lastest_properties, 'latest_users' => $lastest_users]);
   }
 
   public function media_settings()
