@@ -25,8 +25,6 @@ class CreateTransactionRecordsTable extends Migration
       $table->timestamp('created_at', 6)->nullable()->default(null);
       $table->timestamp('updated_at', 6)->nullable()->default(null);
       $table->timestamp('deleted_at', 6)->nullable()->default(null);
-      $table->foreign('property_id')->references('id')->on('properties')->cascadeOnDelete();
-      $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
     });
   }
 
