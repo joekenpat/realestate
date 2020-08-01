@@ -225,7 +225,11 @@
     @include('layouts.user_profile_card')
   </div>
   <!-----nav links for desktop end here----->
-  <edit-profile-form form_action="{{route('api_update')}}" :init_data="{{$user}}" />
+
+  <!-----poast ads start here----->
+  <div class="uk-width-1-1 uk-width-3-4@m uk-padding-small">
+    <edit-profile-form form_action="{{route('api_update')}}" :init_data="{{$user}}" />
+    <!-----post ads end here----->
   </div>
 
 
