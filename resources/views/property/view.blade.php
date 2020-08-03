@@ -220,7 +220,7 @@
   }
 
   .view-ad-image {
-    height: 75vh;
+    height: 55vh;
     object-fit: cover;
   }
 </style>
