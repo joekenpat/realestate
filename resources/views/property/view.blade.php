@@ -220,8 +220,8 @@
   }
 
   .view-ad-image {
-    height: 55vh;
     object-fit: cover;
+    max-height: 500px;
   }
 </style>
 @endpush
@@ -229,10 +229,12 @@
 <div class="uk-grid-collapse " uk-grid>
   <div class="uk-width-3-4@m uk-width-1-1@s uk-padding-remove  view-ad-page">
     <div class="uk-container  uk-padding-small ">
-      <div class="uk-card uk-card-default uk-card-body uk-padding-small uk-border-rounded">
-        <h3 class=" uk-margin-remove-bottom"><b>{{$property->title}}</b></h3>
-        <h4 class="uk-text-bold uk-margin-remove-vertical uk-margin-auto-left">
-          &#8358;{{number_format($property->price)}}</h4>
+      <div class="uk-card uk-card-default uk-padding-remove uk-border-rounded">
+        <div class="uk-card-header">
+          <h3 class=" uk-margin-remove-bottom"><b>{{$property->title}}</b></h3>
+          <h4 class="uk-text-bold uk-margin-remove-vertical uk-margin-auto-left">
+            &#8358;{{number_format($property->price)}}</h4>
+        </div>
         <div class="uk-padding-small uk-flex uk-flex-between">
           <div>
             <span class="uk-icon-button uk-margin-small-right" uk-icon="location"
@@ -249,13 +251,13 @@
         <div>
 
           <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1"
-            uk-slideshow="clsActivated: uk-transition-active; center: true;">
+            uk-slideshow="clsActivated: uk-transition-active; center: true;autoplay:true;min-height: 300; max-height: 500">
 
             <ul class="uk-slideshow-items">
               @foreach ($property->images as $img)
               <li class="">
                 <div class="uk-panel">
-                  <img class="view-ad-image" src="{{asset(sprintf('images/properties/%s/%s',$property->id,$img))}}"
+                  <img class="view-ad-image uk-width-1-1" src="{{asset(sprintf('images/properties/%s/%s',$property->id,$img))}}"
                     alt="">
                 </div>
               </li>
@@ -375,7 +377,8 @@
         <div>
           <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <i
               class="uk-icon-button uk-margin-small-right" uk-icon="location"
-              style="color: black; background-color:whitesmoke"></i> {{$property->user->state?$property->user->state->name:"N/A"}},
+              style="color: black; background-color:whitesmoke"></i>
+            {{$property->user->state?$property->user->state->name:"N/A"}},
             {{$property->user->city?$property->user->city->name:"N/A"}}</p>
           <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <i
               class="uk-icon-button uk-margin-small-right" uk-icon="mail"
