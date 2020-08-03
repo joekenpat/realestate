@@ -377,13 +377,13 @@
 
 <!---latest properties start here---->
 <div class="top-post uk-text-center uk-margin">
-  <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Distress Properties</b><i
+  <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Recent Properties</b><i
       class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i></h3>
 </div>
 <div class="uk-container">
   <div class="uk-position-relative uk-visible-toggle">
     <div class="uk-grid uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-1 uk-grid-small">
-      @foreach ($distress_properties as $property)
+      @foreach ($recent_properties as $property)
       <div class="ads-listing my-margin uk-margin-small-bottom">
         <div class="uk-container uk-padding-remove uk-margin ">
           <div class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text">
@@ -458,7 +458,7 @@
 </div>
 <!---latest properties view all button-->
 <div class="uk-text-center">
-  <a href="{{route('property_listing',['sort_by'=>'created_at','plan'=>'distress'])}}" class="uk-button "
+  <a href="{{route('property_listing',['sort_by'=>'created_at','plan'=>'all'])}}" class="uk-button "
     style="background-color:#87ceeb;color:white; border-radius: 10px; margin-bottom: 20px ">View All</a>
 </div>
 <!---top properties start here---->

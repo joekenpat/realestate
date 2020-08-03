@@ -230,14 +230,14 @@ class HomeController extends Controller
       ->when($findable, function ($query) use ($findable) {
         return $query->search($findable);
       })
-      ->orderBy($item_sort_by, $item_sort_type)
+      ->latest()
       ->take(8)->get()->append(request()->query());
 
-    $distress_properties = Property::with([
+    $recent_properties = Property::with([
       'user', 'user.state', 'user.city', 'tags', 'amenities', 'specifications',
       'category', 'subcategory', 'state', 'city',
     ])->withCount(['favourites', 'views'])
-      ->where('plan', 'distress')
+      ->where('plan', 'all')
       ->when($item_state, function ($query) use ($item_state) {
         return $query->whereIn('state_id', $item_state);
       })
@@ -265,6 +265,6 @@ class HomeController extends Controller
       ->orderBy($item_sort_by, $item_sort_type)
       ->take(8)->get()->append(request()->query());
     $site_home_slider = SiteConfig::where('key', 'home_slider')->firstOrFail();
-    return view('homepage', ['slider_images' => json_decode($site_home_slider->value), 'featured_properties' => $featured_properties, 'distress_properties' => $distress_properties, 'categories' => $categories, 'states' => $states]);
+    return view('homepage', ['slider_images' => json_decode($site_home_slider->value), 'featured_properties' => $featured_properties, 'recent_properties' => $recent_properties, 'categories' => $categories, 'states' => $states]);
   }
 }
