@@ -244,21 +244,16 @@
               uk-icon="icon: heart">
               Like
             </a> --}}
-          <a href="{{route('report_property',['property_id'=>$property->id])}}"
-            class="uk-button uk-button-danger uk-button-small uk-border-rounded" style="color:#fff"
-            uk-icon="icon: warning">
-            Report This Ad
-          </a>
           </span>
         </div>
         <div>
 
           <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1"
-            uk-slider="clsActivated: uk-transition-active; center: true;finite: true;">
+            uk-slideshow="clsActivated: uk-transition-active; center: true;">
 
-            <ul class="uk-slider-items uk-grid">
+            <ul class="uk-slideshow-items">
               @foreach ($property->images as $img)
-              <li class="uk-width-3-4">
+              <li class="">
                 <div class="uk-panel">
                   <img class="view-ad-image" src="{{asset(sprintf('images/properties/%s/%s',$property->id,$img))}}"
                     alt="">
@@ -268,9 +263,9 @@
             </ul>
 
             <a class="uk-position-center-left uk-position-small uk-hidden-hover" style="background:black" href="#"
-              uk-slidenav-previous uk-slider-item="previous"></a>
+              uk-slidenav-previous uk-slideshow-item="previous"></a>
             <a class="uk-position-center-right uk-position-small uk-hidden-hover" style="background:black" href="#"
-              uk-slidenav-next uk-slider-item="next"></a>
+              uk-slidenav-next uk-slideshow-item="next"></a>
 
           </div>
 
