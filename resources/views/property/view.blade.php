@@ -251,7 +251,7 @@
         <div>
 
           <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1"
-            uk-slideshow="clsActivated: uk-transition-active; center: true;autoplay:true;min-height: 300; max-height: 500">
+            uk-slideshow="clsActivated: uk-transition-active; center: true;autoplay:true;max-height: 500">
 
             <ul class="uk-slideshow-items">
               @foreach ($property->images as $img)
