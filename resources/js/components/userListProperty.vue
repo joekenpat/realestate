@@ -102,7 +102,7 @@
               <a href="#">{{ property.category.name }}</a> &gt;
               <a href="#">{{ property.subcategory.name }}</a>
             </td>
-            <td>N{{ property.price }}</td>
+            <td>&#8358;{{ number_format(property.price) }}</td>
             <td>
               <span
                 :class="[
@@ -181,6 +181,17 @@ export default {
         page_count: 0,
         current_page: 1
       },
+      Toast: this.$swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: toast => {
+          toast.addEventListener("mouseenter", this.$swal.stopTimer);
+          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
+        }
+      }),
       plan_map: ["free", "distress", "featured"],
       status_map: [
         "active",
@@ -240,28 +251,12 @@ export default {
         });
     },
     load_filter_data() {
-      this.data_url = `${this.base_url}/api/user/property/list`;
-      let filter_data = {
-        plan: this.property_plan,
-        status: this.property_status
-      };
-      let filter_form_config = {
-        initialFormData: new FormData(),
-        showLeafArrayIndexes: true,
-        includeNullValues: false,
-        mapping: function(value) {
-          if (typeof value === "boolean") {
-            return +value ? "1" : "0";
-          }
-          return value;
-        }
-      };
-      this.payload = jsonToFormData(filter_data, filter_form_config);
+      this.data_url = `${this.base_url}/api/user/property/list?plan=${this.property_plan}&status=${this.property_status}`;
       this.load_data(1);
     },
     load_data(page = 1) {
       this.loading = !this.loading;
-      let url = `${this.data_url}?page=${page}`;
+      let url = `${this.data_url}&page=${page}`;
       let config = {
         header: {
           "Content-Type": "multipart/form-data"
@@ -283,6 +278,9 @@ export default {
           this.loading = !this.loading;
         });
     },
+    number_format(x) {
+      return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    },
     property_page_swap(page = this.property_pagination_data.current_page) {
       if (page > this.property_pagination_data.page_count || page < 1) {
         let page = 1;
@@ -298,17 +296,6 @@ export default {
       };
     },
     close_property(property_id) {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        onOpen: toast => {
-          toast.addEventListener("mouseenter", this.$swal.stopTimer);
-          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
-        }
-      });
       this.$swal
         .fire({
           icon: "warning",
@@ -330,26 +317,43 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            Toast.fire({
+            this.Toast.fire({
               icon: "success",
               title: result.value.data
             });
           }
         });
     },
-    delete_property(x) {},
+    delete_property(property_id) {
+      this.$swal
+        .fire({
+          icon: "error",
+          title: "Delete this Property",
+          showCancelButton: true,
+          confirmButtonText: "Yes, Delete",
+          showLoaderOnConfirm: true,
+          preConfirm: upgrade_plan => {
+            return axios
+              .get(`${this.base_url}/api/user/property/delete/${property_id}`)
+              .then(res => {
+                return res;
+              })
+              .catch(error => {
+                this.$swal.showValidationMessage(`Request failed: ${error}`);
+              });
+          },
+          allowOutsideClick: () => !this.$swal.isLoading()
+        })
+        .then(result => {
+          if (result.value) {
+            this.Toast.fire({
+              icon: "success",
+              title: result.value.data
+            });
+          }
+        });
+    },
     upgrade_property(property_id) {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        onOpen: toast => {
-          toast.addEventListener("mouseenter", this.$swal.stopTimer);
-          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
-        }
-      });
       this.$swal
         .fire({
           title: "Select Plan For Upgrade",
@@ -383,13 +387,13 @@ export default {
         .then(result => {
           if (result.value) {
             if (result.value.data.url) {
-              Toast.fire({
+              this.Toast.fire({
                 icon: "success",
                 title: "Redirecting you to make payment"
               });
               window.location = result.value.data.url;
             } else {
-              Toast.fire({
+              this.Toast.fire({
                 icon: "info",
                 title: result.value.data
               });

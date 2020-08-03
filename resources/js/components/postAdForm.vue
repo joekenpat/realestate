@@ -3,7 +3,9 @@
     <div
       class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small uk-border-rounded"
     >
-      <h3 class="uk-padding-small"><b style="color: #87ceeb">Post Ads</b></h3>
+      <h3 class="uk-padding-small">
+        <b style="color: #87ceeb">{{ property_action }} Property</b>
+      </h3>
       <hr class="uk-margin-remove" />
       <form
         class="uk-grid-small uk-padding-small"
@@ -11,10 +13,11 @@
         :action="form_action"
         enctype="multipart/form-data"
         @submit.prevent="post_ad"
+        autocomplete="off"
         uk-grid
       >
         <div class="uk-width-1-1@s">
-          <label class="uk-form-label"><b>Ad Title</b></label>
+          <label class="uk-form-label"><b>Property Title</b></label>
           <input
             class="uk-input"
             :class="{ 'uk-form-danger': error.title != null }"
@@ -145,14 +148,14 @@
         </div>
         <div class="uk-width-1-3@s">
           <div class="uk-margin">
-            <label class="uk-form-label"><b>City</b></label>
+            <label class="uk-form-label"><b>LGA</b></label>
             <model-list-select
               @searchchange="load_city"
               :list="city_data"
               option-value="id"
               option-text="name"
               v-model="city"
-              placeholder="select city"
+              placeholder="select LGA"
             >
             </model-list-select>
             <span v-show="error.city_id != null" class="uk-text-danger">{{
@@ -161,7 +164,7 @@
           </div>
         </div>
         <div class="uk-width-1-3@s">
-          <label class="uk-form-label"><b>Ad Price</b></label>
+          <label class="uk-form-label"><b>Property Price</b></label>
           <input
             class="uk-input"
             :class="{ 'uk-form-danger': error.price != null }"
@@ -175,7 +178,7 @@
           }}</span>
         </div>
         <div class="uk-width-1-2@s">
-          <label class="uk-form-label"><b>Ad Post Package</b></label>
+          <label class="uk-form-label"><b>Property Plan</b></label>
           <div class="uk-form-controls">
             <label
               ><input
@@ -186,7 +189,7 @@
                 v-model="plan"
                 checked
               />
-              Free N0</label
+              Free &#8358;0</label
             ><br />
 
             <label
@@ -197,7 +200,7 @@
                 v-model="plan"
                 value="distress"
               />
-              Distress N{{ plan_fee.distress }}</label
+              Distress &#8358;{{ plan_fee.distress }}</label
             ><br />
             <label
               ><input
@@ -207,7 +210,7 @@
                 value="featured"
                 v-model="plan"
               />
-              Featured N{{ plan_fee.featured }}</label
+              Featured &#8358;{{ plan_fee.featured }}</label
             ><br />
             <span v-show="error.plan != null" class="uk-text-danger">{{
               error.plan
@@ -424,7 +427,7 @@
             error.tags
           }}</span>
         </div>
-        <div class="uk-width-1-1@s">
+        <div v-if="Object.keys(old_images).length > 0" class="uk-width-1-1@s">
           <label class="uk-form-label"><b>Old Images</b></label>
           <ul class="uk-thumbnav" uk-margin>
             <li class="uk-active" v-for="(image, k) in old_images" :key="k">
@@ -434,10 +437,9 @@
                 class=" uk-display-block"
                 style="object-fit:cover;"
                 :alt="'old_property_image_' + parseInt(k)"
-
               /><button
-              :disabled="loading"
-              @click="delete_old_image(image)"
+                :disabled="loading"
+                @click="delete_old_image(image)"
                 class="uk-button uk-button-small uk-button-danger uk-width-1-1"
               >
                 Remove <span v-show="loading" uk-spinner="ratio:.5;"></span>
@@ -497,7 +499,8 @@
               type="submit"
               class="uk-button uk-button-default uk-width-1-1 uk-margin-small-top"
             >
-              Submit <span v-show="loading" uk-spinner="ratio:.5;"></span>
+              {{ property_action }}
+              <span v-show="loading" uk-spinner="ratio:.5;"></span>
             </button>
           </div>
         </div>
@@ -522,6 +525,17 @@ export default {
       description: "",
       address: "",
       plan: "free",
+      Toast: this.$swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: toast => {
+          toast.addEventListener("mouseenter", this.$swal.stopTimer);
+          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
+        }
+      }),
       base_url: window.location.origin,
       categories: [],
       subcategories: [],
@@ -593,21 +607,12 @@ export default {
     },
     delete_old_image(x) {
       this.loading = true;
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        onOpen: toast => {
-          toast.addEventListener("mouseenter", this.$swal.stopTimer);
-          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
-        }
-      });
       axios
-        .get(`${this.base_url}/user/property/${this.init_data.id}/delete/image/${x}`)
+        .get(
+          `${this.base_url}/user/property/${this.init_data.id}/delete/image/${x}`
+        )
         .then(res => {
-          Toast.fire({
+          this.Toast.fire({
             icon: "success",
             title: res.data
           });
@@ -617,13 +622,13 @@ export default {
           const { status } = err.response;
           if (status === 401) {
             console.log(err.response.data);
-            Toast.fire({
+            this.Toast.fire({
               icon: "error",
               title: "Unauthorized!"
             });
           } else if (status === 422) {
             Toast;
-            Toast.fire({
+            this.Toast.fire({
               icon: "error",
               title: err.response.data.statusText
             });
@@ -770,17 +775,6 @@ export default {
       }
     },
     post_ad() {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        onOpen: toast => {
-          toast.addEventListener("mouseenter", this.$swal.stopTimer);
-          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
-        }
-      });
       this.loading = true;
       let ad_form_data = {
         title: this.title,
@@ -822,14 +816,14 @@ export default {
         .then(res => {
           this.reset_fields();
           if (res.data.url) {
-            Toast.fire({
+            this.Toast.fire({
               icon: "success",
               title: "Property Uploaded, Redirecting to Payment Gateway"
             });
             this.loading = false;
             window.location = res.data.url;
           } else {
-            Toast.fire({
+            this.Toast.fire({
               icon: "success",
               title: res.data
             });
@@ -837,11 +831,11 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err)
+          console.log(err);
           const { status } = err.response;
           if (status === 401) {
             console.log(err.response.data);
-            Toast.fire({
+            this.Toast.fire({
               icon: "error",
               title: "Unauthorized!"
             });
@@ -893,7 +887,7 @@ export default {
               ? err.response.data.errors.tags[0]
               : null;
 
-            Toast.fire({
+            this.Toast.fire({
               icon: "error",
               title: "Check in some of those fields"
             });
@@ -922,6 +916,11 @@ export default {
     plan_fee: {
       required: true,
       type: Object
+    },
+    property_action: {
+      required: true,
+      type: String,
+      default: "Post"
     }
   },
   created() {

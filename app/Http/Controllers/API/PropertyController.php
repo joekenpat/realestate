@@ -115,7 +115,7 @@ class PropertyController extends Controller
           $item_status = ['active', 'reported'];
         }
       } else {
-        $item_status = false;
+        $item_status = ['active', 'reported'];
       }
 
       if ($plan = $request->has('plan')) {
@@ -386,87 +386,24 @@ class PropertyController extends Controller
         return 9;
       }
     };
-
-    if (Auth()->user()->is_user()) {
-      try {
-        $properties = Property::with('user:first_name,last_name,username,phone,email,avatar,verification_status')
-          ->with('tags:name')
-          ->with('amenities:name,value')
-          ->with('specifications:name,value')
-          ->with('category')
-          ->with('subcategory')
-          ->with('state')
-          ->with('city')
-          ->where('user_id', Auth()->user()->id)
-          ->whereIn('category_id', $item_category())
-          ->whereIn('subcategory_id', $item_subcategory())
-          ->whereIn('status', $item_status())
-          ->whereIn('plan', $item_plan())
-          ->whereIn('list_as', $item_list_as())
-          ->whereBetween('price', [$item_min_price, $item_max_price])
-          ->orderBy($item_sort_by(), $item_sort_type())
-          ->paginate($item_result_count());
-        return response()->json($properties, Response::HTTP_OK);
-      } catch (\Exception $e) {
-        return response()->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
-      }
-    } elseif (Auth()->user()->is_agent()) {
-      try {
-        $properties = Property::with('users:first_name,last_name,username,phone,email,avatar,verification_status')
-          ->with('tags:name')
-          ->with('amenities:name,value')
-          ->with('specifications:name,value')
-          ->with('categories:name')
-          ->with('subcategories:name')
-          ->where('user_id', Auth()->user()->id)
-          ->whereIn('category_id', $item_category())
-          ->whereIn('subcategory_id', $item_subcategory())
-          ->where('status', $item_status())
-          ->whereBetween('price', [$item_min_price, $item_max_price])
-          ->orderBy($item_sort_by(), $item_sort_type())
-          ->paginate($item_result_count());;
-        $success['data'] = $properties;
-        return response()->json([
-          'success' => $success,
-        ], Response::HTTP_OK);
-      } catch (ModelNotFoundException $mnt) {
-        return response()->json([
-          'error' => 'No Item Found',
-        ], Response::HTTP_NOT_FOUND);
-      } catch (\Exception $e) {
-        return response()->json([
-          'error' => sprintf("message: %s. Error File: %s. Error Line: %s", $e->getMessage(), $e->getFile(), $e->getLine()),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
-      }
-    } elseif (Auth()->user()->is_admin()) {
-      try {
-        $properties = Property::with('users:first_name,last_name,username,phone,email,avatar,verification_status')
-          ->with('tags:name')
-          ->with('amenities:name,value')
-          ->with('specifications:name,value')
-          ->with('categories:name')
-          ->with('subcategories:name')
-          ->where('user_id', Auth()->user()->id)
-          ->whereIn('category_id', $item_category())
-          ->whereIn('subcategory_id', $item_subcategory())
-          ->where('status', $item_status())
-          ->whereBetween('price', [$item_min_price, $item_max_price])
-          ->orderBy($item_sort_by(), $item_sort_type())
-          ->paginate($item_result_count());
-
-        $success['data'] = $properties;
-        return response()->json([
-          'success' => $success,
-        ], Response::HTTP_OK);
-      } catch (ModelNotFoundException $mnt) {
-        return response()->json([
-          'error' => 'No Item Found',
-        ], Response::HTTP_NOT_FOUND);
-      } catch (\Exception $e) {
-        return response()->json([
-          'error' => sprintf("message: %s. Error File: %s. Error Line: %s", $e->getMessage(), $e->getFile(), $e->getLine()),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
-      }
+    try {
+      $properties = Property::with([
+        'user', 'user.state', 'user.city',
+        'tags', 'amenities', 'specifications',
+        'category', 'subcategory', 'state', 'city'
+      ])
+        ->where('user_id', Auth()->user()->id)
+        ->whereIn('category_id', $item_category())
+        ->whereIn('subcategory_id', $item_subcategory())
+        ->whereIn('status', $item_status())
+        ->whereIn('plan', $item_plan())
+        ->whereIn('list_as', $item_list_as())
+        ->whereBetween('price', [$item_min_price, $item_max_price])
+        ->orderBy($item_sort_by(), $item_sort_type())
+        ->paginate($item_result_count());
+      return response()->json($properties, Response::HTTP_OK);
+    } catch (\Exception $e) {
+      return response()->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -597,7 +534,7 @@ class PropertyController extends Controller
       'list_as' => 'required|string|',
       'plan' => 'required|string|',
       'description' => 'nullable|string|',
-      'tags.*' => 'alpha_dash',
+      'tags.*' => 'string',
       'amenities' => 'array|min:0',
       'amenities.*.name' => 'required_unless:amenities.*,null|string',
       'amenities.*.value' => 'required_unless:amenities.*,null|string',
@@ -1226,7 +1163,7 @@ class PropertyController extends Controller
           $property->reported_at = now();
         }
         $property->update();
-        $property_owner = User::where('id',$property->user_id)->firstOrFail();
+        $property_owner = User::where('id', $property->user_id)->firstOrFail();
         // $property_owner->notify(new PropertyStatusChanged($property_owner,$property));
         return response()->json(sprintf("Property is now %s !", ucwords($property_status)), Response::HTTP_OK);
       } catch (ModelNotFoundException $mnt) {

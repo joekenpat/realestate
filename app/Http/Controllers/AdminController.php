@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Post;
 use App\Property;
 use App\Report;
 use App\SiteConfig;
 use App\Subcategory;
+use App\TransactionRecord;
 use App\User;
 use Carbon\Carbon;
 use Exception;
@@ -146,9 +148,13 @@ class AdminController extends Controller
       ],
 
     ];
+    $total_properties = Property::count();
+    $total_users = User::count();
+    $total_transactions = TransactionRecord::where('status','success')->count();
+    $total_posts = Post::count();
     $lastest_properties = Property::latest()->take(5)->get();
     $lastest_users = User::latest()->take(5)->get();
-    return view('admin.overview', ['pdata' => $pdata,'tdata' => $tdata,'udata' => $udata, 'options' => $options, 'latest_properties' => $lastest_properties, 'latest_users' => $lastest_users]);
+    return view('admin.overview', ['total_users'=>$total_users,'total_transactions'=>$total_transactions,'total_posts'=>$total_posts,'total_properties'=>$total_properties,'pdata' => $pdata,'tdata' => $tdata,'udata' => $udata, 'options' => $options, 'latest_properties' => $lastest_properties, 'latest_users' => $lastest_users]);
   }
 
   public function media_settings()

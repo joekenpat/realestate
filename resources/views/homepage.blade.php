@@ -245,7 +245,7 @@
                   <div class="uk-margin">
                     <div class="uk-form-controls">
                       <select class="uk-select" id="state" name="state">
-                        <option value="all">All</option>
+                        <option value="all">Select State</option>
                         @foreach ($states as $state)
                         <option value="{{$state->id}}">{{ucwords($state->name)}}</option>
                         @endforeach
@@ -257,7 +257,7 @@
                   <div class="uk-margin">
                     <div class="uk-form-controls">
                       <select class="uk-select" id="category" name="category">
-                        <option value="all">All</option>
+                        <option value="all">Select Category</option>
                         @foreach ($categories as $category)
                         <option value="{{$category->id}}">{{ucwords($category->name)}}</option>
                         @endforeach
@@ -289,97 +289,83 @@
 
 <!---top properties start here---->
 <div class="top-post uk-text-center uk-margin">
-  <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Top Properties
+  <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Featured Properties
     </b><i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i></h3>
 </div>
 <div class="uk-container">
-  <div uk-slider="center: true">
+  <div class="uk-position-relative uk-visible-toggle">
+    <div class="uk-grid uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-1 uk-grid-small">
+      @foreach ($featured_properties as $property)
+      <div class="ads-listing my-margin uk-margin-small-bottom">
+        <div class="uk-container uk-padding-remove uk-margin ">
+          <div class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text">
+            <a href="{{route('view_property',['property_id'=>$property->id])}}" class="uk-link-reset">
+              <div class="uk-card-media-top ">
+                <img class="home_ad_list_thumb"
+                  src="{{asset(sprintf('images/properties/%s/%s',$property->id,$property->images[0]))}}" alt="" />
 
-    <div class="uk-position-relative uk-visible-toggle" tabindex="-1">
-
-      <ul class="uk-slider-items uk-child-width-1-3@m uk-child-width-1-2@s uk-child-width-1-1 uk-grid-small">
-        @foreach ($properties as $property)
-        <li class="ads-listing my-margin">
-          <div class="uk-container uk-padding-remove uk-margin ">
-            <div class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text">
-              <a href="{{route('view_property',['property_id'=>$property->id])}}" class="uk-link-reset">
-                <div class="uk-card-media-top ">
-                  <img class="home_ad_list_thumb"
-                    src="{{asset(sprintf('images/properties/%s/%s',$property->id,$property->images[0]))}}" alt="" />
-
-                  @if($property->plan == 'featured')
-                  <!--featured start here-->
-                  <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                    style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: #FFD700; color: white ">
-                    <p class="uk-text-small" style="padding:0px 6px">
-                      <i uk-icon="icon:star; ratio:1" style="color:white;"></i>
-                      For {{ $property->list_as }}
-                    </p>
-                  </div>
-                  <!--featured end here-->
-                  @elseif($property->plan == 'distress')
-                  <!--distress start here-->
-                  <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                    style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white ">
-                    <p class="uk-text-small" style="padding:0px 6px">
-                      <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
-                      For {{ $property->list_as }}
-                    </p>
-                  </div>
-                  <!--distress end here-->
-                  @else
-                  <!--free start here-->
-                  <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                    style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color:black; color: white ">
-                    <P class="uk-text-small" style="padding:0px 6px">
-                      <i uk-icon="icon:bell; ratio:1" style="color:white;"></i>For {{ $property->list_as }}</P>
-                  </div>
-                  <!--free end here-->
-                  @endif
-                  <!--like ad start here-->
-                  <button class="uk-position-top-right uk-button uk-position-small uk-border-pill"
-                    style="color: #FFD700; background:#fff; padding:0px 6px">
-                    <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourites_count}}
-                  </button>
-                  <!--like ad end here-->
-                </div>
-                <div class="uk-card-body uk-text-center uk-padding-small">
-                  <h4 class="my-card-title">
-                    <i style="color:#adf802;" uk-icon="icon:hashtag"></i>{{ number_format($property->price) }}
-                  </h4>
-
-                  <p class="uk-text-small">
-                    <i style="color: #87ceeb;" uk-icon="icon:location; ratio:.8"></i>
-                    {{ $property->city->name }}, {{ $property->state->name }}
+                @if($property->plan == 'featured')
+                <!--featured start here-->
+                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: #FFD700; color: white ">
+                  <p class="uk-text-small" style="padding:0px 6px">
+                    <i uk-icon="icon:star; ratio:1" style="color:white;"></i>
+                    For {{ $property->list_as }}
                   </p>
-                  <div class="uk-text-small" uk-grid>
-                    <div class="uk-width-1-2">
-                      <p>
-                        {{ $property->specifications[0]->name }}
-                        {{ $property->specifications[0]->value }}
-                      </p>
-                    </div>
-                    <div class="uk-width-1-2">
-                      <p>{{ $property->created_at->diffForHumans() }}</p>
-                    </div>
+                </div>
+                <!--featured end here-->
+                @elseif($property->plan == 'distress')
+                <!--distress start here-->
+                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white ">
+                  <p class="uk-text-small" style="padding:0px 6px">
+                    <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
+                    For {{ $property->list_as }}
+                  </p>
+                </div>
+                <!--distress end here-->
+                @else
+                <!--free start here-->
+                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color:black; color: white ">
+                  <P class="uk-text-small" style="padding:0px 6px">
+                    <i uk-icon="icon:bell; ratio:1" style="color:white;"></i>For {{ $property->list_as }}</P>
+                </div>
+                <!--free end here-->
+                @endif
+                <!--like ad start here-->
+                <button class="uk-position-top-right uk-button uk-position-small uk-border-pill"
+                  style="color: #FFD700; background:#fff; padding:0px 6px">
+                  <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourites_count}}
+                </button>
+                <!--like ad end here-->
+              </div>
+              <div class="uk-card-body uk-text-center uk-padding-small">
+                <h4 class="my-card-title" style="color:#adf802;">&#8358;{{ number_format($property->price) }}
+                </h4>
+
+                <p class="uk-text-small">
+                  <i style="color: #87ceeb;" uk-icon="icon:location; ratio:.8"></i>
+                  {{ $property->city->name }}, {{ $property->state->name }}
+                </p>
+                <div class="uk-text-small" uk-grid>
+                  <div class="uk-width-1-2">
+                    <p class=" uk-text-capitalize">
+                      {{ $property->specifications[0]->name }}:
+                      {{ $property->specifications[0]->pivot->value }}
+                    </p>
+                  </div>
+                  <div class="uk-width-1-2">
+                    <p>Posted: {{ $property->created_at->diffForHumans() }}</p>
                   </div>
                 </div>
-              </a>
-            </div>
+              </div>
+            </a>
           </div>
-        </li>
-        @endforeach
-      </ul>
-
-      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
-        uk-slider-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
-        uk-slider-item="next"></a>
-
+        </div>
+      </div>
+      @endforeach
     </div>
-
-    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
-
   </div>
 </div>
 <!---top properties view all button-->
@@ -391,102 +377,88 @@
 
 <!---latest properties start here---->
 <div class="top-post uk-text-center uk-margin">
-  <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Latest Properties</b><i
+  <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Distress Properties</b><i
       class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i></h3>
 </div>
 <div class="uk-container">
-  <div uk-slider="center: true">
+  <div class="uk-position-relative uk-visible-toggle">
+    <div class="uk-grid uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-1 uk-grid-small">
+      @foreach ($distress_properties as $property)
+      <div class="ads-listing my-margin uk-margin-small-bottom">
+        <div class="uk-container uk-padding-remove uk-margin ">
+          <div class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text">
+            <a href="{{route('view_property',['property_id'=>$property->id])}}" class="uk-link-reset">
+              <div class="uk-card-media-top ">
+                <img class="home_ad_list_thumb"
+                  src="{{asset(sprintf('images/properties/%s/%s',$property->id,$property->images[0]))}}" alt="" />
 
-    <div class="uk-position-relative uk-visible-toggle" tabindex="-1">
-
-      <ul class="uk-slider-items uk-child-width-1-3@m uk-child-width-1-2@s uk-child-width-1-1 uk-grid-small">
-        @foreach ($properties as $property)
-        <li class="ads-listing my-margin">
-          <div class="uk-container uk-padding-remove uk-margin ">
-            <div class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text">
-              <a href="{{route('view_property',['property_id'=>$property->id])}}" class="uk-link-reset">
-                <div class="uk-card-media-top ">
-                  <img class="home_ad_list_thumb"
-                    src="{{asset(sprintf('images/properties/%s/%s',$property->id,$property->images[0]))}}" alt="" />
-
-                  @if($property->plan == 'featured')
-                  <!--featured start here-->
-                  <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                    style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: #FFD700; color: white ">
-                    <p class="uk-text-small" style="padding:0px 6px">
-                      <i uk-icon="icon:star; ratio:1" style="color:white;"></i>
-                      For {{ $property->list_as }}
-                    </p>
-                  </div>
-                  <!--featured end here-->
-                  @elseif($property->plan == 'distress')
-                  <!--distress start here-->
-                  <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                    style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white ">
-                    <p class="uk-text-small" style="padding:0px 6px">
-                      <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
-                      For {{ $property->list_as }}
-                    </p>
-                  </div>
-                  <!--distress end here-->
-                  @else
-                  <!--free start here-->
-                  <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                    style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color:black; color: white ">
-                    <P class="uk-text-small" style="padding:0px 6px">
-                      <i uk-icon="icon:bell; ratio:1" style="color:white;"></i>For {{ $property->list_as }}</P>
-                  </div>
-                  <!--free end here-->
-                  @endif
-                  <!--like ad start here-->
-                  <button class="uk-position-top-right uk-button uk-position-small uk-border-pill"
-                    style="color: #FFD700; background:#fff; padding:0px 6px">
-                    <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourites_count}}
-                  </button>
-                  <!--like ad end here-->
-                </div>
-                <div class="uk-card-body uk-text-center uk-padding-small">
-                  <h4 class="my-card-title">
-                    <i style="color:#adf802;" uk-icon="icon:hashtag"></i>{{ number_format($property->price) }}
-                  </h4>
-
-                  <p class="uk-text-small">
-                    <i style="color: #87ceeb;" uk-icon="icon:location; ratio:.8"></i>
-                    {{ $property->city->name }}, {{ $property->state->name }}
+                @if($property->plan == 'featured')
+                <!--featured start here-->
+                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: #FFD700; color: white ">
+                  <p class="uk-text-small" style="padding:0px 6px">
+                    <i uk-icon="icon:star; ratio:1" style="color:white;"></i>
+                    For {{ $property->list_as }}
                   </p>
-                  <div class="uk-text-small" uk-grid>
-                    <div class="uk-width-1-2">
-                      <p>
-                        {{ $property->specifications[0]->name }}
-                        {{ $property->specifications[0]->value }}
-                      </p>
-                    </div>
-                    <div class="uk-width-1-2">
-                      <p>{{ $property->created_at->diffForHumans() }}</p>
-                    </div>
+                </div>
+                <!--featured end here-->
+                @elseif($property->plan == 'distress')
+                <!--distress start here-->
+                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white ">
+                  <p class="uk-text-small" style="padding:0px 6px">
+                    <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
+                    For {{ $property->list_as }}
+                  </p>
+                </div>
+                <!--distress end here-->
+                @else
+                <!--free start here-->
+                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color:black; color: white ">
+                  <P class="uk-text-small" style="padding:0px 6px">
+                    <i uk-icon="icon:bell; ratio:1" style="color:white;"></i>For {{ $property->list_as }}</P>
+                </div>
+                <!--free end here-->
+                @endif
+                <!--like ad start here-->
+                <button class="uk-position-top-right uk-button uk-position-small uk-border-pill"
+                  style="color: #FFD700; background:#fff; padding:0px 6px">
+                  <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourites_count}}
+                </button>
+                <!--like ad end here-->
+              </div>
+              <div class="uk-card-body uk-text-center uk-padding-small">
+                <h4 class="my-card-title" style="color:#adf802;">&#8358;{{ number_format($property->price) }}
+                </h4>
+
+                <p class="uk-text-small">
+                  <i style="color: #87ceeb;" uk-icon="icon:location; ratio:.8"></i>
+                  {{ $property->city->name }}, {{ $property->state->name }}
+                </p>
+                <div class="uk-text-small" uk-grid>
+                  <div class="uk-width-1-2">
+                    <p class=" uk-text-capitalize">
+                      {{ $property->specifications[0]->name }}:
+                      {{ $property->specifications[0]->pivot->value }}
+                    </p>
+                  </div>
+                  <div class="uk-width-1-2">
+                    <p>Posted: {{ $property->created_at->diffForHumans() }}</p>
                   </div>
                 </div>
-              </a>
-            </div>
+              </div>
+            </a>
           </div>
-        </li>
-        @endforeach
-      </ul>
-
-      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
-        uk-slider-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
-        uk-slider-item="next"></a>
-
+        </div>
+      </div>
+      @endforeach
     </div>
-
-    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
-
   </div>
 </div>
 <!---latest properties view all button-->
 <div class="uk-text-center">
-  <a href="{{route('property_listing',['sort_by'=>'created_at'])}}" class="uk-button "
+  <a href="{{route('property_listing',['sort_by'=>'created_at','plan'=>'distress'])}}" class="uk-button "
     style="background-color:#87ceeb;color:white; border-radius: 10px; margin-bottom: 20px ">View All</a>
 </div>
 <!---top properties start here---->
@@ -505,10 +477,12 @@
           <a href="{{route('property_listing',['state'=>25])}}">
             <div class="uk-card-media-top">
               <img class="top-p-image " src="images/misc/lagos.jpg" alt="">
-              <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
-                style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
-                <p class="city-text-s"><b>Lagos</b></p>
+              <div class="uk-overlay uk-overlay-primary uk-position-cover"
+                style="color: white; opacity:0.2; border-radius:20px ">
               </div>
+              <div class="uk-overlay uk-position-center uk-light">
+              <p class="uk-text-large uk-text-bold">Lagos</p>
+            </div>
             </div>
           </a>
         </div>
@@ -518,10 +492,12 @@
           <a href="{{route('property_listing',['state'=>1])}}">
             <div class="uk-card-media-top">
               <img class="top-p-image " src="images/misc/abj.jpg" alt="">
-              <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
-                style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
-                <p class="city-text-s"><b>Abuja</b></p>
+              <div class="uk-overlay uk-overlay-primary uk-position-cover"
+                style="color: white; opacity:0.2; border-radius:20px ">
               </div>
+              <div class="uk-overlay uk-position-center uk-light">
+              <p class="uk-text-large uk-text-bold">Abuja</p>
+            </div>
             </div>
           </a>
         </div>
@@ -531,10 +507,12 @@
           <a href="{{route('property_listing',['state'=>33])}}">
             <div class="uk-card-media-top">
               <img class="top-p-image " src="images/misc/ph2.jpg" alt="">
-              <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
-                style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
-                <p class="city-text-s"><b>PortHarcourt</b></p>
+              <div class="uk-overlay uk-overlay-primary uk-position-cover"
+                style="color: white; opacity:0.2; border-radius:20px ">
               </div>
+              <div class="uk-overlay uk-position-center uk-light">
+              <p class="uk-text-large uk-text-bold">PortHarcourt</p>
+            </div>
             </div>
           </a>
         </div>
@@ -544,10 +522,12 @@
           <a href="{{route('property_listing',['state'=>17])}}">
             <div class="uk-card-media-top">
               <img class="top-p-image " src="images/misc/ot1.jpg" alt="">
-              <div class="uk-overlay uk-overlay-primary uk-position-center uk-position-small"
-                style=" height: 0px; padding-top:15px;  margin: 20px;  color: white ">
-                <p class="city-text-s"><b>Owerri</b></p>
+              <div class="uk-overlay uk-overlay-primary uk-position-cover"
+                style="color: white; opacity:0.2; border-radius:20px ">
               </div>
+              <div class="uk-overlay uk-position-center uk-light">
+              <p class="uk-text-large uk-text-bold">Owerri</p>
+            </div>
             </div>
           </a>
         </div>

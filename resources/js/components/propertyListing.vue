@@ -128,7 +128,7 @@
     <!-----search start here----->
     <div class="uk-width-1-1 uk-width-3-4@m uk-padding-small">
       <div
-        class=" uk-card uk-card-default uk-card-body uk-padding-remove uk-border-rounded uk-margin-bottom"
+        class=" uk-visible@m uk-card uk-card-default uk-card-body uk-padding-remove uk-border-rounded uk-margin-bottom"
       >
         <form id="search_form" class="uk-padding-small uk-text-center">
           <div class="uk-grid-small" uk-grid>
@@ -193,6 +193,184 @@
           </div>
         </form>
       </div>
+
+      <div
+        class=" uk-hidden@m uk-card uk-card-default uk-card-body uk-padding-small uk-border-rounded uk-margin-bottom"
+      >
+        <div class="uk-width-1-1 uk-flex" uk-switcher="toggle: > *">
+          <button
+            type="button"
+            class="uk-button uk-width-1-2"
+            style="color:white; background-color: #87ceeb;"
+          >
+            Filter
+            <span uk-icon="icon:settings;ratio:1;"></span>
+          </button>
+          <button
+            type="button"
+            class="uk-button uk-width-1-2"
+            style=" background: #87ceeb; color: white"
+          >
+            Search
+            <span uk-icon="icon:search;ratio:1;"></span>
+          </button>
+        </div>
+        <ul class="uk-switcher">
+          <li>
+            <form id="filter_form" method="get" class="">
+              <div
+                class="uk-grid-small uk-child-width-1-2 uk-padding-remove-top"
+                uk-grid
+              >
+                <div>
+                  <label class="uk-form-label">Property Plan</label>
+                  <select
+                    class="uk-select uk-border-rounded"
+                    v-model="property_plan"
+                  >
+                    <option selected value="all">All Plan</option>
+                    <option value="free">Free</option>
+                    <option value="distress">Distress</option>
+                    <option value="featured">Featured</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="uk-form-label">Property Category</label>
+                  <select
+                    class="uk-select uk-border-rounded"
+                    id="category"
+                    name="category"
+                    v-model="category"
+                  >
+                    <option selected value="all">All Category</option>
+                    <option
+                      v-for="(cat, index) in category_data"
+                      :key="index"
+                      :value="cat.id"
+                      >{{ cat.name }}</option
+                    >
+                  </select>
+                </div>
+                <div>
+                  <div class="uk-grid-small uk-padding-remove-top" uk-grid>
+                    <div class="uk-width-1-2">
+                      <label class="uk-form-label">Min Price</label>
+                      <input
+                        class="uk-input uk-border-rounded"
+                        :min="ad_min_val"
+                        :max="ad_max_val"
+                        v-model="min_price"
+                        type="number"
+                        placeholder="100"
+                      />
+                    </div>
+                    <div class="uk-width-1-2">
+                      <label class="uk-form-label">Max Price</label>
+                      <input
+                        class="uk-input uk-border-rounded"
+                        :min="ad_min_val"
+                        :max="ad_max_val"
+                        v-model="max_price"
+                        type="number"
+                        placeholder="100"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <label class="uk-form-label">Listing</label>
+                  <select v-model="list_as" class="uk-select uk-border-rounded">
+                    <option selected value="all">All Listing</option>
+                    <option value="rent">For Rent</option>
+                    <option value="sale">For Sale</option>
+                  </select>
+                </div>
+                <div class="uk-width-1-1 uk-flex-center">
+                  <button
+                    :disabled="loading"
+                    class="uk-button uk-width-1-1 uk-border-rounded"
+                    style="color:white; background-color: #87ceeb;"
+                    @click="load_filter_data()"
+                  >
+                    Apply Filter
+                    <span v-show="loading" uk-spinner="ratio:.5;"></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </li>
+          <li>
+            <form id="search_form">
+              <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-2 uk-width-1-2@s">
+                  <div class="uk-form-controls">
+                    <label class="uk-form-label">Property State</label>
+                    <select
+                      class="uk-select uk-border-rounded"
+                      id="state"
+                      name="state"
+                      v-model="state"
+                    >
+                      <option value="all">All</option>
+                      <option
+                        v-for="(st, index) in state_data"
+                        :key="index"
+                        :value="st.id"
+                        >{{ st.name }}</option
+                      >
+                    </select>
+                  </div>
+                </div>
+                <div class="uk-width-1-2 uk-width-1-2@s">
+                  <div class="uk-form-controls">
+                    <label class="uk-form-label">Property Category</label>
+                    <select
+                      class="uk-select uk-border-rounded"
+                      id="category"
+                      name="category"
+                      v-model="category"
+                    >
+                      <option value="all">All</option>
+                      <option
+                        v-for="(cat, index) in category_data"
+                        :key="index"
+                        :value="cat.id"
+                        >{{ cat.name }}</option
+                      >
+                    </select>
+                  </div>
+                </div>
+                <div class="uk-width-1-1 uk-width-1-2@s">
+                  <input
+                    class="uk-input uk-border-rounded"
+                    type="text"
+                    name="search_text"
+                    id="search_text"
+                    placeholder="Enter Search Term"
+                    v-model="search_text"
+                  />
+                </div>
+                <div class="uk-width-1-1 uk-width-1-2@s">
+                  <button
+                    type="buttom"
+                    :disabled="loading || search_text == ''"
+                    @click="load_search_data"
+                    class="uk-button uk-width-1-1 uk-border-rounded"
+                    style=" background: #87ceeb; color: white"
+                  >
+                    <span
+                      v-show="!loading"
+                      uk-icon="icon:search;ratio:1;"
+                    ></span>
+                    <span v-show="loading" uk-spinner="ratio:.5;"></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </li>
+        </ul>
+      </div>
+
       <!-----search end here----->
       <div>
         <div class="uk-grid-small" uk-grid>
@@ -274,14 +452,14 @@
                         class="uk-position-top-right uk-button uk-position-small uk-border-pill"
                         style="color: #FFD700; background:#fff; padding:0px 6px"
                       >
-                        <i uk-icon="icon:heart;ratio:1"></i> {{property.favourites_count}}
+                        <i uk-icon="icon:heart;ratio:1"></i>
+                        {{ property.favourites_count }}
                       </button>
                       <!--like ad end here-->
                     </div>
                     <div class="uk-card-body uk-text-center uk-padding-small">
-                      <h4 class="my-card-title">
-                        <i style="color:#adf802;" uk-icon="icon:hashtag"></i
-                        >{{ number_format(property.price) }}
+                      <h4 class="my-card-title" style="color:#adf802;">
+                        &#8358;{{ number_format(property.price) }}
                       </h4>
 
                       <p class="uk-text-small">
@@ -293,13 +471,13 @@
                       </p>
                       <div class="uk-text-small" uk-grid>
                         <div class="uk-width-1-2">
-                          <p>
-                            {{ property.specifications[0].name }}
-                            {{ property.specifications[0].value }}
+                          <p class=" uk-text-capitalize">
+                            {{ property.specifications[0].name }}:
+                            {{ property.specifications[0].pivot.value }}
                           </p>
                         </div>
                         <div class="uk-width-1-2">
-                          <p>{{ moment(property.created_at).fromNow() }}</p>
+                          <p>Posted: {{ moment(property.created_at).fromNow() }}</p>
                         </div>
                       </div>
                     </div>
@@ -354,13 +532,12 @@ export default {
         page_count: 0,
         current_page: 1
       },
-      property_status: "active",
       property_plan: "all",
       category_data: [],
       search_text: "",
       state: "",
       state_data: [],
-      category: "",
+      category: "all",
       data_url: ""
     };
   },
@@ -379,7 +556,6 @@ export default {
       let filter_data = {
         category: this.category,
         plan: this.property_plan,
-        status: this.property_status,
         list_as: this.list_as,
         min_price: this.min_price,
         max_price: this.max_price
@@ -487,7 +663,7 @@ export default {
     },
     load_init_data() {
       this.data_url = `${this.base_url}/api/property/list?${this.init_query}`;
-      this.load_data(1)
+      this.load_data(1);
     }
   },
   created() {

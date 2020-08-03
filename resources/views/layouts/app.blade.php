@@ -8,13 +8,13 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'MyNextLand') }}  @yield('title')</title>
+  <title>{{ config('app.name', 'MyNextLand') }} @yield('title')</title>
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <style>
     .my-footer {
-      background-color: black;
+      background-color: rgb(31, 29, 29);
 
     }
 
@@ -32,12 +32,15 @@
       .my-slide {
         padding-top: none
       }
+
+      .my-footer-content {
+        color: #87ceeb;
+        padding-top: 1px;
+      }
+
     }
 
-    .my-footer-content {
-      color: #87ceeb;
-      padding-top: 1px;
-    }
+
 
     html {
       background-color: white;
@@ -129,12 +132,6 @@
 
     .city-text-s {
       font-size: 0.7em
-    }
-
-
-
-    .footer {
-      background-color: none;
     }
   </style>
   <script>
@@ -317,7 +314,8 @@
           @endif
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="{{route('user_list_transaction')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">PAYMENT
+              <a href="{{route('user_list_transaction')}}"
+                class="uk-button black white-text uk-width-1-1 uk-border-rounded">PAYMENT
               </a>
             </div>
           </li>
@@ -346,11 +344,14 @@
         </div>
 
 
-        <div class=" uk-navbar-center uk-visible@m">
+        <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
           <ul class="uk-navbar-nav uk-flex uk-flex-middle">
             <li>
-              <a href="{{route('home')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
-                style="color:white;">Home</a>
+              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
+                style="color:white;">Pricing</a>
+            </li>
+            <li>
+              <a href="{{route('property_listing')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">All Properties</a>
             </li>
             <li>
               <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">About US</a>
@@ -361,19 +362,20 @@
             <li>
               <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Blog</a>
             </li>
-            <a href="{{route('user_create_property')}}"
-              style="background-color:#00a86b;color:#fff;height:35px !important;padding-top:5px;"
-              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:play"
-                style="color:#fff;"></i> Post Ad</a>
             @guest
-            <a href="{{route('login')}}"
-              style="background-color:#fff;color:#000;height:35px !important;padding-top:5px;"
-              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:sign-in"
-                style="color:#f00;"></i> Login</a>
-            <a href="{{route('register')}}"
-              style="background-color:#f00;color:white;height:35px !important;padding-top:5px;"
-              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-right"><i uk-icon="icon:user"
-                style="color:white;"></i> Register</a>
+            <li>
+              <div class="uk-inline">
+                <button class="uk-button btn-nav-login" type="button">Login / Register</button>
+                <div uk-drop="pos: bottom-justify;mode: click">
+                  <div class="uk-card uk-padding-small uk-card-default drop-nav uk-text-center">
+                    <a href="{{route('login')}}"
+                      class=" uk-button uk-border-pill red white-text uk-margin-small-bottom">Login </a>
+                    <a href="{{route('register')}}"
+                      class=" uk-button uk-border-pill green white-text uk-margin-small-bottom">Register</a>
+                  </div>
+                </div>
+              </div>
+            </li>
             @endguest
             @auth
             <a title="logout" class="uk-button uk-border-pill white-text" href="{{ route('logout') }}"
@@ -385,6 +387,9 @@
               @csrf
             </form>
             @endauth
+            <a href="{{route('user_create_property')}}"
+              style="height:35px !important;padding-top:5px; text-decoration:none;"
+              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-left white-text green darken-1"> Post Property</a>
 
           </ul>
         </div>
@@ -409,7 +414,7 @@
     <footer id="footer" class="my-footer">
       <div class="uk-container">
         <div class=" uk-margin-top" uk-grid>
-          <div class="uk-width-1-4@s width-1-1">
+          <div class="uk-width-1-4@m uk-width-1-2@s width-1-1">
             <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
                 style="height: 100px; "></a>
             <p class="my-footer-text">
@@ -418,49 +423,48 @@
                 Waedll Steet, Australia PA 6550
               </b>
             </p>
-            <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +61 525 240 310
+            <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +234 9037 031000
             </li>
-            <li class="my-footer-text" style="color: #adf802"><span uk-icon="mail"></span> yoursite@gmail.com
+            <li class="my-footer-text" style="color: #adf802"><span uk-icon="mail"></span> contact@mynextland.com
             </li>
           </div>
 
-          <div class="uk-width-1-6@s width-1-1">
+          <div class="uk-width-1-6@m uk-width-1-2@s uk-width-1-1">
             <p class="my-footer-content"><b>OUR PROPERTIES</b></p>
             <li><a style="color:#fff" href="{{route('property_listing',['list_as'=>'rent'])}}">For Rent</a></li>
             <li><a style="color:#fff" href="{{route('property_listing',['list_as'=>'sale'])}}">For Sale</a></li>
           </div>
-          <div class="uk-width-1-6@s width-1-1">
+          <div class="uk-width-1-6@m uk-width-1-2@s uk-width-1-1">
             <p class="my-footer-content"><b>INFORMATION</b></p>
             <li><a style="color:#fff" href="#">Terms & Condition</a></li>
             <li><a style="color:#fff" href="#">Privacy</a></li>
             <li><a style="color:#fff" href="#">Disclaimer</a></li>
           </div>
-          <div class="uk-width-1-6@s width-1-1">
-            <p class="my-footer-content"><b>About</b></p>
+          <div class="uk-width-1-6@m uk-width-1-2@s uk-width-1-1">
+            <p class="my-footer-content"><b>ABOUT</b></p>
             <li><a style="color:#fff" href="#">Company Information</a></li>
             <li><a style="color:#fff" href="#">Careers</a></li>
           </div>
-          <div class="uk-width-1-5@s width-1-1">
+          <div class="uk-width-1-5@m uk-width-1-2@s uk-width-1-1">
             <form>
               <p class="my-footer-content"><b>NEWSLETTER</b></p>
               <div class="uk-margin-top ">
                 <div class="uk-inline">
-                  <button style="background-color:red;   ; border: none; "
-                    class="uk-form-icon uk-form-icon-flip remove-highlight" type="button"><i class="mdi  mdi-telegram"
-                      style="color:white; font-size: 30px;"></i></button>
+                  <button style="background-color:#87ceeb;border: none; "
+                    class="uk-form-icon uk-form-icon-flip remove-highlight" type="button"><i class="white-text" uk-icon="icon:forward"></i></button>
                   <input class="uk-input" type="email" placeholder="Email Address">
                 </div>
               </div>
               <li style="color: white; font-size:0.8em"> Get recent updates from us...</li>
               <p>
                 <a href="" class="uk-icon-button uk-margin-small-right" uk-icon="twitter"
-                  style="color: white; background-color: #87ceeb"></a>
-                <a href="" class="uk-icon-button  uk-margin-small-right" uk-icon="facebook"
-                  style="color: white; background-color: blue"></a>
-                <a href="" class="uk-icon-button uk-margin-small-right" uk-icon="whatsapp"
-                  style="color: white; background-color:#adf802"></a>
+                  style="color: white; background-color: #87ceeb;"></a>
+                <a href="" class="uk-icon-button  uk-margin-small-right blue" uk-icon="facebook"
+                  style="color: white;"></a>
+                <a href="" class="uk-icon-button uk-margin-small-right green" uk-icon="whatsapp"
+                  style="color: white;"></a>
                 <a href="" class="uk-icon-button uk-margin-small-right" uk-icon="instagram"
-                  style="color: white; background-color:pink"></a>
+                  style="color: white; background-color:#DB7093"></a>
               </p>
             </form>
           </div>
@@ -469,9 +473,10 @@
 
 
 
-      <div class="uk-text-center" style="color: white;">
-        <p style="font-size:0.8em; opacity: 0.8;">© Copyright 2020 mynextland. All Rights Reserved</p>
-        <p style="font-size:0.7em;opacity: 0.5;  margin-bottom:0%">All Photos On This Site Are From Properties
+      <div class="uk-text-center black uk-padding-small" style="color: white;">
+        <p class=" uk-margin-remove-vertical" style="font-size:0.8em; opacity: 0.8;">© Copyright 2020 mynextland. All
+          Rights Reserved</p>
+        <p class="uk-text-small uk-text-muted uk-margin-remove-vertical">All Photos On This Site Are From Properties
           Owners</p>
       </div>
 

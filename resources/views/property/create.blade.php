@@ -228,7 +228,7 @@
 
   <!-----poast ads start here----->
   <div class="uk-width-1-1 uk-width-3-4@m uk-padding-small">
-    <Post-Ad-Form form_action="{{route('api_save_new_property')}}" :plan_fee="{{json_encode($plan_fee)}}"
+    <Post-Ad-Form property_action="Post" :plan_fee="{{json_encode($plan_fee)}}" form_action="{{route('api_save_new_property')}}" :plan_fee="{{json_encode($plan_fee)}}"
       :categories_data="{{$categories_data}}">
     </Post-Ad-Form>
     <!-----post ads end here----->

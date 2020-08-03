@@ -113,10 +113,10 @@ class HomeController extends Controller
           $item_status  = [$status];
         }
       } else {
-        $item_status = ["active"];
+        $item_status = ['active', 'reported'];
       }
     } else {
-      $item_status = false;
+      $item_status = ['active', 'reported'];
     }
 
     if ($plan = $request->has('plan')) {
@@ -201,10 +201,11 @@ class HomeController extends Controller
       $item_max_price = false;
     }
 
-    $properties = Property::with([
-      'user','user.state', 'user.city', 'tags', 'amenities', 'specifications',
+    $featured_properties = Property::with([
+      'user', 'user.state', 'user.city', 'tags', 'amenities', 'specifications',
       'category', 'subcategory', 'state', 'city',
-    ])->withCount(['favourites','views'])
+    ])->withCount(['favourites', 'views'])
+      ->where('plan', 'featured')
       ->when($item_state, function ($query) use ($item_state) {
         return $query->whereIn('state_id', $item_state);
       })
@@ -216,9 +217,6 @@ class HomeController extends Controller
       })
       ->when($item_status, function ($query) use ($item_status) {
         return $query->whereIn('status', $item_status);
-      })
-      ->when($item_plan, function ($query) use ($item_plan) {
-        return $query->whereIn('plan', $item_plan);
       })
       ->when($item_list_as, function ($query) use ($item_list_as) {
         return $query->whereIn('list_as', $item_list_as);
@@ -233,8 +231,40 @@ class HomeController extends Controller
         return $query->search($findable);
       })
       ->orderBy($item_sort_by, $item_sort_type)
-      ->take(6)->get()->append(request()->query());
+      ->take(8)->get()->append(request()->query());
+
+    $distress_properties = Property::with([
+      'user', 'user.state', 'user.city', 'tags', 'amenities', 'specifications',
+      'category', 'subcategory', 'state', 'city',
+    ])->withCount(['favourites', 'views'])
+      ->where('plan', 'distress')
+      ->when($item_state, function ($query) use ($item_state) {
+        return $query->whereIn('state_id', $item_state);
+      })
+      ->when($item_category, function ($query) use ($item_category) {
+        return $query->whereIn('category_id', $item_category);
+      })
+      ->when($item_subcategory, function ($query) use ($item_subcategory) {
+        return $query->whereIn('subcategory_id', $item_subcategory);
+      })
+      ->when($item_status, function ($query) use ($item_status) {
+        return $query->whereIn('status', $item_status);
+      })
+      ->when($item_list_as, function ($query) use ($item_list_as) {
+        return $query->whereIn('list_as', $item_list_as);
+      })
+      ->when($item_min_price, function ($query) use ($item_min_price) {
+        return $query->where('price', '>=', $item_min_price);
+      })
+      ->when($item_max_price, function ($query) use ($item_max_price) {
+        return $query->where('price', '<=', $item_max_price);
+      })
+      ->when($findable, function ($query) use ($findable) {
+        return $query->search($findable);
+      })
+      ->orderBy($item_sort_by, $item_sort_type)
+      ->take(8)->get()->append(request()->query());
     $site_home_slider = SiteConfig::where('key', 'home_slider')->firstOrFail();
-    return view('homepage', ['slider_images' => json_decode($site_home_slider->value), 'properties' => $properties, 'categories' => $categories, 'states' => $states]);
+    return view('homepage', ['slider_images' => json_decode($site_home_slider->value), 'featured_properties' => $featured_properties, 'distress_properties' => $distress_properties, 'categories' => $categories, 'states' => $states]);
   }
 }

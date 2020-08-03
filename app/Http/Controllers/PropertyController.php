@@ -502,8 +502,7 @@ class PropertyController extends Controller
    */
   public function show(Request $request, $property_id)
   {
-
-    $property = Property::with('user')->with('amenities:name,value')->with('specifications:name:value')->with('tags:name')->where('id', $property_id)->firstOrFail();
+    $property = Property::with(['user','amenities','specifications','tags','user.state','user.city','state','city'])->where('id', $property_id)->firstOrFail();
     $viewer_ip = $request->getClientIp();
     if (Auth::check()) {
       $user_id = Auth::user()->id;

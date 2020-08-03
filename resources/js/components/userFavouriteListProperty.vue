@@ -60,7 +60,7 @@
               <a href="#">{{ favourite.property.category.name }}</a> &gt;
               <a href="#">{{ favourite.property.subcategory.name }}</a>
             </td>
-            <td>N{{ favourite.property.price }}</td>
+            <td>&#8358;{{ number_format(favourite.property.price) }}</td>
             <td>
               <button
                 @click="remove_fav_property(favourite.property.id)"
@@ -107,6 +107,17 @@ export default {
         page_count: 0,
         current_page: 1
       },
+      Toast: this.$swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: toast => {
+          toast.addEventListener("mouseenter", this.$swal.stopTimer);
+          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
+        }
+      }),
       plan_map: ["free", "distress", "featured"],
       status_map: [
         "active",
@@ -155,18 +166,10 @@ export default {
         record_count: total_records
       };
     },
+    number_format(x) {
+      return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    },
     remove_fav_property(property_id) {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        onOpen: toast => {
-          toast.addEventListener("mouseenter", this.$swal.stopTimer);
-          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
-        }
-      });
       this.$swal
         .fire({
           icon: "warning",
@@ -190,7 +193,7 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            Toast.fire({
+            this.Toast.fire({
               icon: "success",
               title: result.value.data
             });

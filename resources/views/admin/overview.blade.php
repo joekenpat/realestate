@@ -9,6 +9,7 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:home; ratio:1.5"></span>
+            <span class="uk-label uk-float-right">{{$total_properties}}</span>
             <line-chart :width="330" :height="120" :chartdata="{{ json_encode($pdata) }}"
               :options="{{ json_encode($options) }}" />
           </div>
@@ -18,6 +19,7 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:users; ratio:1.5"></span>
+          <span class="uk-label uk-float-right">{{$total_users}}</span>
             <line-chart :width="330" :height="120" :chartdata="{{ json_encode($udata) }}"
               :options="{{ json_encode($options) }}" />
           </div>
@@ -27,6 +29,7 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:cart; ratio:1.5"></span>
+            <span class="uk-label uk-float-right">{{$total_transactions}}</span>
             <line-chart :width="330" :height="120" :chartdata="{{ json_encode($tdata) }}"
               :options="{{ json_encode($options) }}" />
           </div>
@@ -36,6 +39,7 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:album; ratio:1.5"></span>
+            <span class="uk-label uk-float-right">{{$total_posts}}</span>
             <line-chart :width="330" :height="120" :chartdata="{{ json_encode($tdata) }}"
               :options="{{ json_encode($options) }}" />
           </div>

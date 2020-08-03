@@ -231,20 +231,24 @@
     <div class="uk-container  uk-padding-small ">
       <div class="uk-card uk-card-default uk-card-body uk-padding-small uk-border-rounded">
         <h3 class=" uk-margin-remove-bottom"><b>{{$property->title}}</b></h3>
-        <div class="uk-padding-small uk-flex uk-flex-between"><span> <a href=""
-              class="uk-icon-button uk-margin-small-right" uk-icon="location"
-              style="color: black; background-color:whitesmoke"></a> {{$property->state->name}},
-            {{$property->city->name}}</span>
-          <span>
-            <a href="#" class="uk-button uk-button-default uk-button-small uk-border-rounded" style="color:#f00"
+        <h4 class="uk-text-bold uk-margin-remove-vertical uk-margin-auto-left">
+          &#8358;{{number_format($property->price)}}</h4>
+        <div class="uk-padding-small uk-flex uk-flex-between">
+          <div>
+            <span class="uk-icon-button uk-margin-small-right" uk-icon="location"
+              style="color: black; background-color:whitesmoke"></span><span> {{$property->state->name}},
+              {{$property->city->name}}</span>
+
+            <span></div>
+          {{-- <a href="#" class="uk-button uk-button-default uk-button-small uk-border-rounded" style="color:#f00"
               uk-icon="icon: heart">
               Like
-            </a>
-            <a href="{{route('report_property',['property_id'=>$property->id])}}"
-              class="uk-button uk-button-danger uk-button-small uk-border-rounded" style="color:#fff"
-              uk-icon="icon: warning">
-              Report This Ad
-            </a>
+            </a> --}}
+          <a href="{{route('report_property',['property_id'=>$property->id])}}"
+            class="uk-button uk-button-danger uk-button-small uk-border-rounded" style="color:#fff"
+            uk-icon="icon: warning">
+            Report This Ad
+          </a>
           </span>
         </div>
         <div>
@@ -304,7 +308,7 @@
                   @foreach ($property->specifications as $specification)
                   <tr>
                     <td> {{$specification->name}}</td>
-                    <td>{{$specification->value}} </td>
+                    <td>{{$specification->pivot->value}} </td>
                   </tr>
 
                   @endforeach
@@ -330,7 +334,7 @@
                     @foreach ($property->amenities as $amenity)
                   <tr>
                     <td> {{$amenity->name}}</td>
-                    <td>{{$amenity->value}} </td>
+                    <td>{{$amenity->pivot->value}} </td>
                   </tr>
 
                   @endforeach

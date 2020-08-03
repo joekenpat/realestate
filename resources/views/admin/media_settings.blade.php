@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="" uk-grid>
-  <div class="uk-width-1-1">
+  {{-- <div class="uk-width-1-1">
     <div class="uk-card uk-card-default uk-border-rounded">
       <div class="uk-card-header uk-padding-small">
         <h3>Edit Logo</h3>
@@ -45,7 +45,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> --}}
 
   <div class="uk-width-1-1">
     <div class="uk-card uk-card-default uk-border-rounded">

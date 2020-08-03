@@ -68,7 +68,7 @@
                 >{{ transaction.plan }}</span
               >
             </td>
-            <td>N{{ number_format(transaction.amount) }}</td>
+            <td>&#8358;{{ number_format(transaction.amount) }}</td>
             <td>
               <span
                 :class="[

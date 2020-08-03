@@ -18,7 +18,7 @@ class Specification extends Model
    *
    * @var array
    */
-  protected $hidden = ['pivot'];
+  // protected $hidden = ['pivot'];
 
   protected $dateFormat = 'Y-m-d H:i:s.u';
 
