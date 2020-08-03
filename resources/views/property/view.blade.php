@@ -380,8 +380,8 @@
         <div>
           <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <i
               class="uk-icon-button uk-margin-small-right" uk-icon="location"
-              style="color: black; background-color:whitesmoke"></i> {{$property->user->state->name}},
-            {{$property->user->city->name}}</p>
+              style="color: black; background-color:whitesmoke"></i> {{$property->user->state?$property->user->state->name:"N/A"}},
+            {{$property->user->city?$property->user->city->name:"N/A"}}</p>
           <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <i
               class="uk-icon-button uk-margin-small-right" uk-icon="mail"
               style="color: black; background-color:whitesmoke"></i> {{$property->user->email}}</a></p>
