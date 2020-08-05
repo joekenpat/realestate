@@ -280,6 +280,21 @@
               </a>
             </div>
           </li>
+          @guest
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('login')}}" class="uk-button white red-text uk-width-1-1 uk-border-rounded">Login
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="uk-padding-remove uk-margin-small">
+              <a href="{{route('register')}}" class="uk-button red white-text uk-width-1-1 uk-border-rounded">Register
+              </a>
+            </div>
+          </li>
+          @endguest
+
           @auth
           <li>
             <div class="uk-padding-remove uk-margin-small">
@@ -347,11 +362,11 @@
         <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
           <ul class="uk-navbar-nav uk-flex uk-flex-middle">
             <li>
-              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
-                style="color:white;">Pricing</a>
+              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Pricing</a>
             </li>
             <li>
-              <a href="{{route('property_listing')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">All Properties</a>
+              <a href="{{route('property_listing')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
+                style="color:white;">All Properties</a>
             </li>
             <li>
               <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">About US</a>
@@ -389,7 +404,8 @@
             @endauth
             <a href="{{route('user_create_property')}}"
               style="height:35px !important;padding-top:5px; text-decoration:none;"
-              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-left white-text green darken-1"> Post Property</a>
+              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-left white-text green darken-1"> Post
+              Property</a>
 
           </ul>
         </div>
@@ -451,7 +467,8 @@
               <div class="uk-margin-top ">
                 <div class="uk-inline">
                   <button style="background-color:#87ceeb;border: none; "
-                    class="uk-form-icon uk-form-icon-flip remove-highlight" type="button"><i class="white-text" uk-icon="icon:forward"></i></button>
+                    class="uk-form-icon uk-form-icon-flip remove-highlight" type="button"><i class="white-text"
+                      uk-icon="icon:forward"></i></button>
                   <input class="uk-input" type="email" placeholder="Email Address">
                 </div>
               </div>

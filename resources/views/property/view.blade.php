@@ -257,8 +257,8 @@
               @foreach ($property->images as $img)
               <li class="">
                 <div class="uk-panel">
-                  <img class="view-ad-image uk-width-1-1" src="{{asset(sprintf('images/properties/%s/%s',$property->id,$img))}}"
-                    alt="">
+                  <img class="view-ad-image uk-width-1-1"
+                    src="{{asset(sprintf('images/properties/%s/%s',$property->id,$img))}}" alt="">
                 </div>
               </li>
               @endforeach
@@ -389,11 +389,11 @@
         </div>
 
         <p class="uk-padding-small">
-          <a href="mailto:{{$property->user->email}}?subject={{str_replace(' ','%20',"Information needed for product: {$property->title}")}}&body={{'Write what you what to say to the ower of the property'}}"
+          <a href="mailto:{{$property->user->email}}?subject={{str_replace(' ','%20',"Information needed for product: {$property->title}")}}&body={{str_replace(' ','%20',sprintf("Hi, I'll like to find out more about this property: %s", route('view_property',['property_id'=>$property->id])))}}"
             class="uk-button uk-button-small  uk-margin-small-right uk-border-pill"
             style="color: white; background-color: orange"><b uk-icon="icon:mail;ratio:1;"></b>
             <b>Email</b></a>
-          <a href="https://wa.me/+234{{substr($property->user->phone,1)}}?text={{str_replace(' ','%20',"Information needed for product: {$property->title}")}}"
+          <a href="https://wa.me/234{{substr($property->user->phone,1)}}?text={{str_replace(' ','%20',sprintf("Hi, I'll like to find out more about this property: %s", route('view_property',['property_id'=>$property->id])))}}"
             class="uk-button uk-button-small uk-margin-small-right uk-border-pill"
             style="color: white; background-color:#adf802"><b uk-icon="icon:whatsapp;ratio:1;"></b>
             <b> Whatsapp</b></a>
