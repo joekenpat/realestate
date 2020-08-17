@@ -428,7 +428,7 @@
     </main>
 
     <footer id="footer" class="my-footer">
-      <div class="uk-container">
+      <div class="uk-container uk-margin-small-bottom">
         <div class=" uk-margin-top" uk-grid>
           <div class="uk-width-1-4@m uk-width-1-2@s width-1-1">
             <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
@@ -488,9 +488,6 @@
           </div>
         </div>
       </div>
-
-
-
       <div class="uk-text-center black uk-padding-small" style="color: white;">
         <p class=" uk-margin-remove-vertical" style="font-size:0.8em; opacity: 0.8;">© Copyright 2020 mynextland. All
           Rights Reserved</p>
