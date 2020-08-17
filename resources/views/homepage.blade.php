@@ -476,7 +476,7 @@
         <div class="uk-card uk-card-default my-card">
           <a href="{{route('property_listing',['state'=>25])}}">
             <div class="uk-card-media-top">
-              <img class="top-p-image " src="images/misc/lagos.jpg" alt="">
+              <img class="top-p-image uk-width-1-1" src="images/misc/lagos.jpg" alt="">
               <div class="uk-overlay uk-overlay-primary uk-position-cover"
                 style="color: white; opacity:0.2; border-radius:20px ">
               </div>
@@ -491,7 +491,7 @@
         <div class="uk-card uk-card-default my-card">
           <a href="{{route('property_listing',['state'=>1])}}">
             <div class="uk-card-media-top">
-              <img class="top-p-image " src="images/misc/abj.jpg" alt="">
+              <img class="top-p-image uk-width-1-1" src="images/misc/abj.jpg" alt="">
               <div class="uk-overlay uk-overlay-primary uk-position-cover"
                 style="color: white; opacity:0.2; border-radius:20px ">
               </div>
@@ -506,12 +506,12 @@
         <div class="uk-card uk-card-default my-card">
           <a href="{{route('property_listing',['state'=>33])}}">
             <div class="uk-card-media-top">
-              <img class="top-p-image " src="images/misc/ph2.jpg" alt="">
+              <img class="top-p-image uk-width-1-1" src="images/misc/ph2.jpg" alt="">
               <div class="uk-overlay uk-overlay-primary uk-position-cover"
                 style="color: white; opacity:0.2; border-radius:20px ">
               </div>
               <div class="uk-overlay uk-position-center uk-light">
-              <p class="uk-text-large uk-text-bold">PortHarcourt</p>
+              <p class="uk-text-large uk-text-bold uk-text-center">Port<br>Harcourt</p>
             </div>
             </div>
           </a>
@@ -521,7 +521,7 @@
         <div class="uk-card uk-card-default my-card">
           <a href="{{route('property_listing',['state'=>17])}}">
             <div class="uk-card-media-top">
-              <img class="top-p-image " src="images/misc/ot1.jpg" alt="">
+              <img class="top-p-image uk-width-1-1" src="images/misc/ot1.jpg" alt="">
               <div class="uk-overlay uk-overlay-primary uk-position-cover"
                 style="color: white; opacity:0.2; border-radius:20px ">
               </div>

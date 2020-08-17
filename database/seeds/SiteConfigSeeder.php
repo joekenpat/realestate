@@ -15,10 +15,10 @@ class SiteConfigSeeder extends Seeder
     $SiteConfigs = [
       ['key' => 'logo', 'value' => null],
       ['key' => 'home_slider', 'value' => '[]'],
-      ['key' => 'paystack', 'value' => '["secret"=>"","public"=>""]'],
+      ['key' => 'paystack', 'value' => json_encode(["secret"=>"","public"=>""])],
       ['key' => 'property_max_media', 'value' => 10],
-      ['key' => 'property_life_span', 'value' => '["free" => 3, "distress" => 6, "featured" => 12]'],
-      ['key' => 'property_plan_fee', 'value' => '["distress" => 0, "featured" => 0]'],
+      ['key' => 'property_life_span', 'value' => json_encode(["free" => 3, "distress" => 6, "featured" => 12])],
+      ['key' => 'property_plan_fee', 'value' => json_encode(["distress" => 0, "featured" => 0])],
     ];
     $SiteConfigProgressBar = $this->command->getOutput()->createProgressBar(count($SiteConfigs));
     foreach ($SiteConfigs as $SiteConfig) {

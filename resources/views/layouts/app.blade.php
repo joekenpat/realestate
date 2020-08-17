@@ -435,13 +435,14 @@
                 style="height: 100px; "></a>
             <p class="my-footer-text">
               <b>
-                86 Petersham town, New South wales
-                Waedll Steet, Australia PA 6550
+                Zahari Properties, Villa C, Eleganza Estate, Lekki-Epe Expressway, Lagos, Nigeria
               </b>
             </p>
             <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +234 9037 031000
             </li>
-            <li class="my-footer-text" style="color: #adf802"><span uk-icon="mail"></span> contact@mynextland.com
+            <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +234 818 325 1986
+            </li>
+            <li class="my-footer-text" style="color: #adf802"><span uk-icon="mail"></span> mynextland@gmail.com
             </li>
           </div>
 
