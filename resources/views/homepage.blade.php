@@ -232,7 +232,7 @@
       <div class="uk-overlay uk-container  uk-light landing-text">
         <div class=" uk-position-relative uk-position-small uk-text-center uk-light my-slide">
           <h1 class="uk-margin-remove" style="padding-top: 100px"><b>Find Your Next Land</b></h1>
-          <h5 class="uk-margin-remove" style="padding-top: 10px"><b>We Make It Easy To Get A Land Property</b></h5>
+          <h5 class="uk-margin-remove" style="padding-top: 10px"><b>We make It Easy For You To Get All Your Properties</b></h5>
           <div class="uk-margin-remove" style="padding-top: 50px">
             <form action="{{route('property_listing')}}" method="GET">
               <div class="uk-grid-small" uk-grid>

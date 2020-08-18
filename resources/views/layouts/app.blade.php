@@ -438,7 +438,7 @@
       <div class="uk-container uk-margin-small-bottom">
         <div class=" uk-margin-top" uk-grid>
           <div class="uk-width-1-4@m uk-width-1-2@s width-1-1">
-            <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
+            <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo.png")}}"
                 style="height: 100px; "></a>
             <p class="my-footer-text">
               <b>
