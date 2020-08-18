@@ -7,6 +7,8 @@
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="description" content="{{ config('app.name', 'MyNextLand') }} - Buy and Sell Lands, Homes, and Apartments">
+  <meta name="title" content="{{ config('app.name', 'MyNextLand') }} - @yield('title')">
 
   <title>{{ config('app.name', 'MyNextLand') }} @yield('title')</title>
 
@@ -354,8 +356,8 @@
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
       <nav class="uk-navbar-container  navigation" uk-navbar>
         <div class="uk-navbar-let">
-          <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
-              style="height: 100px; "></a>
+          <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo.png")}}"
+              style="height:70px;"></a>
         </div>
 
 
@@ -413,7 +415,12 @@
           <ul class="uk-navbar-nav">
             <li>
               <button class="uk-navbar-toggle uk-button uk-button-text white-text" type="button"
-                uk-toggle="target: #side_menu"><i uk-icon="icon: menu; ratio:2;"></i></button>
+                uk-toggle="target: #side_menu">
+                <span>
+                  <i class=" uk-display-block" uk-icon="icon: menu; ratio:1.5;"></i>
+                  <span class="uk-text-small">MENU</span>
+                </span>
+              </button>
             </li>
           </ul>
         </div>
@@ -489,10 +496,8 @@
         </div>
       </div>
       <div class="uk-text-center black uk-padding-small" style="color: white;">
-        <p class=" uk-margin-remove-vertical" style="font-size:0.8em; opacity: 0.8;">© Copyright 2020 mynextland. All
-          Rights Reserved</p>
-        <p class="uk-text-small uk-text-muted uk-margin-remove-vertical">All Photos On This Site Are From Properties
-          Owners</p>
+        <p class=" uk-margin-remove-vertical" style="font-size:0.8em; opacity: 0.8;">© Copyright 2020 Brilliant Homes Investment Ltd, owners of MyNextLand.com. All rights reserved.</p>
+        <p class="uk-text-small uk-text-muted uk-margin-remove-vertical">Please note: All images, texts, and videos on this site are properties of their respective owners.</p>
       </div>
 
     </footer>
