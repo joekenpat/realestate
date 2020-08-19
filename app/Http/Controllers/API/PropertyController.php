@@ -536,11 +536,11 @@ class PropertyController extends Controller
       'description' => 'nullable|string|',
       'tags.*' => 'string',
       'amenities' => 'array|min:0',
-      'amenities.*.name' => 'required_unless:amenities.*,null|string',
-      'amenities.*.value' => 'required_unless:amenities.*,null|string',
+      'amenities.*.name' => 'null|string',
+      'amenities.*.value' => 'null|string',
       'specifications' => 'array|min:0',
-      'specifications.*.name' => 'required_unless:specifications.*,null|string',
-      'specifications.*.value' => 'required_unless:specifications.*,null|string',
+      'specifications.*.name' => 'null|string',
+      'specifications.*.value' => 'null|string',
     ]);
 
     try {
@@ -724,11 +724,11 @@ class PropertyController extends Controller
         'description' => 'nullable|string|',
         'tags.*' => 'string',
         'amenities' => 'array|min:0',
-        'amenities.*.name' => 'required_unless:amenities.*,null|string',
-        'amenities.*.value' => 'required_unless:amenities.*,null|string',
+        'amenities.*.name' => 'null|string',
+        'amenities.*.value' => 'null|string',
         'specifications' => 'array|min:0',
-        'specifications.*.name' => 'required_unless:specifications.*,null|string',
-        'specifications.*.value' => 'required_unless:specifications.*,null|string',
+        'specifications.*.name' => 'null|string',
+        'specifications.*.value' => 'null|string',
       ]);
 
       try {
