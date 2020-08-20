@@ -472,7 +472,8 @@
                       <div class="uk-text-small" uk-grid>
                         <div class="uk-width-1-2">
                           <p class=" uk-text-capitalize">
-                            {{ property.category.name }}:
+                            {{ property.category.name }} >
+                            {{ property.subcategory.name }}
                           </p>
                         </div>
                         <div class="uk-width-1-2">
