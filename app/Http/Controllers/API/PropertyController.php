@@ -535,12 +535,12 @@ class PropertyController extends Controller
       'plan' => 'required|string|',
       'description' => 'nullable|string|',
       'tags.*' => 'string',
-      'amenities' => 'null|array|min:0',
-      'amenities.*.name' => 'null|string',
-      'amenities.*.value' => 'null|string',
-      'specifications' => 'null|array|min:0',
-      'specifications.*.name' => 'null|string',
-      'specifications.*.value' => 'null|string',
+      'amenities' => 'nullable|array|min:0',
+      'amenities.*.name' => 'nullable|string',
+      'amenities.*.value' => 'nullable|string',
+      'specifications' => 'nullable|array|min:0',
+      'specifications.*.name' => 'nullable|string',
+      'specifications.*.value' => 'nullable|string',
     ]);
 
     try {
@@ -726,7 +726,7 @@ class PropertyController extends Controller
         'amenities' => 'nullable|array|min:0',
         'amenities.*.name' => 'nullable|string',
         'amenities.*.value' => 'nullable|string',
-        'specifications' => 'array|min:0',
+        'specifications' => 'nullable|array|min:0',
         'specifications.*.name' => 'nullable|string',
         'specifications.*.value' => 'nullable|string',
       ]);
