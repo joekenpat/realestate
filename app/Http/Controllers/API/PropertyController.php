@@ -565,8 +565,8 @@ class PropertyController extends Controller
       $new_property->save();
 
       $new_property->user()->associate(Auth::User()->id);
-      $tags = $request->input('tags');
-      if (isset($tags) && count($tags) >= 1) {
+      if ($request->has('tags') && is_array($request->input('tags')) && count($request->input('tags'))) {
+        $tags = $request->input('tags');
         foreach ($tags as $tag) {
           $creatable_tag = Tag::firstOrCreate(
             ['name' => $tag]
@@ -579,8 +579,8 @@ class PropertyController extends Controller
         }
       }
 
-      $amenities = $request->input('amenities');
-      if (isset($amenities) && count($amenities) >= 1) {
+      if ($request->has('amenities') && is_array($request->input('amenities')) && count($request->input('amenities'))) {
+        $amenities = $request->input('amenities');
         foreach ($amenities as $amenity) {
           $creatable_amenity = Amenity::firstOrCreate(
             [
@@ -597,8 +597,8 @@ class PropertyController extends Controller
         }
       }
 
-      $specifications = $request->input('specifications');
-      if (isset($specifications) && count($specifications) >= 1) {
+      if ($request->has('specifications') && is_array($request->input('specifications')) && count($request->input('specifications'))) {
+        $specifications = $request->input('specifications');
         foreach ($specifications as $specification) {
           $creatable_specification = Specification::firstOrCreate(
             [
