@@ -351,8 +351,7 @@
                 <div class="uk-text-small" uk-grid>
                   <div class="uk-width-1-2">
                     <p class=" uk-text-capitalize">
-                      {{ $property->specifications[0]->name }}:
-                      {{ $property->specifications[0]->pivot->value }}
+                      {{ $property->category->name }}
                     </p>
                   </div>
                   <div class="uk-width-1-2">
@@ -439,8 +438,7 @@
                 <div class="uk-text-small" uk-grid>
                   <div class="uk-width-1-2">
                     <p class=" uk-text-capitalize">
-                      {{ $property->specifications[0]->name }}:
-                      {{ $property->specifications[0]->pivot->value }}
+                      {{ $property->category->name }}
                     </p>
                   </div>
                   <div class="uk-width-1-2">
