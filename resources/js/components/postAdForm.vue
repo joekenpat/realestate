@@ -836,7 +836,7 @@ export default {
             // console.log(err.response.data);
             this.Toast.fire({
               icon: "error",
-              title: "Unauthorized! Please reload Page"
+              title: "Unauthorized! Reload Page"
             });
           } else if (status === 422) {
             this.error.title = err.response.data.errors.title
