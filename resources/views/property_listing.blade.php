@@ -217,6 +217,11 @@
       padding-left: 30px;
     }
   }
+  .agent_logo {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+  }
 </style>
 @endpush
 @section('content')

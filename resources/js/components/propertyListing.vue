@@ -472,12 +472,15 @@
                       <div class="uk-text-small" uk-grid>
                         <div class="uk-width-1-2">
                           <p class=" uk-text-capitalize">
-                            {{ property.specifications[0].name }}:
-                            {{ property.specifications[0].pivot.value }}
+                            {{ property.category.name }}:
                           </p>
                         </div>
                         <div class="uk-width-1-2">
-                          <p>Posted: {{ moment(property.created_at).fromNow() }}</p>
+                          <img
+                            :src="property.user.avatar != null?`${base_url}/images/users/profile/${property.user.id}/${property.user.avatar}`:`${base_url}/images/misc/default_avatar.png`"
+                            class="uk-border-circle agent_logo"
+                            alt="property agent image"
+                          />
                         </div>
                       </div>
                     </div>

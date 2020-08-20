@@ -216,6 +216,13 @@
     .my-button-padding-small {
       padding-left: 30px;
     }
+
+  }
+
+  .agent_logo {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
   }
 </style>
 @endpush
@@ -232,7 +239,8 @@
       <div class="uk-overlay uk-container  uk-light landing-text">
         <div class=" uk-position-relative uk-position-small uk-text-center uk-light my-slide">
           <h1 class="uk-margin-remove" style="padding-top: 100px"><b>Find Your Next Land</b></h1>
-          <h5 class="uk-margin-remove" style="padding-top: 10px"><b>We make It Easy For You To Get All Your Properties</b></h5>
+          <h5 class="uk-margin-remove" style="padding-top: 10px"><b>We make It Easy For You To Get All Your
+              Properties</b></h5>
           <div class="uk-margin-remove" style="padding-top: 50px">
             <form action="{{route('property_listing')}}" method="GET">
               <div class="uk-grid-small" uk-grid>
@@ -355,7 +363,9 @@
                     </p>
                   </div>
                   <div class="uk-width-1-2">
-                    <p>Posted: {{ $property->created_at->diffForHumans() }}</p>
+                    <img
+                      src="{{$property->user->avatar != null?URL::to(sprintf("images/users/profile/%s/%s",$property->user->id,$property->user->avatar)):asset("images/misc/default_avatar.png") }}"
+                      class="uk-border-circle agent_logo" alt="property agent image">
                   </div>
                 </div>
               </div>
@@ -442,7 +452,9 @@
                     </p>
                   </div>
                   <div class="uk-width-1-2">
-                    <p>Posted: {{ $property->created_at->diffForHumans() }}</p>
+                    <img
+                      src="{{$property->user->avatar != null?URL::to(sprintf("images/users/profile/%s/%s",$property->user->id,$property->user->avatar)):asset("images/misc/default_avatar.png") }}"
+                      class="uk-border-circle agent_logo" alt="ad agent image">
                   </div>
                 </div>
               </div>
@@ -479,8 +491,8 @@
                 style="color: white; opacity:0.2; border-radius:20px ">
               </div>
               <div class="uk-overlay uk-position-center uk-light">
-              <p class="uk-text-large uk-text-bold">Lagos</p>
-            </div>
+                <p class="uk-text-large uk-text-bold">Lagos</p>
+              </div>
             </div>
           </a>
         </div>
@@ -494,8 +506,8 @@
                 style="color: white; opacity:0.2; border-radius:20px ">
               </div>
               <div class="uk-overlay uk-position-center uk-light">
-              <p class="uk-text-large uk-text-bold">Abuja</p>
-            </div>
+                <p class="uk-text-large uk-text-bold">Abuja</p>
+              </div>
             </div>
           </a>
         </div>
@@ -509,8 +521,8 @@
                 style="color: white; opacity:0.2; border-radius:20px ">
               </div>
               <div class="uk-overlay uk-position-center uk-light">
-              <p class="uk-text-large uk-text-bold uk-text-center">Port<br>Harcourt</p>
-            </div>
+                <p class="uk-text-large uk-text-bold uk-text-center">Port<br>Harcourt</p>
+              </div>
             </div>
           </a>
         </div>
@@ -524,8 +536,8 @@
                 style="color: white; opacity:0.2; border-radius:20px ">
               </div>
               <div class="uk-overlay uk-position-center uk-light">
-              <p class="uk-text-large uk-text-bold">Owerri</p>
-            </div>
+                <p class="uk-text-large uk-text-bold">Owerri</p>
+              </div>
             </div>
           </a>
         </div>
