@@ -496,15 +496,19 @@
         </div>
       </div>
       <div class="uk-text-center black uk-padding-small" style="color: white;">
-        <p class=" uk-margin-remove-vertical" style="font-size:0.8em; opacity: 0.8;">© Copyright 2020 Brilliant Homes Investment Ltd, owners of MyNextLand.com. All rights reserved.</p>
-        <p class="uk-text-small uk-text-muted uk-margin-remove-vertical">Please note: All images, texts, and videos on this site are properties of their respective owners.</p>
+        <p class=" uk-margin-remove-vertical" style="font-size:0.8em; opacity: 0.8;">© Copyright 2020 Brilliant Homes
+          Investment Ltd, owners of MyNextLand.com. All rights reserved.</p>
+        <p class="uk-text-small uk-text-muted uk-margin-remove-vertical">Please note: All images, texts, and videos on
+          this site are properties of their respective owners.</p>
       </div>
 
     </footer>
   </div>
 
   <!-----userdashboard end here----->
-  <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="{{mix('/js/manifest.js')}}" defer></script>
+  <script src="{{mix('/js/vendor.js')}}" defer></script>
+  <script src="{{mix('/js/app.js')}}" defer></script>
   @stack('scripts_bottom')
 </body>
 
