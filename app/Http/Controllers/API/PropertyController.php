@@ -535,10 +535,10 @@ class PropertyController extends Controller
       'plan' => 'required|string|',
       'description' => 'nullable|string|',
       'tags.*' => 'string',
-      'amenities' => 'array|min:0',
+      'amenities' => 'null|array|min:0',
       'amenities.*.name' => 'null|string',
       'amenities.*.value' => 'null|string',
-      'specifications' => 'array|min:0',
+      'specifications' => 'null|array|min:0',
       'specifications.*.name' => 'null|string',
       'specifications.*.value' => 'null|string',
     ]);
