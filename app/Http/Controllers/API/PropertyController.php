@@ -723,12 +723,12 @@ class PropertyController extends Controller
         'plan' => 'required|string|',
         'description' => 'nullable|string|',
         'tags.*' => 'string',
-        'amenities' => 'array|min:0',
-        'amenities.*.name' => 'null|string',
-        'amenities.*.value' => 'null|string',
+        'amenities' => 'nullable|array|min:0',
+        'amenities.*.name' => 'nullable|string',
+        'amenities.*.value' => 'nullable|string',
         'specifications' => 'array|min:0',
-        'specifications.*.name' => 'null|string',
-        'specifications.*.value' => 'null|string',
+        'specifications.*.name' => 'nullable|string',
+        'specifications.*.value' => 'nullable|string',
       ]);
 
       try {
@@ -746,8 +746,10 @@ class PropertyController extends Controller
         $updateable_property->views = 0;
         $updateable_property->likes = 0;
 
-        $tags = $request->input('tags');
-        if (count($tags) >= 1) {
+
+
+        if ($request->has('tags') && is_array($request->input('tags')) && count($request->input('tags'))) {
+          $tags = $request->input('tags');
           $updateable_tag_arr = [];
           foreach ($tags as $tag) {
             //attach the new tags from the database
@@ -762,10 +764,8 @@ class PropertyController extends Controller
         }
 
         //attach Amentities
-        $amenities = $request->input('amenities');
-
-
-        if (count($amenities) >= 1) {
+        if ($request->has('amenities') && is_array($request->input('amenities')) && count($request->input('amenities'))) {
+          $amenities = $request->input('amenities');
           $updateable_amenities_arr = [];
           foreach ($amenities as $amenity) {
             $creatable_amenity = Amenity::firstOrCreate(
@@ -781,8 +781,8 @@ class PropertyController extends Controller
           $updateable_property->amenities()->detach();
         }
 
-        $specifications = $request->input('specifications');
-        if (count($specifications) >= 1) {
+        if ($request->has('specifications') && is_array($request->input('specifications')) && count($request->input('specifications')) >= 1) {
+          $specifications = $request->input('specifications');
           $updateable_specifications_arr = [];
           foreach ($specifications as $specification) {
             $creatable_specification = Specification::firstOrCreate(
