@@ -523,12 +523,12 @@ class PropertyController extends Controller
     $image_url = [];
     $this->validate($request, [
       'title' => 'required|string|',
-      'price' => 'required|numeric|',
+      'price' => 'required|numeric|min:1',
       'address' => 'required|string|',
       'category_id' => 'required|exists:categories,id',
       'subcategory_id' => 'required|exists:subcategories,id',
       'state_id' => 'required|exists:states,id',
-      'city_id' => 'numeric|exists:cities,id',
+      'city_id' => 'required|exists:cities,id',
       'phone' => 'required|string|',
       'images.*' => 'file|image|mimes:jpeg,png,gif,jpg|max:2048',
       'list_as' => 'required|string|',
@@ -541,6 +541,14 @@ class PropertyController extends Controller
       'specifications' => 'nullable|array|min:0',
       'specifications.*.name' => 'nullable|string',
       'specifications.*.value' => 'nullable|string',
+    ], [
+      'title.required' => 'The property title is required',
+      'price.required' => 'The property price is required',
+      'price.min' => 'Price is not valid',
+      'category_id.required' => 'please select a category',
+      'subcategory_id.required' => 'please select a subcategory',
+      'state_id.required' => 'State location of the property is required',
+      'city_id.required' => 'LGA location of the property is required',
     ]);
 
     try {
@@ -710,12 +718,12 @@ class PropertyController extends Controller
       $updateable_property = Property::where('id', $id)->firstOrFail();
       $this->validate($request, [
         'title' => 'required|string|',
-        'price' => 'required|numeric|',
+        'price' => 'required|numeric|min:1',
         'address' => 'required|string|',
         'category_id' => 'required|numeric|',
         'subcategory_id' => 'required|numeric|',
         'state_id' => 'required|numeric|exists:states,id',
-        'city_id' => 'numeric|exists:cities,id',
+        'city_id' => 'required|exists:cities,id',
         'phone' => 'required|string|',
         'updateable_images' => 'array|min:0',
         'images.*' => 'file|image|mimes:jpeg,png,gif,jpg|max:2048',
@@ -729,6 +737,14 @@ class PropertyController extends Controller
         'specifications' => 'nullable|array|min:0',
         'specifications.*.name' => 'nullable|string',
         'specifications.*.value' => 'nullable|string',
+      ], [
+        'title.required' => 'The property title is required',
+        'price.required' => 'The property price is required',
+        'price.min' => 'Price is not valid',
+        'category_id.required' => 'please select a category',
+        'subcategory_id.required' => 'please select a subcategory',
+        'state_id.required' => 'State location of the property is required',
+        'city_id.required' => 'LGA location of the property is required',
       ]);
 
       try {
