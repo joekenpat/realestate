@@ -75,7 +75,7 @@
         </tr>
         <tr>
           <td class=" uk-text-bold">Price:</td>
-          <td>N{{ property != null ? number_format(property.plan) : null }}</td>
+          <td>&#8358;{{ property != null ? number_format(property.price) : null }}</td>
         </tr>
         <tr>
           <td class=" uk-text-bold">Created:</td>

@@ -37,8 +37,8 @@
         <tr>
           <td class=" uk-text-bold">Location:</td>
           <td>
-            {{ user != null ? user.state.name : null }},
-            {{ user != null ? user.city.name : null }}
+            {{ user.state != null ? user.state.name : null }},
+            {{ user.city != null ? user.city.name : null }}
           </td>
         </tr>
         <tr>
