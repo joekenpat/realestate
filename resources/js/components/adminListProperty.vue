@@ -207,7 +207,7 @@ export default {
           this.loading = !this.loading;
         })
         .catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
           this.loading = !this.loading;
         });
     },
@@ -249,7 +249,7 @@ export default {
       axios
         .get(url)
         .then(res => {
-          console.log(res.data.data);
+          // console.log(res.data.data);
           Toast.fire({
             icon: "success",
             title: res.data
@@ -257,7 +257,7 @@ export default {
           this.load_data(this.property_pagination_data.current_page);
         })
         .catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
           Toast.fire({
             icon: "error",
             title: err.response.statusText

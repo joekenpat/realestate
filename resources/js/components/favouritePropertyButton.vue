@@ -40,7 +40,7 @@ export default {
           this.loading = false;
         })
         .catch(error => {
-          console.log(error.response);
+          // console.log(error.response);
           this.loading = false;
         });
     },
@@ -59,7 +59,7 @@ export default {
           this.loading = false;
         })
         .catch(error => {
-          console.log(error.response);
+          // console.log(error.response);
           this.loading = false;
         });
     },

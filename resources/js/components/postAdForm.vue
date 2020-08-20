@@ -627,7 +627,6 @@ export default {
               title: "Unauthorized!"
             });
           } else if (status === 422) {
-            Toast;
             this.Toast.fire({
               icon: "error",
               title: err.response.data.statusText
@@ -840,7 +839,6 @@ export default {
               title: "Unauthorized!"
             });
           } else if (status === 422) {
-            Toast;
             this.error.title = err.response.data.errors.title
               ? err.response.data.errors.title[0]
               : null;
@@ -891,9 +889,9 @@ export default {
               icon: "error",
               title: "Check in some of those fields"
             });
-            console.log(err.response.data);
+            // console.log(err.response.data);
           } else {
-            console.log(err.response);
+            // console.log(err.response);
           }
           this.loading = false;
         });

@@ -247,7 +247,7 @@ export default {
             this.state_data = res.data.success;
           })
           .catch(err => {
-            console.log(err);
+            // console.log(err);
           });
       }
     },

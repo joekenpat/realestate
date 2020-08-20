@@ -168,7 +168,7 @@ export default {
           this.loading = !this.loading;
         })
         .catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
           this.loading = !this.loading;
         });
     },

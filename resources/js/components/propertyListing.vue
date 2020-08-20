@@ -549,7 +549,7 @@ export default {
           this.state_data = res.data;
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
         });
     },
     load_filter_data() {
@@ -616,7 +616,7 @@ export default {
           this.loading = !this.loading;
         })
         .catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
           this.loading = !this.loading;
         });
     },
@@ -655,7 +655,7 @@ export default {
           });
         })
         .catch(err => {
-          console.log(err.response);
+          // console.log(err.response);
         });
     },
     load_price_range() {
