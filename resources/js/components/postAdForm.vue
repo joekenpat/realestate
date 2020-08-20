@@ -833,7 +833,7 @@ export default {
           console.log(err);
           const { status } = err.response;
           if (status === 401) {
-            console.log(err.response.data);
+            // console.log(err.response.data);
             this.Toast.fire({
               icon: "error",
               title: "Unauthorized!"
