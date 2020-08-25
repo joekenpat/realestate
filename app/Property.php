@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\UuidForKey;
+use App\Sluggable;
 use App\Tag;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class Property extends Model
 {
-  use UuidForKey;
+  use UuidForKey, Sluggable;
   /**
    * Indicates if the IDs are auto-incrementing.
    *
@@ -19,12 +18,19 @@ class Property extends Model
   public $incrementing = false;
 
   /**
+   * set the attributes to slug from
+   *
+   * @var String
+   */
+  public $sluggable = 'title';
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
   protected $fillable = [
-    'title', 'price', 'images', 'views', 'likes', 'address',
+    'title', 'slug', 'price', 'images', 'views', 'likes', 'address',
     'user_id', 'category_id', 'subcategory_id', 'phone', 'currency_id',
     'country_id', 'state_id', 'city_id', 'status', 'list_as',
     'plan', 'description', 'expired_at', 'reported_at'
@@ -149,5 +155,4 @@ class Property extends Model
     //   }
     // });
   }
-
 }

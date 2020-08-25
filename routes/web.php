@@ -31,7 +31,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
-Route::get('/property/view/{property_id}', 'PropertyController@show')->name('view_property');
+Route::get('/property/view/{property_slug}', 'PropertyController@show')->name('view_property');
 Route::get('/', ['uses' => 'HomeController@homepage'])->name('home');
 Route::get('/property_list', 'PropertyController@index')->name('property_listing');
 Route::get('/payment/callback', 'PropertyController@handleGatewayCallback')->name('payment_callback');
@@ -43,7 +43,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
   Route::get('/property/favourite', 'PropertyController@user_favourite_property')->name('user_favourite_property');
   Route::get('/property/user_views', 'PropertyController@user_property_view')->name('user_property_view')->middleware('is_agent');
   Route::get('/property/create', 'PropertyController@create')->name('user_create_property');
-  Route::get('/property/edit/{property_id}', 'PropertyController@edit')->name('user_edit_property');
+  Route::get('/property/edit/{property_slug}', 'PropertyController@edit')->name('user_edit_property');
   Route::get('/property/report/{property_id}', 'PropertyController@report')->name('report_property');
   Route::post('/property/report/new/{property_id}', 'PropertyController@file_property_report')->name('file_property_report');
 });

@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\support\str;
 
 class CategoryController extends Controller
 {
@@ -58,6 +59,7 @@ class CategoryController extends Controller
       $new_cat = Category::firstOrNew([
         'name' => $request->input('name')
       ], [
+        'slug'=> Str::slug( $request->input('name')),
         'image' => null,
       ]);
 
@@ -112,6 +114,7 @@ class CategoryController extends Controller
     try {
       $cat = Category::where('id', $id)->firstOrFail();
       $cat->name = $request->input('name');
+      $cat->slug = Str::slug( $request->input('name'));
       $cat->image = null;
       $cat->update();
       $success['data'] = $cat;

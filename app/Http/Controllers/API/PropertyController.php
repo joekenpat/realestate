@@ -21,10 +21,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Unicodeveloper\Paystack\Paystack;
 
 class PropertyController extends Controller
@@ -977,13 +975,13 @@ class PropertyController extends Controller
     }
   }
 
-  public function delete_property_image($product_id, $image_name)
+  public function delete_property_image($property_slug, $image_name)
   {
-    $property = Property::where('id', $product_id)->firstOrFail();
+    $property = Property::where('slug', $property_slug)->firstOrFail();
     try {
       $image_links = $property->images;
-      if (File::exists(public_path(sprintf("images/properties/%s/%s", $product_id, $image_name)))) {
-        File::delete(public_path(sprintf("images/properties/%s/%s", $product_id, $image_name)));
+      if (File::exists(public_path(sprintf("images/properties/%s/%s", $property->id, $image_name)))) {
+        File::delete(public_path(sprintf("images/properties/%s/%s", $property->id, $image_name)));
         $new_links = [];
         foreach ($image_links as $image) {
           if ($image != $image_name) {
@@ -1011,10 +1009,10 @@ class PropertyController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($property_id)
+  public function destroy($property_slug)
   {
     try {
-      $property = Property::where('id', $property_id)->firstOrFail();
+      $property = Property::where('slug', $property_slug)->firstOrFail();
       $property->tags()->detach();
       $property->amenities()->detach();
       $property->specifications()->detach();
@@ -1191,10 +1189,10 @@ class PropertyController extends Controller
     }
   }
 
-  public function userCloseProperty($property_id)
+  public function userCloseProperty($property_slug)
   {
     try {
-      $property = Property::where('id', $property_id)->firstOrFail();
+      $property = Property::where('slug', $property_slug)->firstOrFail();
       $property->status = 'closed';
       $property->update();
       return response()->json("Property is now Closed !", Response::HTTP_OK);
@@ -1207,7 +1205,7 @@ class PropertyController extends Controller
 
   public function upgrade_property(Request $request)
   {
-    $property = Property::where('id', $request->property_id)->firstOrFail();
+    $property = Property::where('slug', $request->property_slug)->firstOrFail();
     if ($property->plan != $request->plan) {
       $property_plan = SiteConfig::where('key', 'property_plan_fee')->firstOrFail();
       $property_plan_fee = json_decode($property_plan->value);

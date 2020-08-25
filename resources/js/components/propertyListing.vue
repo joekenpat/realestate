@@ -389,8 +389,8 @@
                 <div
                   class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text"
                 >
-                  <a :href="`${base_url}/property/view/${property.id}`">
-                    <div class="uk-card-media-top ">
+                  <div class="uk-card-media-top ">
+                    <a :href="`${base_url}/property/view/${property.id}`">
                       <img
                         class="home_ad_list_thumb"
                         :src="
@@ -398,94 +398,101 @@
                         "
                         alt=""
                       />
+                    </a>
 
-                      <!--featured start here-->
-                      <div
-                        v-if="property.plan == 'featured'"
-                        class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                        style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: #FFD700; color: white "
-                      >
-                        <p class="uk-text-small" style="padding:0px 6px">
-                          <i
-                            uk-icon="icon:star; ratio:1"
-                            style="color:white;"
-                          ></i>
-                          For {{ property.list_as }}
-                        </p>
-                      </div>
-                      <!--featured end here-->
+                    <!--featured start here-->
+                    <div
+                      v-if="property.plan == 'featured'"
+                      class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                      style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: #FFD700; color: white "
+                    >
+                      <p class="uk-text-small" style="padding:0px 6px">
+                        <i
+                          uk-icon="icon:star; ratio:1"
+                          style="color:white;"
+                        ></i>
+                        For {{ property.list_as }}
+                      </p>
+                    </div>
+                    <!--featured end here-->
 
-                      <!--distress start here-->
-                      <div
-                        v-else-if="property.plan == 'distress'"
-                        class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                        style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white "
-                      >
-                        <p class="uk-text-small" style="padding:0px 6px">
-                          <i
-                            uk-icon="icon:rss; ratio:1"
-                            style="color:white;"
-                          ></i>
-                          For {{ property.list_as }}
-                        </p>
-                      </div>
-                      <!--distress end here-->
+                    <!--distress start here-->
+                    <div
+                      v-else-if="property.plan == 'distress'"
+                      class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                      style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white "
+                    >
+                      <p class="uk-text-small" style="padding:0px 6px">
+                        <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
+                        For {{ property.list_as }}
+                      </p>
+                    </div>
+                    <!--distress end here-->
 
-                      <!--free start here-->
-                      <div
-                        v-else
-                        class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                        style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color:black; color: white "
+                    <!--free start here-->
+                    <div
+                      v-else
+                      class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                      style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color:black; color: white "
+                    >
+                      <P class="uk-text-small" style="padding:0px 6px">
+                        <i uk-icon="icon:bell; ratio:1" style="color:white;"></i
+                        >For {{ property.list_as }}</P
                       >
-                        <P class="uk-text-small" style="padding:0px 6px">
-                          <i
-                            uk-icon="icon:bell; ratio:1"
-                            style="color:white;"
-                          ></i
-                          >For {{ property.list_as }}</P
+                    </div>
+                    <!--free end here-->
+
+                    <!--like ad start here-->
+                    <button
+                      class="uk-position-top-right uk-button uk-position-small uk-border-pill"
+                      style="color: #FFD700; background:#fff; padding:0px 6px"
+                    >
+                      <i uk-icon="icon:heart;ratio:1"></i>
+                      {{ property.favourites_count }}
+                    </button>
+                    <!--like ad end here-->
+                  </div>
+                  <div class="uk-card-body uk-text-center uk-padding-small">
+                    <h4 class="my-card-title" style="color:#FFD700;">
+                      <a
+                        :href="`${base_url}/property/view/${property.id}`"
+                        class="uk-link-reset"
+                      >
+                        &#8358;{{ number_format(property.price) }}
+                      </a>
+                    </h4>
+
+                    <p class="uk-text-small">
+                      <i
+                        style="color: #87ceeb;"
+                        uk-icon="icon:location; ratio:.8"
+                      ></i>
+                      {{ property.city.name }}, {{ property.state.name }}
+                    </p>
+                    <div class="uk-text-small" uk-grid>
+                      <div class="uk-width-1-2">
+                        <a
+                          :href="
+                            `${base_url}/property_list?category=${property.category.id}`
+                          "
+                          class="uk-button uk-button-default uk-padding-remove-horizontal uk-border-pill blue darken-2- uk-text-bold white-text uk-text-truncate uk-margin-remove uk-width-1-1 uk-align-center"
+                        >
+                          {{ property.category.name }}</a
                         >
                       </div>
-                      <!--free end here-->
-
-                      <!--like ad start here-->
-                      <button
-                        class="uk-position-top-right uk-button uk-position-small uk-border-pill"
-                        style="color: #FFD700; background:#fff; padding:0px 6px"
-                      >
-                        <i uk-icon="icon:heart;ratio:1"></i>
-                        {{ property.favourites_count }}
-                      </button>
-                      <!--like ad end here-->
-                    </div>
-                    <div class="uk-card-body uk-text-center uk-padding-small">
-                      <h4 class="my-card-title" style="color:#adf802;">
-                        &#8358;{{ number_format(property.price) }}
-                      </h4>
-
-                      <p class="uk-text-small">
-                        <i
-                          style="color: #87ceeb;"
-                          uk-icon="icon:location; ratio:.8"
-                        ></i>
-                        {{ property.city.name }}, {{ property.state.name }}
-                      </p>
-                      <div class="uk-text-small" uk-grid>
-                        <div class="uk-width-1-2">
-                          <p class=" uk-text-capitalize">
-                            {{ property.category.name }}: 
-                            {{ property.subcategory.name }}
-                          </p>
-                        </div>
-                        <div class="uk-width-1-2">
-                          <img
-                            :src="property.user.avatar != null?`${base_url}/images/users/profile/${property.user.id}/${property.user.avatar}`:`${base_url}/images/misc/default_avatar.png`"
-                            class="uk-border-circle agent_logo"
-                            alt="property agent image"
-                          />
-                        </div>
+                      <div class="uk-width-1-2">
+                        <img
+                          :src="
+                            property.user.avatar != null
+                              ? `${base_url}/images/users/profile/${property.user.id}/${property.user.avatar}`
+                              : `${base_url}/images/misc/default_avatar.png`
+                          "
+                          class="uk-border-circle agent_logo uk-align-right"
+                          alt="property agent image"
+                        />
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>

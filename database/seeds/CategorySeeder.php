@@ -2,6 +2,7 @@
 
 use App\Category;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
@@ -14,10 +15,10 @@ class CategorySeeder extends Seeder
   public function run()
   {
     $categories = [
-      ['name'=>'Residential'],
-      ['name'=>'Commercial'],
-      ['name'=>'Industrial'],
-      ['name'=>'Land'],
+      ['name' => 'Residential', 'slug' => Str::slug('Residential')],
+      ['name' => 'Commercial', 'slug' => Str::slug('Commercial')],
+      ['name' => 'Industrial', 'slug' => Str::slug('Industrial')],
+      ['name' => 'Land', 'slug' => Str::slug('Land')],
     ];
     $categoryProgressBar = $this->command->getOutput()->createProgressBar(count($categories));
     foreach ($categories as $category) {

@@ -6,12 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+  use Sluggable;
   /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
-  protected $fillable = ['name','image'];
+  protected $fillable = ['name','slug','image'];
+
+  /**
+   * set the attributes to slug from
+   *
+   * @var String
+   */
+  public $sluggable = 'name';
+
 
   /**
    * The attributes that should be hidden for arrays.

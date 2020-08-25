@@ -284,7 +284,7 @@
           <hr>
         </div>
         <div class="uk-padding-small">
-          <p>{{$property->description}}
+          <p>{!! $property->description !!}
           </p>
 
 
@@ -361,8 +361,8 @@
           <p class="uk-margin-remove-bottom uk-text-boldicon">{{$property->user->get_full_name()}}</p>
           <div>
             <p>{{ucwords($property->user->role)}}</p>
-            <a href="#" class="uk-button uk-button-small uk-border-rounded uk-margin-remove-bottom"
-              style="background:red; color:white;">see all post</a>
+            {{-- <a href="#" class="uk-button uk-button-small uk-border-rounded uk-margin-remove-bottom"
+              style="background:red; color:white;">see all post</a> --}}
 
           </div>
         </div>
@@ -389,11 +389,11 @@
         </div>
 
         <p class="uk-padding-small">
-          <a href="mailto:{{$property->user->email}}?subject={{str_replace(' ','%20',"Information needed for product: {$property->title}")}}&body={{str_replace(' ','%20',sprintf("Hi, I'll like to find out more about this property: %s", route('view_property',['property_id'=>$property->id])))}}"
+          <a href="mailto:{{$property->user->email}}?subject={{str_replace(' ','%20',"Information needed for product: {$property->title}")}}&body={{str_replace(' ','%20',sprintf("Hi, I'll like to find out more about this property: %s", route('view_property',['property_slug'=>$property->slug])))}}"
             class="uk-button uk-button-small  uk-margin-small-right uk-border-pill"
             style="color: white; background-color: orange"><b uk-icon="icon:mail;ratio:1;"></b>
             <b>Email</b></a>
-          <a href="https://wa.me/234{{substr($property->user->phone,1)}}?text={{str_replace(' ','%20',sprintf("Hi, I'll like to find out more about this property: %s", route('view_property',['property_id'=>$property->id])))}}"
+          <a href="https://wa.me/234{{substr($property->user->phone,1)}}?text={{str_replace(' ','%20',sprintf("Hi, I'll like to find out more about this property: %s", route('view_property',['property_slug'=>$property->slug])))}}"
             class="uk-button uk-button-small uk-margin-small-right uk-border-pill"
             style="color: white; background-color:#adf802"><b uk-icon="icon:whatsapp;ratio:1;"></b>
             <b> Whatsapp</b></a>

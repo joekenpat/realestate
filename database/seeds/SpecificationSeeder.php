@@ -2,6 +2,7 @@
 
 use App\Specification;
 use Illuminate\Database\Seeder;
+use Illuminate\support\str;
 
 class SpecificationSeeder extends Seeder
 {

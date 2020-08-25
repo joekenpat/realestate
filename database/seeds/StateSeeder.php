@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\support\str;
 
 class StateSeeder extends Seeder
 {
@@ -59,6 +60,7 @@ class StateSeeder extends Seeder
       $state = [
         'name' => $state_data,
         'code' => $state_code,
+        'slug' => Str::slug($states_data),
         'created_at' => $time,
         'updated_at' => $time,
         'deleted_at' => null,

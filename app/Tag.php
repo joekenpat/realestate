@@ -6,14 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+  use Sluggable;
   /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
   protected $fillable = [
-    'name',
+    'name','slug',
   ];
+
+  /**
+   * set the attributes to slug from
+   *
+   * @var String
+   */
+  public $sluggable = 'name';
 
   /**
    * The attributes that should be hidden for arrays.

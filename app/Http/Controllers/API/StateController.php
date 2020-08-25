@@ -22,7 +22,7 @@ class StateController extends Controller
   {
     try {
 
-      $states = State::select('id', 'name')->get();
+      $states = State::select('id', 'name','code')->get();
       return response()->json($states, Response::HTTP_OK);
     } catch (\Exception $e) {
       return response()->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);

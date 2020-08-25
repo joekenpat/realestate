@@ -6,14 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
-    /**
+  use Sluggable;
+  /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
   protected $fillable = [
-    'name','code',
+    'name', 'slug', 'code',
   ];
+
+  /**
+   * set the attributes to slug from
+   *
+   * @var String
+   */
+  public $sluggable = 'name';
+
 
   /**
    * The attributes that should be hidden for arrays.
@@ -29,7 +38,5 @@ class State extends Model
    *
    * @var array
    */
-  protected $casts = [
-  ];
-
+  protected $casts = [];
 }

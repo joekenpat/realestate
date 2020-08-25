@@ -159,29 +159,22 @@ class CityController extends Controller
   }
 
 
-  public function list_city_in_state($state_code)
+  public function list_city_for_state_code($state_code)
   {
     try {
-      $cities = City::select('id', 'name')->where('state_code', $state_code)->limit(10);
-      $success['data'] = $cities;
-      return response()->json([
-        'success' => $success,
-      ], Response::HTTP_OK);
+      $cities = City::select('id', 'name')->where('state_code', $state_code)->get();
+      return response()->json($cities, Response::HTTP_OK);
     } catch (ModelNotFoundException $mnt) {
-      return response()->json([
-        'error' => 'No city Found',
-      ], Response::HTTP_NOT_FOUND);
+      return response()->json('No city Found', Response::HTTP_NOT_FOUND);
     } catch (\Exception $e) {
-      return response()->json([
-        'error' => $e->getMessage(),
-      ], Response::HTTP_INTERNAL_SERVER_ERROR);
+      return response()->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
     }
   }
 
   public function find_city_in_state($findable, $state_code)
   {
     try {
-      $cities = City::select('id', 'name')->where('state_code', $state_code)->where('name','LIKE',"%{$findable}%")->limit(10)->get();
+      $cities = City::select('id', 'name')->where('state_code', $state_code)->where('name', 'LIKE', "%{$findable}%")->limit(10)->get();
       return response()->json([
         'success' => $cities,
       ], Response::HTTP_OK);

@@ -78,7 +78,7 @@
             </td>
             <td class="uk-table-link">
               <a
-                :href="`${base_url}/property/view/${property.id}`"
+                :href="`${base_url}/property/view/${property.slug}`"
                 class="uk-link-reset"
               >
                 <ul class="uk-margin-remove-bottom uk-padding-remove-left">
@@ -118,25 +118,25 @@
             </td>
             <td>
               <button
-                @click="upgrade_property(property.id)"
+                @click="upgrade_property(property.slug)"
                 uk-tooltip="Upgrade Property"
                 class="uk-icon-link orange-text"
                 uk-icon="icon:push; ratio:1"
               ></button>
               <button
-                @click="edit_property(property.id)"
+                @click="edit_property(property.slug)"
                 uk-tooltip="Edit Property"
                 class="uk-icon-link blue-text"
                 uk-icon="icon:file-edit; ratio:1"
               ></button>
               <button
-                @click="close_property(property.id)"
+                @click="close_property(property.slug)"
                 uk-tooltip="Close Property"
                 class="uk-icon-link red-text"
                 uk-icon="icon:close; ratio:1"
               ></button>
               <button
-                @click="delete_property(property.id)"
+                @click="delete_property(property.slug)"
                 uk-tooltip="Delete Property"
                 class="uk-icon-link red-text"
                 uk-icon="icon:trash; ratio:1"
@@ -207,8 +207,8 @@ export default {
     };
   },
   methods: {
-    delete_property(property_id) {
-      let pid = property_id;
+    delete_property(property_slug) {
+      let pslug = property_slug;
       this.$swal.fire({
         title: "Delete Property",
         text: "You won't be able to revert this!",
@@ -220,7 +220,7 @@ export default {
         showLoaderOnConfirm: true,
         preConfirm: () => {
           return axios
-            .get(`${this.base_url}/api/user/property/delete/${pid}`)
+            .get(`${this.base_url}/api/user/property/delete/${pslug}`)
             .then(response => {
               this.load_data(this.property_pagination_data.current_page);
               return this.$swal.fire({
@@ -235,7 +235,7 @@ export default {
         allowOutsideClick: () => !this.$swal.isLoading()
       });
     },
-    edit_property(property_id) {
+    edit_property(property_slug) {
       this.$swal
         .fire({
           title: "Are you sure?",
@@ -246,7 +246,7 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            window.open(`${this.base_url}/user/property/edit/${property_id}`);
+            window.location =`${this.base_url}/user/property/edit/${property_slug}`;
           }
         });
     },
@@ -295,7 +295,7 @@ export default {
         record_count: total_records
       };
     },
-    close_property(property_id) {
+    close_property(property_slug) {
       this.$swal
         .fire({
           icon: "warning",
@@ -305,7 +305,7 @@ export default {
           showLoaderOnConfirm: true,
           preConfirm: upgrade_plan => {
             return axios
-              .get(`${this.base_url}/api/user/property/close/${property_id}`)
+              .get(`${this.base_url}/api/user/property/close/${property_slug}`)
               .then(res => {
                 return res;
               })
@@ -324,36 +324,7 @@ export default {
           }
         });
     },
-    delete_property(property_id) {
-      this.$swal
-        .fire({
-          icon: "error",
-          title: "Delete this Property",
-          showCancelButton: true,
-          confirmButtonText: "Yes, Delete",
-          showLoaderOnConfirm: true,
-          preConfirm: upgrade_plan => {
-            return axios
-              .get(`${this.base_url}/api/user/property/delete/${property_id}`)
-              .then(res => {
-                return res;
-              })
-              .catch(error => {
-                this.$swal.showValidationMessage(`Request failed: ${error}`);
-              });
-          },
-          allowOutsideClick: () => !this.$swal.isLoading()
-        })
-        .then(result => {
-          if (result.value) {
-            this.Toast.fire({
-              icon: "success",
-              title: result.value.data
-            });
-          }
-        });
-    },
-    upgrade_property(property_id) {
+    upgrade_property(property_slug) {
       this.$swal
         .fire({
           title: "Select Plan For Upgrade",
@@ -370,7 +341,7 @@ export default {
           showLoaderOnConfirm: true,
           preConfirm: upgrade_plan => {
             let payload = new FormData();
-            payload.append("property_id", property_id);
+            payload.append("property_slug", property_slug);
             payload.append("plan", upgrade_plan);
 
             return axios

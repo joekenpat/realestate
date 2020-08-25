@@ -31,12 +31,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     Route::post('/list', 'API\PropertyController@user_index')->name('api_user_list_property');
     Route::post('/save', 'API\PropertyController@store')->name('api_save_new_property');
     Route::post('/update/{property_id}', 'API\PropertyController@update')->name('api_update_property');
-    Route::get('/delete/{property_id}', 'API\PropertyController@destroy');
-    Route::get('/{property_id}/delete/image/{image_name}', 'API\PropertyController@delete_property_image');
+    Route::get('/delete/{property_slug}', 'API\PropertyController@destroy');
+    Route::get('/{property_slug}/delete/image/{image_name}', 'API\PropertyController@delete_property_image');
     Route::post('/upgrade', 'API\PropertyController@upgrade_property');
     Route::get('/like/{property_id}', 'API\PropertyController@like');
     Route::get('/unlike/{property_id}', 'API\PropertyController@unlike');
-    Route::get('/close/{property_id}', 'API\PropertyController@userCloseProperty');
+    Route::get('/close/{property_slug}', 'API\PropertyController@userCloseProperty');
     Route::get('/user_view', 'API\PropertyController@user_property_view');
     Route::get('/favourite', 'API\PropertyController@user_favourite_property');
     Route::get('/favourite/add/{property_id}', 'API\PropertyController@add_favourite_property');
@@ -54,6 +54,7 @@ Route::group(['prefix' => 'subcategory'], function () {
 
 Route::group(['prefix' => 'state'], function () {
   Route::get('/find/{findable}', 'API\StateController@find_state')->name('api_find_state');
+  Route::get('/list', 'API\StateController@index')->name('api_list_state');
 });
 
 Route::group(['prefix' => 'city'], function () {

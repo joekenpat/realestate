@@ -65,13 +65,6 @@
     padding: 2px;
   }
 
-  /* .formatForButton{
-    background-color:#adf802;
-} */
-  /* span {
-    display: none;
-  } */
-
   @media (max-width: 740px) {
     .dashboard-main {
       width: 100%;
@@ -172,13 +165,6 @@
     padding: 2px;
   }
 
-  /* .formatForButton{
-    background-color:#adf802;
-} */
-  /* span {
-    display: none;
-  } */
-
   @media (max-width: 740px) {
     .dashboard-main {
       width: 100%;
@@ -219,6 +205,7 @@
     object-fit: cover;
   }
 </style>
+<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 @endpush
 <div class="uk-grid-collapse" uk-grid>
   <div class="uk-visible@m uk-width-1-4 uk-padding-small">
@@ -228,7 +215,8 @@
 
   <!-----poast ads start here----->
   <div class="uk-width-1-1 uk-width-3-4@m uk-padding-small">
-    <Post-Ad-Form property_action="Post" :plan_fee="{{json_encode($plan_fee)}}" form_action="{{route('api_save_new_property')}}" :plan_fee="{{json_encode($plan_fee)}}"
+    <Post-Ad-Form property_action="Post" :plan_fee="{{json_encode($plan_fee)}}"
+      form_action="{{route('api_save_new_property')}}" :plan_fee="{{json_encode($plan_fee)}}"
       :categories_data="{{$categories_data}}">
     </Post-Ad-Form>
     <!-----post ads end here----->
@@ -236,6 +224,8 @@
 
 
 </div>
-
+@push('scripts_bottom')
+{{-- <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script> --}}
+@endpush
 <!-----userdashboard end here----->
 @endsection

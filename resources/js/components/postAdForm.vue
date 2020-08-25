@@ -101,30 +101,34 @@
         </div>
         <div class="uk-width-1-2@s">
           <label class="uk-form-label"><b>Description</b></label>
-          <textarea
-            class="uk-textarea"
-            rows="3"
-            placeholder="Write here"
-            id="description"
-            name="description"
+          <quill-editor
             v-model="description"
-            :class="{ 'uk-form-danger': error.phone != null }"
-          ></textarea>
+            rows="3"
+            placeholder="Property Description"
+            id="description"
+            ref="description"
+            name="description"
+            :class="{ 'uk-form-danger': error.description != null }"
+            :options="editorOption"
+          >
+          </quill-editor>
           <span v-show="error.description != null" class="uk-text-danger">{{
             error.description
           }}</span>
         </div>
         <div class="uk-width-1-2@s">
           <label class="uk-form-label"><b>Address</b></label>
-          <textarea
-            class="uk-textarea"
-            rows="3"
-            placeholder="Write here"
-            id="address"
+          <quill-editor
             v-model="address"
+            rows="3"
+            placeholder="Property Address"
+            id="address"
+            ref="address"
             name="address"
             :class="{ 'uk-form-danger': error.address != null }"
-          ></textarea>
+            :options="editorOption"
+          >
+          </quill-editor>
           <span v-show="error.address != null" class="uk-text-danger">{{
             error.address
           }}</span>
@@ -512,6 +516,9 @@
 <script>
 import { ModelListSelect } from "vue-search-select";
 import jsonToFormData from "json-form-data";
+import Quill from "quill";
+import { quillEditor } from "vue-quill-editor";
+// Quill.register('modules/toolbar', toolbar)
 export default {
   data() {
     return {
@@ -522,8 +529,19 @@ export default {
       list_as: "sale",
       phone: "",
       price: 0,
+      toolbarConfig: [
+        ["bold", "italic", "strike"],
+        [{ header: [2, 3, false] }],
+        [{ list: "ordered" }, { list: "bullet" }]
+      ],
       description: "",
       address: "",
+      editorOption: {
+        modules: {
+          toolbar: this.toolbarConfig
+        },
+        theme: "snow"
+      },
       plan: "free",
       Toast: this.$swal.mixin({
         toast: true,
@@ -827,6 +845,7 @@ export default {
               title: res.data
             });
             this.loading = false;
+            window.location = `${this.base_url}/user/property`
           }
         })
         .catch(err => {
@@ -926,7 +945,9 @@ export default {
     this.load_init_data();
   },
   components: {
-    ModelListSelect
-  }
+    ModelListSelect,
+    quillEditor
+  },
+  mounted() {}
 };
 </script>

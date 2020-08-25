@@ -6,14 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
+  use Sluggable;
     /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
   protected $fillable = [
-    'name','state_code',
+    'name','slug','state_code',
   ];
+
+  /**
+   * set the attributes to slug from
+   *
+   * @var String
+   */
+  public $sluggable = 'name';
+
 
   /**
    * The attributes that should be hidden for arrays.

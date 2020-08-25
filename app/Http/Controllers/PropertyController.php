@@ -500,9 +500,9 @@ class PropertyController extends Controller
    * @param  \App\Property  $property
    * @return \Illuminate\Http\Response
    */
-  public function show(Request $request, $property_id)
+  public function show(Request $request, $property_slug)
   {
-    $property = Property::with(['user','amenities','specifications','tags','user.state','user.city','state','city'])->where('id', $property_id)->firstOrFail();
+    $property = Property::with(['user','amenities','specifications','tags','user.state','user.city','state','city'])->where('slug', $property_slug)->firstOrFail();
     $viewer_ip = $request->getClientIp();
     if (Auth::check()) {
       $user_id = Auth::user()->id;
@@ -511,13 +511,13 @@ class PropertyController extends Controller
       // if($property->user->is_agent()){
       // $property->user->notify(new UserViewedProduct($viewer));
       // }
-      $fav_status = FavouriteProperty::where('property_id', $property_id)->where('user_id', Auth()->user()->id)->exists();
+      $fav_status = FavouriteProperty::where('property_id', $property->idg)->where('user_id', Auth()->user()->id)->exists();
     } else {
       $user_id = null;
       $fav_status = false;
     }
     PropertyView::updateOrCreate(
-      ['property_id' => $property_id, 'user_id' => $user_id, 'viewer_ip' => $viewer_ip]
+      ['property_id' => $property->id, 'user_id' => $user_id, 'viewer_ip' => $viewer_ip]
     );
     return view('property.view', ['property' => $property, 'fav_status' => $fav_status]);
   }
@@ -529,9 +529,9 @@ class PropertyController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-  public function edit($property_id)
+  public function edit($property_slug)
   {
-    $property = Property::with(['amenities:name,value', 'specifications:name,value', 'tags:name', 'city', 'state'])->where('id', $property_id)->firstOrFail();
+    $property = Property::with(['amenities:name,value', 'specifications:name,value', 'tags:name', 'city', 'state'])->where('slug', $property_slug)->firstOrFail();
     $categories = Category::with('subcategories')->get();
     $property_plan = SiteConfig::where('key', 'property_plan_fee')->firstOrFail();
     $property_plan_fee = json_decode($property_plan->value);

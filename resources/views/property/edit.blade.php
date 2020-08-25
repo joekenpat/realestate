@@ -65,13 +65,6 @@
     padding: 2px;
   }
 
-  /* .formatForButton{
-    background-color:#adf802;
-} */
-  /* span {
-    display: none;
-  } */
-
   @media (max-width: 740px) {
     .dashboard-main {
       width: 100%;
@@ -172,12 +165,6 @@
     padding: 2px;
   }
 
-  /* .formatForButton{
-    background-color:#adf802;
-} */
-  /* span {
-    display: none;
-  } */
 
   @media (max-width: 740px) {
     .dashboard-main {
@@ -219,6 +206,7 @@
     object-fit: cover;
   }
 </style>
+<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 @endpush
 <div class="uk-grid-collapse" uk-grid>
 
@@ -232,7 +220,8 @@
   <div class="uk-width-1-1 uk-width-3-4@m uk-padding-small">
     {{-- {{dd($property)}} --}}
     <Post-Ad-Form property_action="Edit" form_action="{{route('api_update_property',['property_id'=>$property->id])}}"
-    :init_data="{{$property}}" :plan_fee="{{json_encode($plan_fee)}}" :categories_data="{{$categories_data}}"></Post-Ad-Form>
+      :init_data="{{$property}}" :plan_fee="{{json_encode($plan_fee)}}" :categories_data="{{$categories_data}}">
+    </Post-Ad-Form>
     <!-----post ads end here----->
 
   </div>

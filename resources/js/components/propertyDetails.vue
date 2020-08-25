@@ -59,11 +59,11 @@
         </tr>
         <tr>
           <td class=" uk-text-bold">Address:</td>
-          <td>{{ property != null ? property.address : null }}</td>
+          <td v-html="property != null ? property.address : null"></td>
         </tr>
         <tr>
           <td class=" uk-text-bold">Description:</td>
-          <td>{{ property != null ? property.description : null }}</td>
+          <td v-html="property != null ? property.description : null"></td>
         </tr>
         <tr>
           <td class=" uk-text-bold">Plan:</td>
@@ -75,7 +75,9 @@
         </tr>
         <tr>
           <td class=" uk-text-bold">Price:</td>
-          <td>&#8358;{{ property != null ? number_format(property.price) : null }}</td>
+          <td>
+            &#8358;{{ property != null ? number_format(property.price) : null }}
+          </td>
         </tr>
         <tr>
           <td class=" uk-text-bold">Created:</td>
