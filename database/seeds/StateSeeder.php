@@ -60,7 +60,7 @@ class StateSeeder extends Seeder
       $state = [
         'name' => $state_data,
         'code' => $state_code,
-        'slug' => Str::slug($states_data),
+        'slug' => Str::slug($state_data),
         'created_at' => $time,
         'updated_at' => $time,
         'deleted_at' => null,
