@@ -296,6 +296,7 @@
 <!-----slider end here------>
 
 <!---top properties start here---->
+@if(count($featured_properties))
 <div class="top-post uk-text-center uk-margin">
   <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Featured Properties
     </b><i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i></h3>
@@ -383,7 +384,9 @@
   <a href="{{route('property_listing',['sort_by'=>'price','plan'=>'featured'])}}" class="uk-button blue darken-1 white-text uk-border-rounded">View All</a>
 </div>
 <!---top properties end here---->
+@endisset
 
+@if(count($recent_properties))
 <!---latest properties start here---->
 <div class="top-post uk-text-center uk-margin">
   <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Recent Properties</b><i
@@ -474,7 +477,7 @@
   <a href="{{route('property_listing',['sort_by'=>'created_at','plan'=>'all'])}}" class="uk-button blue darken-1 white-text uk-border-rounded">View All</a>
 </div>
 <!---top properties start here---->
-
+@endisset
 <!----properties by city start here-->
 <div class="city">
   <div class="uk-container">
