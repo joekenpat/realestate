@@ -957,7 +957,7 @@ class CitySeeder extends Seeder
       $city = [
         'name' => $city_data['name'],
         'state_code' => $city_data['state_code'],
-        'slug' => Str::slug($cities_data['name']),
+        'slug' => Str::slug($city_data['name']),
         'created_at' => $time,
         'updated_at' => $time,
         'deleted_at' => null,
