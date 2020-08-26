@@ -1,5 +1,6 @@
 <?php
 
+use App\City;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\support\str;
@@ -953,17 +954,13 @@ class CitySeeder extends Seeder
     $cities_count = count($cities_data);
     $cityProgressBar = $this->command->getOutput()->createProgressBar($cities_count);
     foreach ($cities_data as $city_data) {
-      $time = now()->format('Y-m-d H:i:s.u');
       $city = [
         'name' => $city_data['name'],
         'state_code' => $city_data['state_code'],
         'slug' => Str::slug($city_data['name']),
-        'created_at' => $time,
-        'updated_at' => $time,
-        'deleted_at' => null,
       ];
       $cities[] = $city;
-      DB::table('cities')->insert($city);
+      City::create($city);
       $city = [];
       $cityProgressBar->advance();
     }
