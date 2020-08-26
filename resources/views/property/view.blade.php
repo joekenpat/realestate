@@ -360,7 +360,16 @@
             class="uk-border-circle profile_image" alt="ad user image">
           <p class="uk-margin-remove-bottom uk-text-boldicon">{{$property->user->get_full_name()}}</p>
           <div>
-            <p><span class="uk-label blue darken-2">{{ucwords($property->user->role)}}</span></p>
+            <p class="uk-label blue darken-2 uk-text-bold uk-border-rounded" style="padding:3px 10px;">
+              @if($property->user->role == 'agent')
+                <span uk-icon="icon:home;ratio:.9"></span> <span class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Realtor
+              @elseif($property->user->role == 'user')
+              <span uk-icon="icon:user;ratio:.9"></span> <span class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Member
+              @else
+              <span uk-icon="icon:nut;ratio:.9"></span> <span class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Admin
+              @endif
+
+            </p>
             {{-- <a href="#" class="uk-button uk-button-small uk-border-rounded uk-margin-remove-bottom"
               style="background:red; color:white;">see all post</a> --}}
 
@@ -383,9 +392,9 @@
           <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <i
               class="uk-icon-button uk-margin-small-right" uk-icon="mail"
               style="color: black; background-color:whitesmoke"></i> {{$property->user->email}}</p>
-          <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <a href="tel:{{$property->user->phone}}"> <i
-              class="uk-icon-button uk-margin-small-right" uk-icon="phone"
-              style="color: black; background-color:whitesmoke"></i> {{$property->user->phone}}</a></p>
+          <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <a
+              href="tel:{{$property->user->phone}}"> <i class="uk-icon-button uk-margin-small-right" uk-icon="phone"
+                style="color: black; background-color:whitesmoke"></i> {{$property->user->phone}}</a></p>
         </div>
 
         <p class="uk-padding-small">
