@@ -453,7 +453,7 @@
                     <!--like ad end here-->
                   </div>
                   <div class="uk-card-body uk-text-center uk-padding-small">
-                    <h4 class="my-card-title" style="color:#FFD700;">
+                    <h4 class="my-card-title red-text">
                       <a
                         :href="`${base_url}/property/view/${property.id}`"
                         class="uk-link-reset"
@@ -475,7 +475,7 @@
                           :href="
                             `${base_url}/property_list?category=${property.category.id}`
                           "
-                          class="uk-button uk-button-default uk-padding-remove-horizontal uk-border-pill blue darken-2- uk-text-bold white-text uk-text-truncate uk-margin-remove uk-width-1-1 uk-align-center"
+                          class="uk-button uk-button-default uk-padding-remove-horizontal uk-border-pill grey darken-3 uk-text-bold white-text uk-text-truncate uk-margin-remove uk-width-1-1 uk-align-center"
                         >
                           {{ property.category.name }}</a
                         >

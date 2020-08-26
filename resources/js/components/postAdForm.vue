@@ -136,15 +136,21 @@
         <div class="uk-width-1-3@s">
           <div class="uk-margin">
             <label class="uk-form-label"><b>State</b></label>
-            <model-list-select
-              @searchchange="load_state"
-              :list="state_data"
-              option-value="code"
-              option-text="name"
+            <select
+              class="uk-select uk-border-rounded"
+              id="state"
+              name="state"
               v-model="state"
-              placeholder="select state"
+              @change="load_city(state.code)"
             >
-            </model-list-select>
+              <option value="">-- Select State --</option>
+              <option
+                v-for="(st, index) in state_data"
+                :key="index"
+                :value="st"
+                >{{ st.name }}</option
+              >
+            </select>
             <span v-show="error.state_id != null" class="uk-text-danger">{{
               error.state_id
             }}</span>
@@ -153,15 +159,21 @@
         <div class="uk-width-1-3@s">
           <div class="uk-margin">
             <label class="uk-form-label"><b>LGA</b></label>
-            <model-list-select
-              @searchchange="load_city"
-              :list="city_data"
-              option-value="id"
-              option-text="name"
+            <select
+              class="uk-select uk-border-rounded"
+              id="city"
+              name="city"
               v-model="city"
-              placeholder="select LGA"
+              :disabled="state.code ==''"
             >
-            </model-list-select>
+              <option value="">-- Select City --</option>
+              <option
+                v-for="(ct, index) in city_data"
+                :key="index"
+                :value="ct"
+                >{{ ct.name }}</option
+              >
+            </select>
             <span v-show="error.city_id != null" class="uk-text-danger">{{
               error.city_id
             }}</span>
@@ -514,7 +526,6 @@
 </template>
 
 <script>
-import { ModelListSelect } from "vue-search-select";
 import jsonToFormData from "json-form-data";
 import Quill from "quill";
 import { quillEditor } from "vue-quill-editor";
@@ -672,9 +683,16 @@ export default {
           (this.amenities = this.init_data.amenities),
           (this.category_id = this.init_data.category_id),
           (this.subcategory_id = this.init_data.subcategory_id),
-          (this.city = this.init_data.city),
           (this.price = this.init_data.price),
-          (this.state = this.init_data.state);
+          (this.city = {
+            id: this.init_data.city ? this.init_data.city.id : null,
+            name: this.init_data.city ? this.init_data.city.name : ""
+          }),
+          (this.state = {
+            id: this.init_data.state ? this.init_data.state.id : null,
+            name: this.init_data.state ? this.init_data.state.name : null,
+            code: this.init_data.state ? this.init_data.state.code : ""
+          });
       }
     },
     getImagePreviews() {
@@ -703,26 +721,22 @@ export default {
     remove_image(im_pos) {
       this.images.splice(im_pos, 1);
     },
-    load_state(searchText) {
-      if (searchText.length > 0) {
-        axios
-          .get(`${window.location.origin}/api/state/find/${searchText}`)
-          .then(res => {
-            this.state_data = res.data.success;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+     load_state() {
+      axios
+        .get(`${window.location.origin}/api/state/list`)
+        .then(res => {
+          this.state_data = res.data;
+        })
+        .catch(err => {
+          // console.log(err);
+        });
     },
-    load_city(searchText) {
-      if (searchText.length > 0) {
+    load_city(state_code) {
+      if (state_code !== (null || "")) {
         axios
-          .get(
-            `${window.location.origin}/api/city/find/${searchText}/in/${this.state.code}`
-          )
+          .get(`${window.location.origin}/api/city/list_for/${state_code}`)
           .then(res => {
-            this.city_data = res.data.success;
+            this.city_data = res.data;
           })
           .catch(err => {
             console.log(err);
@@ -943,9 +957,9 @@ export default {
   created() {
     this.load_categories();
     this.load_init_data();
+    this.load_state();
   },
   components: {
-    ModelListSelect,
     quillEditor
   },
   mounted() {}

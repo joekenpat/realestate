@@ -2652,14 +2652,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
-/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var json_form_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! json-form-data */ "./node_modules/json-form-data/src/jsonToFormData.js");
-/* harmony import */ var json_form_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(json_form_data__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var quill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! quill */ "./node_modules/quill/dist/quill.js");
-/* harmony import */ var quill__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(quill__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-quill-editor */ "./node_modules/vue-quill-editor/dist/vue-quill-editor.js");
-/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_quill_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var json_form_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! json-form-data */ "./node_modules/json-form-data/src/jsonToFormData.js");
+/* harmony import */ var json_form_data__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(json_form_data__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var quill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! quill */ "./node_modules/quill/dist/quill.js");
+/* harmony import */ var quill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(quill__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-quill-editor */ "./node_modules/vue-quill-editor/dist/vue-quill-editor.js");
+/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_quill_editor__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -3175,7 +3173,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
  // Quill.register('modules/toolbar', toolbar)
@@ -3320,7 +3329,14 @@ __webpack_require__.r(__webpack_exports__);
         this.init_data.tags.forEach(function (tag) {
           _this3.tags.push(tag.name);
         });
-        this.title = this.init_data.title, this.old_images = this.init_data.images, this.list_as = this.init_data.list_as, this.phone = this.init_data.phone, this.description = this.init_data.description, this.address = this.init_data.address, this.plan = this.init_data.plan, this.specifications = this.init_data.specifications, this.amenities = this.init_data.amenities, this.category_id = this.init_data.category_id, this.subcategory_id = this.init_data.subcategory_id, this.city = this.init_data.city, this.price = this.init_data.price, this.state = this.init_data.state;
+        this.title = this.init_data.title, this.old_images = this.init_data.images, this.list_as = this.init_data.list_as, this.phone = this.init_data.phone, this.description = this.init_data.description, this.address = this.init_data.address, this.plan = this.init_data.plan, this.specifications = this.init_data.specifications, this.amenities = this.init_data.amenities, this.category_id = this.init_data.category_id, this.subcategory_id = this.init_data.subcategory_id, this.price = this.init_data.price, this.city = {
+          id: this.init_data.city ? this.init_data.city.id : null,
+          name: this.init_data.city ? this.init_data.city.name : ""
+        }, this.state = {
+          id: this.init_data.state ? this.init_data.state.id : null,
+          name: this.init_data.state ? this.init_data.state.name : null,
+          code: this.init_data.state ? this.init_data.state.code : ""
+        };
       }
     },
     getImagePreviews: function getImagePreviews() {
@@ -3353,23 +3369,20 @@ __webpack_require__.r(__webpack_exports__);
     remove_image: function remove_image(im_pos) {
       this.images.splice(im_pos, 1);
     },
-    load_state: function load_state(searchText) {
+    load_state: function load_state() {
       var _this5 = this;
 
-      if (searchText.length > 0) {
-        axios.get("".concat(window.location.origin, "/api/state/find/").concat(searchText)).then(function (res) {
-          _this5.state_data = res.data.success;
-        })["catch"](function (err) {
-          console.log(err);
-        });
-      }
+      axios.get("".concat(window.location.origin, "/api/state/list")).then(function (res) {
+        _this5.state_data = res.data;
+      })["catch"](function (err) {// console.log(err);
+      });
     },
-    load_city: function load_city(searchText) {
+    load_city: function load_city(state_code) {
       var _this6 = this;
 
-      if (searchText.length > 0) {
-        axios.get("".concat(window.location.origin, "/api/city/find/").concat(searchText, "/in/").concat(this.state.code)).then(function (res) {
-          _this6.city_data = res.data.success;
+      if (state_code !== ( false || "")) {
+        axios.get("".concat(window.location.origin, "/api/city/list_for/").concat(state_code)).then(function (res) {
+          _this6.city_data = res.data;
         })["catch"](function (err) {
           console.log(err);
         });
@@ -3474,7 +3487,7 @@ __webpack_require__.r(__webpack_exports__);
           return value;
         }
       };
-      var main_form_data = json_form_data__WEBPACK_IMPORTED_MODULE_1___default()(ad_form_data, form_config);
+      var main_form_data = json_form_data__WEBPACK_IMPORTED_MODULE_0___default()(ad_form_data, form_config);
       var config = {
         header: {
           "Content-Type": "multipart/form-data"
@@ -3566,10 +3579,10 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.load_categories();
     this.load_init_data();
+    this.load_state();
   },
   components: {
-    ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_0__["ModelListSelect"],
-    quillEditor: vue_quill_editor__WEBPACK_IMPORTED_MODULE_3__["quillEditor"]
+    quillEditor: vue_quill_editor__WEBPACK_IMPORTED_MODULE_2__["quillEditor"]
   },
   mounted: function mounted() {}
 });
@@ -92559,91 +92572,146 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "uk-width-1-3@s" }, [
-                _c(
-                  "div",
-                  { staticClass: "uk-margin" },
-                  [
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _c("model-list-select", {
-                      attrs: {
-                        list: _vm.state_data,
-                        "option-value": "code",
-                        "option-text": "name",
-                        placeholder: "select state"
-                      },
-                      on: { searchchange: _vm.load_state },
-                      model: {
-                        value: _vm.state,
-                        callback: function($$v) {
-                          _vm.state = $$v
-                        },
-                        expression: "state"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.error.state_id != null,
-                            expression: "error.state_id != null"
+                _c("div", { staticClass: "uk-margin" }, [
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.state,
+                          expression: "state"
+                        }
+                      ],
+                      staticClass: "uk-select uk-border-rounded",
+                      attrs: { id: "state", name: "state" },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.state = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                          function($event) {
+                            return _vm.load_city(_vm.state.code)
                           }
-                        ],
-                        staticClass: "uk-text-danger"
-                      },
-                      [_vm._v(_vm._s(_vm.error.state_id))]
-                    )
-                  ],
-                  1
-                )
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("-- Select State --")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.state_data, function(st, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: st } },
+                          [_vm._v(_vm._s(st.name))]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.error.state_id != null,
+                          expression: "error.state_id != null"
+                        }
+                      ],
+                      staticClass: "uk-text-danger"
+                    },
+                    [_vm._v(_vm._s(_vm.error.state_id))]
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "uk-width-1-3@s" }, [
-                _c(
-                  "div",
-                  { staticClass: "uk-margin" },
-                  [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("model-list-select", {
+                _c("div", { staticClass: "uk-margin" }, [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.city,
+                          expression: "city"
+                        }
+                      ],
+                      staticClass: "uk-select uk-border-rounded",
                       attrs: {
-                        list: _vm.city_data,
-                        "option-value": "id",
-                        "option-text": "name",
-                        placeholder: "select LGA"
+                        id: "city",
+                        name: "city",
+                        disabled: _vm.state.code == ""
                       },
-                      on: { searchchange: _vm.load_city },
-                      model: {
-                        value: _vm.city,
-                        callback: function($$v) {
-                          _vm.city = $$v
-                        },
-                        expression: "city"
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.city = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
                       }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.error.city_id != null,
-                            expression: "error.city_id != null"
-                          }
-                        ],
-                        staticClass: "uk-text-danger"
-                      },
-                      [_vm._v(_vm._s(_vm.error.city_id))]
-                    )
-                  ],
-                  1
-                )
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("-- Select City --")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.city_data, function(ct, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: ct } },
+                          [_vm._v(_vm._s(ct.name))]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.error.city_id != null,
+                          expression: "error.city_id != null"
+                        }
+                      ],
+                      staticClass: "uk-text-danger"
+                    },
+                    [_vm._v(_vm._s(_vm.error.city_id))]
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "uk-width-1-3@s" }, [
@@ -95216,10 +95284,7 @@ var render = function() {
                                   [
                                     _c(
                                       "h4",
-                                      {
-                                        staticClass: "my-card-title",
-                                        staticStyle: { color: "#FFD700" }
-                                      },
+                                      { staticClass: "my-card-title red-text" },
                                       [
                                         _c(
                                           "a",
@@ -95278,7 +95343,7 @@ var render = function() {
                                               "a",
                                               {
                                                 staticClass:
-                                                  "uk-button uk-button-default uk-padding-remove-horizontal uk-border-pill blue darken-2- uk-text-bold white-text uk-text-truncate uk-margin-remove uk-width-1-1 uk-align-center",
+                                                  "uk-button uk-button-default uk-padding-remove-horizontal uk-border-pill grey darken-3 uk-text-bold white-text uk-text-truncate uk-margin-remove uk-width-1-1 uk-align-center",
                                                 attrs: {
                                                   href:
                                                     _vm.base_url +

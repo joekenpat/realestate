@@ -380,8 +380,7 @@
 </div>
 <!---top properties view all button-->
 <div class="uk-text-center">
-  <a href="{{route('property_listing',['sort_by'=>'price','plan'=>'featured'])}}" class="uk-button "
-    style="background-color:#87ceeb;color:white; border-radius: 10px ">View All</a>
+  <a href="{{route('property_listing',['sort_by'=>'price','plan'=>'featured'])}}" class="uk-button blue darken-1 white-text uk-border-rounded">View All</a>
 </div>
 <!---top properties end here---->
 
@@ -471,9 +470,8 @@
   </div>
 </div>
 <!---latest properties view all button-->
-<div class="uk-text-center">
-  <a href="{{route('property_listing',['sort_by'=>'created_at','plan'=>'all'])}}" class="uk-button "
-    style="background-color:#87ceeb;color:white; border-radius: 10px; margin-bottom: 20px ">View All</a>
+<div class="uk-text-center uk-margin-bottom">
+  <a href="{{route('property_listing',['sort_by'=>'created_at','plan'=>'all'])}}" class="uk-button blue darken-1 white-text uk-border-rounded">View All</a>
 </div>
 <!---top properties start here---->
 
