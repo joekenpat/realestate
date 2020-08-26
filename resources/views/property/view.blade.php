@@ -360,7 +360,7 @@
             class="uk-border-circle profile_image" alt="ad user image">
           <p class="uk-margin-remove-bottom uk-text-boldicon">{{$property->user->get_full_name()}}</p>
           <div>
-            <p>{{ucwords($property->user->role)}}</p>
+            <p><span class="uk-label blue darken-2">{{ucwords($property->user->role)}}</span></p>
             {{-- <a href="#" class="uk-button uk-button-small uk-border-rounded uk-margin-remove-bottom"
               style="background:red; color:white;">see all post</a> --}}
 
@@ -382,8 +382,8 @@
             {{$property->user->city?$property->user->city->name:"N/A"}}</p>
           <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <i
               class="uk-icon-button uk-margin-small-right" uk-icon="mail"
-              style="color: black; background-color:whitesmoke"></i> {{$property->user->email}}</a></p>
-          <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <i
+              style="color: black; background-color:whitesmoke"></i> {{$property->user->email}}</p>
+          <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <a href="tel:{{$property->user->phone}}"> <i
               class="uk-icon-button uk-margin-small-right" uk-icon="phone"
               style="color: black; background-color:whitesmoke"></i> {{$property->user->phone}}</a></p>
         </div>

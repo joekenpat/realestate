@@ -390,7 +390,7 @@
                   class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text"
                 >
                   <div class="uk-card-media-top ">
-                    <a :href="`${base_url}/property/view/${property.id}`">
+                    <a :href="`${base_url}/property/view/${property.slug}`">
                       <img
                         class="home_ad_list_thumb"
                         :src="
@@ -455,7 +455,7 @@
                   <div class="uk-card-body uk-text-center uk-padding-small">
                     <h4 class="my-card-title red-text">
                       <a
-                        :href="`${base_url}/property/view/${property.id}`"
+                        :href="`${base_url}/property/view/${property.slug}`"
                         class="uk-link-reset"
                       >
                         &#8358;{{ number_format(property.price) }}
