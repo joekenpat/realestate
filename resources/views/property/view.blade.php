@@ -362,11 +362,14 @@
           <div>
             <p class="uk-label blue darken-2 uk-text-bold uk-border-rounded" style="padding:3px 10px;">
               @if($property->user->role == 'agent')
-                <span uk-icon="icon:home;ratio:.9"></span> <span class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Realtor
+              <span uk-icon="icon:home;ratio:.9"></span> <span
+                class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Realtor
               @elseif($property->user->role == 'user')
-              <span uk-icon="icon:user;ratio:.9"></span> <span class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Member
+              <span uk-icon="icon:user;ratio:.9"></span> <span
+                class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Member
               @else
-              <span uk-icon="icon:nut;ratio:.9"></span> <span class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Admin
+              <span uk-icon="icon:nut;ratio:.9"></span> <span
+                class=" uk-divider-vertical uk-margin-small-right uk-margin-small-left"></span> Admin
               @endif
 
             </p>

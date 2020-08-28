@@ -453,14 +453,19 @@
                     <!--like ad end here-->
                   </div>
                   <div class="uk-card-body uk-text-center uk-padding-small">
-                    <h4 class="my-card-title red-text">
-                      <a
-                        :href="`${base_url}/property/view/${property.slug}`"
-                        class="uk-link-reset"
+                    <a
+                      :href="`${base_url}/property/view/${property.slug}`"
+                      class="uk-link-reset"
+                    >
+                      <h5
+                        class="red-text uk-text-small uk-display-block uk-text-truncate"
                       >
+                        {{ property.title }}
+                      </h5>
+                      <h4 class="my-card-title red-text">
                         &#8358;{{ number_format(property.price) }}
-                      </a>
-                    </h4>
+                      </h4>
+                    </a>
 
                     <p class="uk-text-small">
                       <i

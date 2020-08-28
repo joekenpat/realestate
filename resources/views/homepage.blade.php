@@ -308,70 +308,73 @@
       <div class="ads-listing my-margin uk-margin-small-bottom">
         <div class="uk-container uk-padding-remove uk-margin ">
           <div class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text">
-              <div class="uk-card-media-top ">
-                <a href="{{route('view_property',['property_slug'=>$property->slug])}}" class="uk-link-reset">
+            <div class="uk-card-media-top ">
+              <a href="{{route('view_property',['property_slug'=>$property->slug])}}" class="uk-link-reset">
                 <img class="home_ad_list_thumb"
                   src="{{asset(sprintf('images/properties/%s/%s',$property->id,$property->images[0]))}}" alt="" />
-                </a>
-                @if($property->plan == 'featured')
-                <!--featured start here-->
-                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: #FFD700; color: white ">
-                  <p class="uk-text-small" style="padding:0px 6px">
-                    <i uk-icon="icon:star; ratio:1" style="color:white;"></i>
-                    For {{ $property->list_as }}
-                  </p>
-                </div>
-                <!--featured end here-->
-                @elseif($property->plan == 'distress')
-                <!--distress start here-->
-                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white ">
-                  <p class="uk-text-small" style="padding:0px 6px">
-                    <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
-                    For {{ $property->list_as }}
-                  </p>
-                </div>
-                <!--distress end here-->
-                @else
-                <!--free start here-->
-                <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
-                  style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color:black; color: white ">
-                  <P class="uk-text-small" style="padding:0px 6px">
-                    <i uk-icon="icon:bell; ratio:1" style="color:white;"></i>For {{ $property->list_as }}</P>
-                </div>
-                <!--free end here-->
-                @endif
-                <!--like ad start here-->
-                <button class="uk-position-top-right uk-button uk-position-small uk-border-pill"
-                  style="color: #FFD700; background:#fff; padding:0px 6px">
-                  <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourites_count}}
-                </button>
-                <!--like ad end here-->
-              </div>
-              <div class="uk-card-body uk-text-center uk-padding-small">
-                <h4 class="my-card-title" style="color:#FFD700;">
-                  <a href="{{route('view_property',['property_slug'=>$property->slug])}}" class="uk-link-reset">&#8358;{{ number_format($property->price) }}
-                  </a>
-                </h4>
-
-                <p class="uk-text-small">
-                  <i style="color: #87ceeb;" uk-icon="icon:location; ratio:.8"></i>
-                  {{ $property->city->name }}, {{ $property->state->name }}
+              </a>
+              @if($property->plan == 'featured')
+              <!--featured start here-->
+              <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: #FFD700; color: white ">
+                <p class="uk-text-small" style="padding:0px 6px">
+                  <i uk-icon="icon:star; ratio:1" style="color:white;"></i>
+                  For {{ $property->list_as }}
                 </p>
-                <div class="uk-text-small" uk-grid>
-                  <div class="uk-width-1-2">
-                    <p class=" uk-text-capitalize">
-                      <a class="uk-button uk-button-small"> {{ $property->category->name }}</a>
-                    </p>
-                  </div>
-                  <div class="uk-width-1-2">
-                    <img
-                      src="{{$property->user->avatar != null?URL::to(sprintf("images/users/profile/%s/%s",$property->user->id,$property->user->avatar)):asset("images/misc/default_avatar.png") }}"
-                      class="uk-border-circle agent_logo" alt="property agent image">
-                  </div>
+              </div>
+              <!--featured end here-->
+              @elseif($property->plan == 'distress')
+              <!--distress start here-->
+              <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white ">
+                <p class="uk-text-small" style="padding:0px 6px">
+                  <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
+                  For {{ $property->list_as }}
+                </p>
+              </div>
+              <!--distress end here-->
+              @else
+              <!--free start here-->
+              <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color:black; color: white ">
+                <P class="uk-text-small" style="padding:0px 6px">
+                  <i uk-icon="icon:bell; ratio:1" style="color:white;"></i>For {{ $property->list_as }}</P>
+              </div>
+              <!--free end here-->
+              @endif
+              <!--like ad start here-->
+              <button class="uk-position-top-right uk-button uk-position-small uk-border-pill"
+                style="color: #FFD700; background:#fff; padding:0px 6px">
+                <i uk-icon="icon:heart;ratio:1"></i> {{$property->favourites_count}}
+              </button>
+              <!--like ad end here-->
+            </div>
+            <div class="uk-card-body uk-text-center uk-padding-small">
+              <a href="{{route('view_property',['property_slug'=>$property->slug])}}"
+                class="uk-link-reset">
+                <h5 class="red-text uk-text-small uk-display-block uk-text-truncate">{{$property->title}}</h5>
+                  <h4 class="my-card-title red-text">
+                  &#8358;{{ number_format($property->price) }}
+                </h4>
+              </a>
+
+              <p class="uk-text-small">
+                <i style="color: #87ceeb;" uk-icon="icon:location; ratio:.8"></i>
+                {{ $property->city->name }}, {{ $property->state->name }}
+              </p>
+              <div class="uk-text-small" uk-grid>
+                <div class="uk-width-1-2">
+                  <p class=" uk-text-capitalize">
+                    <a class="uk-button uk-button-small"> {{ $property->category->name }}</a>
+                  </p>
+                </div>
+                <div class="uk-width-1-2">
+                  <img
+                    src="{{$property->user->avatar != null?URL::to(sprintf("images/users/profile/%s/%s",$property->user->id,$property->user->avatar)):asset("images/misc/default_avatar.png") }}"
+                    class="uk-border-circle agent_logo" alt="property agent image">
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -381,7 +384,8 @@
 </div>
 <!---top properties view all button-->
 <div class="uk-text-center uk-margin-large-top uk-margin-large-bottom">
-  <a href="{{route('property_listing',['sort_by'=>'price','plan'=>'featured'])}}" class="uk-button blue darken-1 white-text uk-border-rounded">View All</a>
+  <a href="{{route('property_listing',['sort_by'=>'price','plan'=>'featured'])}}"
+    class="uk-button blue darken-1 white-text uk-border-rounded">View All</a>
 </div>
 <!---top properties end here---->
 @endisset
@@ -442,11 +446,13 @@
               <!--like ad end here-->
             </div>
             <div class="uk-card-body uk-text-center uk-padding-small">
-              <h4 class="my-card-title red-text">
-                <a href="{{route('view_property',['property_slug'=>$property->slug])}}"
-                  class="uk-link-reset">&#8358;{{ number_format($property->price) }}
-                </a>
-              </h4>
+              <a href="{{route('view_property',['property_slug'=>$property->slug])}}"
+                class="uk-link-reset">
+                <h5 class="red-text uk-text-small uk-display-block uk-text-truncate">{{$property->title}}</h5>
+                  <h4 class="my-card-title red-text">
+                  &#8358;{{ number_format($property->price) }}
+                </h4>
+              </a>
 
               <p class="uk-text-small">
                 <i style="color: #87ceeb;" uk-icon="icon:location; ratio:.8"></i>
@@ -474,7 +480,8 @@
 </div>
 <!---latest properties view all button-->
 <div class="uk-text-center uk-margin-large-top uk-margin-large-bottom">
-  <a href="{{route('property_listing',['sort_by'=>'created_at','plan'=>'all'])}}" class="uk-button blue darken-1 white-text uk-border-rounded">View All</a>
+  <a href="{{route('property_listing',['sort_by'=>'created_at','plan'=>'all'])}}"
+    class="uk-button blue darken-1 white-text uk-border-rounded">View All</a>
 </div>
 <!---top properties start here---->
 @endisset
