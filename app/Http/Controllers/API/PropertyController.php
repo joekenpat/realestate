@@ -521,7 +521,7 @@ class PropertyController extends Controller
     $image_url = [];
     $this->validate($request, [
       'title' => 'required|string|',
-      'price' => 'required|numeric|min:1',
+      'price' => 'required|numeric|min:1000',
       'address' => 'required|string|',
       'category_id' => 'required|exists:categories,id',
       'subcategory_id' => 'required|exists:subcategories,id',
@@ -716,7 +716,7 @@ class PropertyController extends Controller
       $updateable_property = Property::where('id', $id)->firstOrFail();
       $this->validate($request, [
         'title' => 'required|string|',
-        'price' => 'required|numeric|min:1',
+        'price' => 'required|numeric|min:1000',
         'address' => 'required|string|',
         'category_id' => 'required|numeric|',
         'subcategory_id' => 'required|numeric|',
