@@ -16,5 +16,5 @@ mix
   .extract(["vue"])
   .version()
   .sass("resources/sass/app.scss", "public/css");
-mix.browserSync("localhost:8001");
+mix.browserSync("localhost:8000");
 mix.disableNotifications();

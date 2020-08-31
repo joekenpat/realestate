@@ -184,7 +184,7 @@
           <input
             class="uk-input"
             :class="{ 'uk-form-danger': error.price != null }"
-            type="numbber"
+            type="number"
             id="price"
             name="price"
             v-model="price"

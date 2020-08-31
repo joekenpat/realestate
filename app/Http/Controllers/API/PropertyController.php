@@ -521,7 +521,7 @@ class PropertyController extends Controller
     $image_url = [];
     $this->validate($request, [
       'title' => 'required|string|',
-      'price' => 'required|digit_between:1000,5000000000000',
+      'price' => 'required|integer|between:1000,5000000000000',
       'address' => 'required|string|',
       'category_id' => 'required|exists:categories,id',
       'subcategory_id' => 'required|exists:subcategories,id',
@@ -542,7 +542,6 @@ class PropertyController extends Controller
     ], [
       'title.required' => 'The property title is required',
       'price.required' => 'The property price is required',
-      'price.digits_between' => 'Price is not valid',
       'category_id.required' => 'please select a category',
       'subcategory_id.required' => 'please select a subcategory',
       'state_id.required' => 'State location of the property is required',
@@ -716,7 +715,7 @@ class PropertyController extends Controller
       $updateable_property = Property::where('id', $id)->firstOrFail();
       $this->validate($request, [
         'title' => 'required|string|',
-        'price' => 'required|digits_between:1000,5000000000000',
+        'price' => 'required|integer|between:1000,5000000000000',
         'address' => 'required|string|',
         'category_id' => 'required|numeric|',
         'subcategory_id' => 'required|numeric|',
@@ -738,7 +737,6 @@ class PropertyController extends Controller
       ], [
         'title.required' => 'The property title is required',
         'price.required' => 'The property price is required',
-        'price.digits_between' => 'Price is not valid',
         'category_id.required' => 'please select a category',
         'subcategory_id.required' => 'please select a subcategory',
         'state_id.required' => 'State location of the property is required',
