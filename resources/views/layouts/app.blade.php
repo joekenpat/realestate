@@ -417,8 +417,8 @@
               <button class="uk-navbar-toggle uk-button uk-button-text white-text" type="button"
                 uk-toggle="target: #side_menu">
                 <span>
-                  <i class=" uk-display-block" uk-icon="icon: menu; ratio:1.5;"></i>
-                  <span class="uk-text-small">MENU</span>
+                  <i class=" uk-display-block" uk-icon="icon: menu; ratio:2.4;"></i>
+                  <span class="uk-text-small uk-text-bold">MENU</span>
                 </span>
               </button>
             </li>
@@ -440,12 +440,12 @@
           <div class="uk-width-1-4@m uk-width-1-2@s width-1-1">
             <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo.png")}}"
                 style="height: 100px; "></a>
-            <p class="my-footer-text">
+            <p class="my-footer-text blue-text text-lighten-3">
               <b>
                 Zahari Properties, Villa C, Eleganza Estate, Lekki-Epe Expressway, Lagos, Nigeria
               </b>
             </p>
-            <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +234 9037 031000
+            <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +234 903 703 1000
             </li>
             <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +234 818 325 1986
             </li>
