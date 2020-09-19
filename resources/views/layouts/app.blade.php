@@ -355,7 +355,7 @@
 
     <!----navbar start here ---->
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-      <nav class="uk-navbar-container  navigation" uk-navbar>
+      <nav class="uk-navbar-container  navigation" style="border-bottom:2px solid #87ceeb;" uk-navbar>
         <div class="uk-navbar-let">
           <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo.png")}}"
               style="height:70px;"></a>
