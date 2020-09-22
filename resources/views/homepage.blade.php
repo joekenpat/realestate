@@ -209,6 +209,29 @@
   }
 </style>
 @endpush
+@push('scripts_bottom')
+<script>
+  function load_subcat() {
+  var sub_cat = document.getElementById('subscription_category')
+  var sub_scat = document.getElementById('subscription_subcategory')
+  var cat_data ={!!$sub_cat!!};
+  var sel_cat = sub_cat.options[sub_cat.selectedIndex].value
+  if (sub_cat !== '') {
+    sub_scat.length = 1
+    cat_data.forEach(cat_data => {
+        if (cat_data.id == sel_cat) {
+          cat_data.subcategories.forEach(scat_data => {
+            var option = document.createElement("option");
+                  option.text = scat_data.name;
+                  option.value= scat_data.id;
+                  sub_scat.add(option);
+          });
+        }
+      });
+  }
+}
+</script>
+@endpush
 @section('content')
 <!-----slider start here---->
 <div class="uk-position-relative uk-visible-toggle" tabindex="-1"
@@ -259,8 +282,9 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="uk-margin-small-top uk-button-large uk-text-bold uk-button uk-width-1-1 uk-width-1-2@m"
-              style=" background: #87ceeb; border-radius:5px ; color: white">Search</button>
+              <button type="submit"
+                class="uk-margin-small-top uk-button-large uk-text-bold uk-button uk-width-1-1 uk-width-1-2@m"
+                style=" background: #87ceeb; border-radius:5px ; color: white">Search</button>
             </form>
           </div>
         </div>
@@ -541,112 +565,92 @@
 </div>
 <!----properties by city end  here-->
 
-<!---blog start here---->
-{{-- <div class="top-post uk-text-center uk-margin">
-  <h3> <i class="mdi  mdi-minus" style="color: #87ceeb; font-size: 40px;"></i><b>Blog</b><i class="mdi  mdi-minus"
-      style="color: #87ceeb; font-size: 40px;"></i></h3>
-</div>
-<div class="uk-container">
-  <div uk-slider="center: true">
-
-    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
-
-      <ul class="uk-slider-items uk-child-width-1-2@s uk-grid ">
-        <li>
-          <a href="">
-            <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin my-card-blog" uk-grid>
-              <div class="uk-card-media-left uk-cover-container">
-                <img src="images/vincentiu-solomon-7MH4ped6_Mo-unsplash (1).jpg" alt="" uk-cover>
-                <canvas width="600" height="400"></canvas>
-              </div>
-              <div>
-                <div class="uk-card-body">
-                  <h3 class="uk-card-title">Media Left</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt.</p>
-                  <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00"
-                      style="color: #87ceeb">April 01, 2016</time></p>
-                </div>
-              </div>
-            </div>
-
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin my-card-blog" uk-grid>
-              <div class="uk-card-media-left uk-cover-container">
-                <img src="images/christian-wiediger-RYWEyXopmM4-unsplash.jpg" alt="" uk-cover>
-                <canvas width="600" height="400"></canvas>
-              </div>
-              <div>
-                <div class="uk-card-body">
-                  <h3 class="uk-card-title">Media Left</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt.</p>
-                  <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00"
-                      style="color: #87ceeb">April 01, 2016</time></p>
-                </div>
-              </div>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin my-card-blog" uk-grid>
-              <div class="uk-card-media-left uk-cover-container">
-                <img src="images/pp7.jpg" alt="" uk-cover>
-                <canvas width="600" height="400"></canvas>
-              </div>
-              <div>
-                <div class="uk-card-body">
-                  <h3 class="uk-card-title">Media Left</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt.</p>
-                  <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00"
-                      style="color: #87ceeb">April 01, 2016</time></p>
-                </div>
-              </div>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin my-card-blog" uk-grid>
-              <div class="uk-card-media-left uk-cover-container">
-                <img src="images/florian-schmidinger-b_79nOqf95I-unsplash.jpg" alt="" uk-cover>
-                <canvas width="600" height="400"></canvas>
-              </div>
-              <div>
-                <div class="uk-card-body">
-                  <h3 class="uk-card-title">Media Left</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt.</p>
-                  <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00"
-                      style="color: #87ceeb">April 01, 2016</time></p>
-                </div>
-              </div>
-            </div>
-
-          </a>
-        </li>
-      </ul>
-
-      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
-        uk-slider-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
-        uk-slider-item="next"></a>
+<div class="uk-container uk-margin-top uk-margin-bottom content-property-alert">
+  <div uk-grid>
+    <div class="uk-width-1-2@m uk-width-1-1@s" style="margin-top: 12% ">
+      <h1><b>Did You Know?</b></h1>
+      <p>You can create a property alert of a particular property, which you couldn't see here at the moment. Once such
+        property is avilable you will get notified </p>
+    </div>
+    <div class="uk-width-1-2@m uk-width-1-1@s uk-margin">
+      <div class="uk-card uk-card-default uk-card-body uk-padding-small uk-width-1-1" style="border-radius: 20px">
+        <h4 class="uk-card-title uk-text-bold">Subscribe Now</h4>
+        <form method="POST" action="{{route('property_subscribe')}}" class="uk-grid-small uk-margin" uk-grid>
+          @csrf
+          <div class="uk-width-1-1">
+            <label class="uk-form-label" for="subscription_name">Name <span
+                class="red-text uk-text-bold">*</span></label>
+            <input class="uk-input @error('subscription_email') uk-form-danger @enderror" type="text"
+            name="subscription_name" value="{{old('subscription_name')}}" id="subscription_name" placeholder="name">
+            @error('subscription_name')
+            <span class="uk-text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="uk-width-1-1">
+            <label class="uk-form-label" for="subscription_email">Email <span
+                class="red-text uk-text-bold">*</span></label>
+            <input class="uk-input @error('subscription_email') uk-form-danger @enderror" type="email"
+              name="subscription_email" value="{{old('subscription_email')}}" id="subscription_email" placeholder="email">
+            @error('subscription_email')
+            <span class="uk-text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="uk-width-1-2">
+            <label class="uk-form-label" for="subscription_phone">Phone No <span
+                class="red-text uk-text-bold">*</span></label>
+            <input name="subscription_phone" value="{{old('subscription_phone')}}" id="subscription_phone"
+              class="uk-input @error('subscription_phone') uk-form-danger @enderror" type="text" placeholder="phone">
+            @error('subscription_phone')
+            <span class="uk-text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="uk-width-1-2">
+            <label class="uk-form-label" for="subscription_state">State <span
+                class="red-text uk-text-bold">*</span></label>
+            <select class="uk-select @error('subscription_state') uk-form-danger @enderror" id="subscription_state"
+              name="subscription_state">
+              <option value="all">Select State</option>
+              @foreach ($states as $state)
+              <option value="{{$state->id}}">{{ucwords($state->name)}}</option>
+              @endforeach
+            </select>
+            @error('subscription_state')
+            <span class="uk-text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="uk-width-1-2">
+            <label class="uk-form-label" for="subscription_category">Category <span
+                class="red-text uk-text-bold">*</span></label>
+            <select onchange="load_subcat()" class="uk-select @error('subscription_category') uk-form-danger @enderror"
+              id="subscription_category" name="subscription_category">
+              <option value="all">Select Category</option>
+              @foreach ($categories as $category)
+              <option value="{{$category->id}}">{{ucwords($category->name)}}</option>
+              @endforeach
+            </select>
+            @error('subscription_category')
+            <span class="uk-text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="uk-width-1-2">
+            <label class="uk-form-label" for="subscription_subcategory">SubCategory</label>
+            <select class="uk-select @error('subscription_subcategory') uk-form-danger @enderror"
+              id="subscription_subcategory" name="subscription_subcategory">
+              <option value="all">Select SubCategory</option>
+            </select>
+            @error('subscription_subcategory')
+            <span class="uk-text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="uk-width-1-1">
+            <button type="submit" class="uk-margin-small-top  uk-text-bold uk-button uk-width-1-1"
+              style=" background: #87ceeb; border-radius:5px ; color: white">Subscribe</button>
+          </div>
+      </div>
+      </form>
 
     </div>
-
-    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
-
   </div>
-</div> --}}
-{{-- <!---latest properties view all button-->
-<div class="uk-text-center">
-  <a href="" class="uk-button "
-    style="background-color:#87ceeb;color:white; border-radius: 10px; margin-bottom: 20px ">View All</a>
-</div> --}}
-<!---blog end here---->
+</div>
+</div>
 @endsection

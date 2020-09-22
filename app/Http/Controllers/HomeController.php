@@ -42,6 +42,7 @@ class HomeController extends Controller
 
   public function homepage(Request $request)
   {
+    $sub_cat = Category::with('subcategories')->get();
     $categories = Category::select('id', 'name')->get();
     $subcategories = Subcategory::select('id', 'name')->get();
     $states = State::select('id', 'name')->get();
@@ -121,6 +122,6 @@ class HomeController extends Controller
       ->latest()
       ->take(8)->get()->append(request()->query());
     $site_home_slider = SiteConfig::where('key', 'home_slider')->firstOrFail();
-    return view('homepage', ['slider_images' => json_decode($site_home_slider->value), 'featured_properties' => $featured_properties, 'recent_properties' => $recent_properties, 'categories' => $categories, 'states' => $states]);
+    return view('homepage', ['sub_cat'=>$sub_cat,'slider_images' => json_decode($site_home_slider->value), 'featured_properties' => $featured_properties, 'recent_properties' => $recent_properties, 'categories' => $categories, 'states' => $states]);
   }
 }

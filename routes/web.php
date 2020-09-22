@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,9 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+Route::post('/subscribe', 'SubscriberController@store')->name('property_subscribe');
+Route::get('/unsubscribe/{subscriber_id}', 'SubscriberController@store')->middleware('verify_unsubscribe_route')->name('property_unsubscribe');
 
 Route::get('/property/view/{property_slug}', 'PropertyController@show')->name('view_property');
 Route::get('/', ['uses' => 'HomeController@homepage'])->name('home');

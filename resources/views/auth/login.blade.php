@@ -15,8 +15,8 @@
             <span class="uk-form-icon" uk-icon="icon: mail"></span>
             <input class="uk-input @error('email') uk-form-danger @enderror" name="email" id="email" type="email"
               value="{{ old('email') }}" required autocomplete="email" autofocus>
+            </div>
             @error('email')
-          </div>
           <span class="uk-text-danger">{{ $message }}</span>
           @enderror
         </div>

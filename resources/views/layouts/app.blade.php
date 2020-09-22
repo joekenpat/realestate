@@ -361,7 +361,20 @@
               style="height:70px;"></a>
         </div>
 
-
+        <div class=" uk-navbar-right uk-margin-small-right">
+          <ul class="uk-navbar-nav">
+            <li>
+              <form action="{{route('property_listing')}}" class="uk-width-1-1" method="GET">
+                <div class="uk-width-2-3@m uk-width-1-1">
+                  <div class="uk-inline">
+                    <button class="uk-form-icon uk-form-icon-flip" type="submit" uk-icon="icon: search"></button>
+                    <input name="findable" placeholder="Search..." id="quick_findable" class="uk-input uk-border-pill">
+                  </div>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </div>
         <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
           <ul class="uk-navbar-nav uk-flex uk-flex-middle">
             <li>
@@ -412,6 +425,7 @@
 
           </ul>
         </div>
+
         <div class="uk-navbar-right uk-hidden@m">
           <ul class="uk-navbar-nav">
             <li>
@@ -419,7 +433,7 @@
                 uk-toggle="target: #side_menu">
                 <span>
                   <i class=" uk-display-block" uk-icon="icon: menu; ratio:2.4;"></i>
-                  <span class="uk-text-small uk-text-bold">MENU</span>
+                  <span class="uk-text-small uk-text-bold" style="letter-spacing: 1.5px">MENU</span>
                 </span>
               </button>
             </li>
