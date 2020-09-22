@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', " Homepage")
+@section('title', " Lands, Homes and Apartments")
 @push('style_top')
 <style>
   body {
