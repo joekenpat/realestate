@@ -4,14 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#000000">
-  <meta name="msapplication-TileColor" content="#000000">
+  <meta name="theme-color" content="#2970a3">
+  <meta name="msapplication-TileColor" content="#2970a3">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="description" content="{{ config('app.name', 'MyNextLand') }} - Buy and Sell Lands, Homes, and Apartments">
-  <meta name="title" content="{{ config('app.name', 'MyNextLand') }} - @yield('title')">
+  <meta name="title" content="{{ config('app.name', 'MyNextLand')}} - @yield('title')">
 
-  <title>{{ config('app.name', 'MyNextLand') }} @yield('title')</title>
+  <title>{{ config('app.name', 'MyNextLand') }} - @yield('title')</title>
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -50,7 +50,7 @@
     }
 
     .navigation {
-      background-color: black !important;
+      background-color: #2970a3 !important;
       width: 100%;
       margin: 0px;
       margin-top: 0px;
@@ -58,7 +58,7 @@
     }
 
     .navigation-small {
-      background-color: black !important;
+      background-color: #2970a3 !important;
       width: 100%;
       margin: 0px;
       margin-top: 0px;
@@ -406,8 +406,8 @@
             </form>
             @endauth
             <a href="{{route('user_create_property')}}"
-              style="height:35px !important;padding-top:5px; text-decoration:none;"
-              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-left white-text green darken-1"> Post
+              style="height:35px !important;padding-top:5px;background-color:#7ec843;text-decoration:none;"
+              class="uk-button-small uk-text-bold uk-border-pill uk-margin-small-left white-text"> Post
               Property</a>
 
           </ul>

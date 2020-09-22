@@ -4,18 +4,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <meta name="theme-color" content="#2970a3">
+  <meta name="msapplication-TileColor" content="#2970a3">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="" type="image/x-icon">
+  <meta name="title" content="{{ config('app.name', 'MyNextLand')}} Admin - @yield('title')">
 
-  <title>{{ config('app.name', 'MyNextLand') }}</title>
+  <title>{{ config('app.name', 'MyNextLand') }} Admin</title>
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <style>
     .navigation {
-      background-color: black !important;
+      background-color:  #2970a3 !important;
       width: 100%;
       margin: 0px;
       margin-top: 0px;
@@ -23,7 +25,7 @@
     }
 
     .navigation-small {
-      background-color: black !important;
+      background-color:  #2970a3 !important;
       width: 100%;
       margin: 0px;
       margin-top: 0px;
