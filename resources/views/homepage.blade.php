@@ -35,14 +35,6 @@
     padding-left: 20px;
   }
 
-  /* .dashboard-main {
-    margin-top: 8%;
-  }
-
-  .dashboard-main2 {
-    width: 50%;
-  } */
-
   .my-line {
     margin-top: -75px;
   }
@@ -69,13 +61,6 @@
   .my-button-padding {
     padding: 2px;
   }
-
-  /* .formatForButton{
-    background-color:#adf802;
-} */
-  /* span {
-    display: none;
-  } */
 
   @media (max-width: 740px) {
     .dashboard-main {
@@ -149,14 +134,6 @@
     padding-left: 20px;
   }
 
-  /* .dashboard-main {
-    width: 70%;
-    margin-top: 8%;
-  }
-
-  .dashboard-main2 {
-    width: 50%;
-  } */
 
   .my-line {
     margin-top: -75px;
@@ -177,14 +154,20 @@
     padding: 2px;
   }
 
-  /* .formatForButton{
-    background-color:#adf802;
-} */
-  /* span {
-    display: none;
-  } */
+  .rem_pl:first-of-type {
+    padding-left: 0;
+  }
+
+  .rem_pl {
+    padding-left: 15px;
+  }
 
   @media (max-width: 740px) {
+    .rem_pl {
+      padding-left: 0;
+      margin-bottom: 15px;
+    }
+
     .dashboard-main {
       width: 100%;
       margin-top: 25%;
@@ -238,18 +221,20 @@
       <div class="uk-overlay-primary uk-position-cover"></div>
       <div class="uk-overlay uk-container  uk-light landing-text">
         <div class=" uk-position-relative uk-position-small uk-text-center uk-light my-slide">
-          <h1 class="uk-margin-remove" style="padding-top: 100px"><b>Find Your Next Land</b></h1>
-          <h5 class="uk-margin-remove" style="padding-top: 10px"><b>We make It Easy For You To Get All Your
+          <h1 class="uk-margin-remove" style="padding-top: 100px"><b>LAND, HOMES & APARTMENT
+            </b></h1>
+          <h5 class="uk-margin-remove uk-margin-small-top"><b>We make it easy for you to get all your Properties
               Properties</b></h5>
-          <div class="uk-margin-remove" style="padding-top: 50px">
-            <form action="{{route('property_listing')}}" method="GET">
-              <div class="uk-grid-small" uk-grid>
-                <div class="uk-width-1-3@m uk-width-1-1@s">
+          <div class="uk-width-1-1 uk-margin-large-top" style="">
+            <form action="{{route('property_listing')}}" class="uk-width-1-1" method="GET">
+              <div class="uk-grid-collapse uk-padding-small uk-border-rounded uk-flex uk-flex-center"
+                style="background-color:rgba(255, 255, 255, 0.3)" uk-grid>
+                <div class="uk-width-1-3@m uk-width-1-1 rem_pl">
                   <div class="uk-margin">
                     <input class="uk-input" type="text" id="findable" name="findable" placeholder="Enter Search term">
                   </div>
                 </div>
-                <div class="uk-width-1-3@m uk-width-1-1@s">
+                <div class="uk-width-1-3@m uk-width-1-1 rem_pl">
                   <div class="uk-margin">
                     <div class="uk-form-controls">
                       <select class="uk-select" id="state" name="state">
@@ -261,7 +246,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="uk-width-1-3@m uk-width-1-1@s">
+                <div class="uk-width-1-3@m uk-width-1-1 rem_pl">
                   <div class="uk-margin">
                     <div class="uk-form-controls">
                       <select class="uk-select" id="category" name="category">
@@ -274,10 +259,8 @@
                   </div>
                 </div>
               </div>
-              <div style="padding-top: 30px">
-                <button type="submit" class="uk-button uk-button-large"
-                  style=" background: #87ceeb; border-radius:10px ; color: white">Search</button>
-              </div>
+              <button type="submit" class="uk-margin-small-top uk-button-large uk-text-bold uk-button uk-width-1-1 uk-width-1-2@m"
+              style=" background: #87ceeb; border-radius:5px ; color: white">Search</button>
             </form>
           </div>
         </div>
@@ -350,10 +333,9 @@
               <!--like ad end here-->
             </div>
             <div class="uk-card-body uk-text-center uk-padding-small">
-              <a href="{{route('view_property',['property_slug'=>$property->slug])}}"
-                class="uk-link-reset">
+              <a href="{{route('view_property',['property_slug'=>$property->slug])}}" class="uk-link-reset">
                 <h5 class="red-text uk-text-small uk-display-block uk-text-truncate">{{$property->title}}</h5>
-                  <h4 class="my-card-title red-text">
+                <h4 class="my-card-title red-text">
                   &#8358;{{ number_format($property->price) }}
                 </h4>
               </a>
@@ -446,10 +428,9 @@
               <!--like ad end here-->
             </div>
             <div class="uk-card-body uk-text-center uk-padding-small">
-              <a href="{{route('view_property',['property_slug'=>$property->slug])}}"
-                class="uk-link-reset">
+              <a href="{{route('view_property',['property_slug'=>$property->slug])}}" class="uk-link-reset">
                 <h5 class="red-text uk-text-small uk-display-block uk-text-truncate">{{$property->title}}</h5>
-                  <h4 class="my-card-title red-text">
+                <h4 class="my-card-title red-text">
                   &#8358;{{ number_format($property->price) }}
                 </h4>
               </a>
