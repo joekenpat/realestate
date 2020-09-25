@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#2970a3">
-  <meta name="msapplication-TileColor" content="#2970a3">
+  <meta name="theme-color" content="#ef5350">
+  <meta name="msapplication-TileColor" content="#ef5350">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="shortcut icon" href="" type="image/x-icon">
+  <link rel="shortcut icon" href="{{asset('images/misc/new_favicon.png')}}" type="image/x-icon">
   <meta name="title" content="{{ config('app.name', 'MyNextLand')}} Admin - @yield('title')">
 
   <title>{{ config('app.name', 'MyNextLand') }} Admin</title>
@@ -17,20 +17,12 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <style>
     .navigation {
-      background-color:  #2970a3 !important;
       width: 100%;
       margin: 0px;
       margin-top: 0px;
       padding-top: 0px;
     }
 
-    .navigation-small {
-      background-color:  #2970a3 !important;
-      width: 100%;
-      margin: 0px;
-      margin-top: 0px;
-      padding-top: 0px;
-    }
 
     .btn-nav-login {
       background: white !important;
@@ -122,9 +114,9 @@
 
 <body>
   <div id="app">
-    <nav class="uk-navbar-container  navigation" uk-navbar>
+    <nav class="uk-navbar-container  red lighten-1" uk-navbar>
       <div class="uk-navbar-let">
-        <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/logo.png")}}"
+        <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo_white.png")}}"
             style="height: 100px; "></a>
       </div>
       <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
