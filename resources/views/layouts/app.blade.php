@@ -431,7 +431,7 @@
                   <i class=" uk-display-block" uk-icon="icon: search; ratio:2.4;"></i>
                 </span>
               </button>
-              <div id="problem_search" class="uk-hidden uk-container uk-position-absolute uk-padding-small white uk-width-1-1"
+              <div id="problem_search" class="uk-hidden red lighten-1 uk-container uk-position-absolute uk-padding-small white uk-width-1-1"
                 style="top:84px;left:0px;">
                 <div class="uk-flex uk-flex-wrap uk-flex-around" uk-grid>
                   <div class="uk-width-1-1 uk-margin-left">
