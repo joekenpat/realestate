@@ -15,6 +15,7 @@
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link rel="shortcut icon" href="{{asset('images/misc/new_favicon.png')}}" type="image/x-icon">
   <style>
     .my-footer {
       background-color: rgb(31, 29, 29);
@@ -50,15 +51,6 @@
     }
 
     .navigation {
-      background-color: #2970a3 !important;
-      width: 100%;
-      margin: 0px;
-      margin-top: 0px;
-      padding-top: 0px;
-    }
-
-    .navigation-small {
-      background-color: #2970a3 !important;
       width: 100%;
       margin: 0px;
       margin-top: 0px;
@@ -355,13 +347,13 @@
 
     <!----navbar start here ---->
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-      <nav class="uk-navbar-container  navigation" style="border-bottom:4px solid #87ceeb;" uk-navbar>
+      <nav class="uk-navbar-container red lighten-1" style="border-bottom:4px solid #ffffff;" uk-navbar="dropbar: true">
         <div class="uk-navbar-let">
-          <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo.png")}}"
-              style="height:70px;"></a>
+          <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo_white.png")}}"
+              style="height:70px;" width="150px"></a>
         </div>
 
-        <div class=" uk-navbar-right uk-margin-small-right">
+        <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
           <ul class="uk-navbar-nav">
             <li>
               <form action="{{route('property_listing')}}" class="uk-width-1-1" method="GET">
@@ -428,6 +420,28 @@
 
         <div class="uk-navbar-right uk-hidden@m">
           <ul class="uk-navbar-nav">
+            <li class="">
+              <button class="uk-navbar-toggle uk-button uk-button-text white-text" type="button">
+                <span>
+                  <i class=" uk-display-block" uk-icon="icon: search; ratio:2.4;"></i>
+                </span>
+              </button>
+              <div class="uk-navbar-dropdown uk-navbar-dropdown-width-2">
+                <div class="uk-navbar-dropdown-grid uk-child-width-1-1" uk-grid>
+                  <div>
+                    <form action="{{route('property_listing')}}" class="uk-width-1-1" method="GET">
+                      <div class="uk-width-1-1">
+                        <div class="uk-widith-1-">
+                          <button class="uk-form-icon uk-form-icon-flip" type="submit" uk-icon="icon: search"></button>
+                          <input name="findable" placeholder="Search..." class="uk-input uk-border-pill">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </li>
+
             <li>
               <button class="uk-navbar-toggle uk-button uk-button-text white-text" type="button"
                 uk-toggle="target: #side_menu">
@@ -453,7 +467,7 @@
       <div class="uk-container uk-margin-small-bottom">
         <div class=" uk-margin-top" uk-grid>
           <div class="uk-width-1-4@m uk-width-1-2@s width-1-1">
-            <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo.png")}}"
+            <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo_white.png")}}"
                 style="height: 100px; "></a>
             <p class="my-footer-text blue-text text-lighten-3">
               <b>

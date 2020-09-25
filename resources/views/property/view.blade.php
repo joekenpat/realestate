@@ -396,8 +396,11 @@
               class="uk-icon-button uk-margin-small-right" uk-icon="mail"
               style="color: black; background-color:whitesmoke"></i> {{$property->user->email}}</p>
           <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <a
-              href="tel:{{$property->user->phone}}"> <i class="uk-icon-button uk-margin-small-right" uk-icon="phone"
-                style="color: black; background-color:whitesmoke"></i> {{$property->user->phone}}</a></p>
+              href="tel:{{$property->user->phone}}"> <i class="uk-icon-button uk-margin-small-right" uk-icon="receiver"
+                style="color: black"></i> <a href="tel:{{$property->user->phone}}"
+                  class="uk-button uk-button-small blue accent-2  uk-margin-small-right uk-border-pill"
+                  style="color: white;">
+                  <b>{{$property->user->phone}}</b></a></a></p>
         </div>
 
         <p class="uk-padding-small">
@@ -407,7 +410,7 @@
             <b>Email</b></a>
           <a href="https://wa.me/234{{substr($property->user->phone,1)}}?text={{str_replace(' ','%20',sprintf("Hi, I'll like to find out more about this property: %s", route('view_property',['property_slug'=>$property->slug])))}}"
             class="uk-button uk-button-small uk-margin-small-right uk-border-pill"
-            style="color: white; background-color:#adf802"><b uk-icon="icon:whatsapp;ratio:1;"></b>
+            style="color: white; background-color:#4caf50"><b uk-icon="icon:whatsapp;ratio:1;"></b>
             <b> Whatsapp</b></a>
 
         </p>
