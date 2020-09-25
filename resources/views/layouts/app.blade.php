@@ -137,6 +137,11 @@
       window.Laravel.userId = "{{auth()->user()->id}}";
     @endif
   </script>
+  <script>
+    function toggle_psearch(){
+      document.getElementById('problem_search').classList.toggle('uk-hidden');
+    }
+  </script>
   @stack('style_top')
   @stack('scripts_top')
 </head>
@@ -347,10 +352,10 @@
 
     <!----navbar start here ---->
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-      <nav class="uk-navbar-container red lighten-1" style="border-bottom:4px solid #ffffff;" uk-navbar="dropbar: true">
+      <nav class="uk-navbar-container red lighten-1" style="border-bottom:4px solid #ffffff;" uk-navbar>
         <div class="uk-navbar-let">
-          <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo_white.png")}}"
-              style="height:70px;" width="150px"></a>
+          <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img
+              src="{{asset("/images/misc/new_logo_white.png")}}" style="height:70px;" width="150px"></a>
         </div>
 
         <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
@@ -420,20 +425,22 @@
 
         <div class="uk-navbar-right uk-hidden@m">
           <ul class="uk-navbar-nav">
-            <li class="">
-              <button class="uk-navbar-toggle uk-button uk-button-text white-text" type="button">
+            <li class="uk-transition-toggle" tabindex="0">
+              <button onclick="toggle_psearch()" class="uk-navbar-toggle uk-button uk-button-text white-text" type="button">
                 <span>
                   <i class=" uk-display-block" uk-icon="icon: search; ratio:2.4;"></i>
                 </span>
               </button>
-              <div class="uk-navbar-dropdown uk-navbar-dropdown-width-2">
-                <div class="uk-navbar-dropdown-grid uk-child-width-1-1" uk-grid>
-                  <div>
+              <div id="problem_search" class="uk-hidden uk-container uk-position-absolute uk-padding-small white uk-width-1-1"
+                style="top:84px;left:0px;">
+                <div class="uk-flex uk-flex-wrap uk-flex-around" uk-grid>
+                  <div class="uk-width-1-1 uk-margin-left">
                     <form action="{{route('property_listing')}}" class="uk-width-1-1" method="GET">
                       <div class="uk-width-1-1">
-                        <div class="uk-widith-1-">
+                        <div class="uk-inline">
                           <button class="uk-form-icon uk-form-icon-flip" type="submit" uk-icon="icon: search"></button>
-                          <input name="findable" placeholder="Search..." class="uk-input uk-border-pill">
+                          <input name="findable" placeholder="Search..." style="width:82vw;"
+                            class="uk-input uk-border-pill">
                         </div>
                       </div>
                     </form>

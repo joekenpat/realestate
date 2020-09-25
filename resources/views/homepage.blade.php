@@ -244,10 +244,10 @@
       <div class="uk-overlay-primary uk-position-cover"></div>
       <div class="uk-overlay uk-container  uk-light landing-text">
         <div class=" uk-position-relative uk-position-small uk-text-center uk-light my-slide">
-          <h1 class="uk-margin-remove" style="padding-top: 100px"><b>LAND, HOMES & APARTMENT
+          <h1 class="uk-margin-remove" style="padding-top: 100px"><b>Lands, Homes & Apartments
             </b></h1>
-          <h5 class="uk-margin-remove uk-margin-small-top"><b>We make it easy for you to get all your Properties
-              Properties</b></h5>
+          <h5 class="uk-margin-remove uk-margin-small-top"><b>We make it easy for you to get all your properties
+              stress-free</b></h5>
           <div class="uk-width-1-1 uk-margin-large-top" style="">
             <form action="{{route('property_listing')}}" class="uk-width-1-1" method="GET">
               <div class="uk-grid-collapse uk-padding-small uk-border-rounded uk-flex uk-flex-center"
@@ -581,7 +581,7 @@
             <label class="uk-form-label" for="subscription_name">Name <span
                 class="red-text uk-text-bold">*</span></label>
             <input class="uk-input @error('subscription_email') uk-form-danger @enderror" type="text"
-            name="subscription_name" value="{{old('subscription_name')}}" id="subscription_name" placeholder="name">
+              name="subscription_name" value="{{old('subscription_name')}}" id="subscription_name" placeholder="name">
             @error('subscription_name')
             <span class="uk-text-danger">{{ $message }}</span>
             @enderror
@@ -590,7 +590,8 @@
             <label class="uk-form-label" for="subscription_email">Email <span
                 class="red-text uk-text-bold">*</span></label>
             <input class="uk-input @error('subscription_email') uk-form-danger @enderror" type="email"
-              name="subscription_email" value="{{old('subscription_email')}}" id="subscription_email" placeholder="email">
+              name="subscription_email" value="{{old('subscription_email')}}" id="subscription_email"
+              placeholder="email">
             @error('subscription_email')
             <span class="uk-text-danger">{{ $message }}</span>
             @enderror
