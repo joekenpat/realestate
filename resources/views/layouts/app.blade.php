@@ -474,7 +474,7 @@
       <div class="uk-container uk-margin-small-bottom">
         <div class=" uk-margin-top" uk-grid>
           <div class="uk-width-1-4@m uk-width-1-2@s width-1-1">
-            <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo_white.png")}}"
+            <a class="uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo.png")}}"
                 style="height: 100px; "></a>
             <p class="my-footer-text blue-text text-lighten-3">
               <b>
@@ -518,13 +518,13 @@
               </div>
               <li style="color: white; font-size:0.8em"> Get recent updates from us...</li>
               <p>
-                <a href="" class="uk-icon-button uk-margin-small-right" uk-icon="twitter"
+                <a href="https://twitter.com/kingsrepublik" class="uk-icon-button uk-margin-small-right" uk-icon="twitter"
                   style="color: white; background-color: #87ceeb;"></a>
-                <a href="" class="uk-icon-button  uk-margin-small-right blue" uk-icon="facebook"
+                <a href="https://facebook.com/kingsRepublik" class="uk-icon-button  uk-margin-small-right blue" uk-icon="facebook"
                   style="color: white;"></a>
-                <a href="" class="uk-icon-button uk-margin-small-right green" uk-icon="whatsapp"
+                <a href="https://api.whatsapp.com/send?phone=2349037031000" class="uk-icon-button uk-margin-small-right green" uk-icon="whatsapp"
                   style="color: white;"></a>
-                <a href="" class="uk-icon-button uk-margin-small-right" uk-icon="instagram"
+                <a href="https://instagram.com/brillianthomesinvestment" class="uk-icon-button uk-margin-small-right" uk-icon="instagram"
                   style="color: white; background-color:#DB7093"></a>
               </p>
             </form>

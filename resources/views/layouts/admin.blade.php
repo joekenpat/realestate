@@ -223,8 +223,8 @@
               <ul class="uk-nav-sub">
                 <li><a class="white-text" href="{{route('admin_media_settings')}}">Media</a></li>
                 <li><a class="white-text" href="{{route('admin_property_settings')}}">Property</a></li>
-                {{-- <li><a href="{{route('admin_payment_settings')}}">Payments</a>
-            </li> --}}
+                <li><a href="{{route('admin_payment_settings')}}">Payments</a>
+            </li>
           </ul>
           </li>
           </ul>
