@@ -262,14 +262,14 @@
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">ABOUT
+              <a href="#footer_end" uk-scroll  class="uk-button black white-text uk-width-1-1 uk-border-rounded">ABOUT
                 US
               </a>
             </div>
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">CONTACT
+              <a href="#footer_end" uk-scroll  class="uk-button black white-text uk-width-1-1 uk-border-rounded">CONTACT
                 US
               </a>
             </div>
@@ -382,10 +382,12 @@
                 style="color:white;">All Properties</a>
             </li>
             <li>
-              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">About US</a>
+              <a href="#footer_end" uk-scroll class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">About
+                US</a>
             </li>
             <li>
-              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Contact Us</a>
+              <a href="#footer_end" uk-scroll  class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Contact
+                Us</a>
             </li>
             <li>
               <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Blog</a>
@@ -426,12 +428,14 @@
         <div class="uk-navbar-right uk-hidden@m">
           <ul class="uk-navbar-nav">
             <li class="uk-transition-toggle" tabindex="0">
-              <button onclick="toggle_psearch()" class="uk-navbar-toggle uk-button uk-button-text white-text" type="button">
+              <button onclick="toggle_psearch()" class="uk-navbar-toggle uk-button uk-button-text white-text"
+                type="button">
                 <span>
                   <i class=" uk-display-block" uk-icon="icon: search; ratio:2.4;"></i>
                 </span>
               </button>
-              <div id="problem_search" class="uk-hidden red lighten-1 uk-container uk-position-absolute uk-padding-small white uk-width-1-1"
+              <div id="problem_search"
+                class="uk-hidden red lighten-1 uk-container uk-position-absolute uk-padding-small white uk-width-1-1"
                 style="top:84px;left:0px;">
                 <div class="uk-flex uk-flex-wrap uk-flex-around" uk-grid>
                   <div class="uk-width-1-1 uk-margin-left">
@@ -481,9 +485,17 @@
                 Zahari Properties, Villa C, Eleganza Estate, Lekki-Epe Expressway, Lagos, Nigeria
               </b>
             </p>
-            <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +234 903 703 1000
+            <li class="my-footer-text" style="color: #adf802">
+              <a style="color: #adf802" href="https://api.whatsapp.com/send?phone=2349037031000">
+                <span uk-icon="receiver"></span>
+                +234 903 703 1000
+              </a>
             </li>
-            <li class="my-footer-text" style="color: #adf802"><span uk-icon="receiver"></span> +234 818 325 1986
+            <li class="my-footer-text" style="color: #adf802">
+              <a style="color: #adf802" href="tel:+2349037031000">
+                <span uk-icon="receiver"></span>
+                +234 818 325 1986
+              </a>
             </li>
             <li class="my-footer-text" style="color: #adf802"><span uk-icon="mail"></span> mynextland@gmail.com
             </li>
@@ -518,20 +530,20 @@
               </div>
               <li style="color: white; font-size:0.8em"> Get recent updates from us...</li>
               <p>
-                <a href="https://twitter.com/kingsrepublik" class="uk-icon-button uk-margin-small-right" uk-icon="twitter"
-                  style="color: white; background-color: #87ceeb;"></a>
-                <a href="https://facebook.com/kingsRepublik" class="uk-icon-button  uk-margin-small-right blue" uk-icon="facebook"
-                  style="color: white;"></a>
-                <a href="https://api.whatsapp.com/send?phone=2349037031000" class="uk-icon-button uk-margin-small-right green" uk-icon="whatsapp"
-                  style="color: white;"></a>
-                <a href="https://instagram.com/brillianthomesinvestment" class="uk-icon-button uk-margin-small-right" uk-icon="instagram"
-                  style="color: white; background-color:#DB7093"></a>
+                <a href="https://twitter.com/kingsrepublik" class="uk-icon-button uk-margin-small-right"
+                  uk-icon="twitter" style="color: white; background-color: #87ceeb;"></a>
+                <a href="https://facebook.com/kingsRepublik" class="uk-icon-button  uk-margin-small-right blue"
+                  uk-icon="facebook" style="color: white;"></a>
+                <a href="https://api.whatsapp.com/send?phone=2349037031000"
+                  class="uk-icon-button uk-margin-small-right green" uk-icon="whatsapp" style="color: white;"></a>
+                <a href="https://instagram.com/brillianthomesinvestment" class="uk-icon-button uk-margin-small-right"
+                  uk-icon="instagram" style="color: white; background-color:#DB7093"></a>
               </p>
             </form>
           </div>
         </div>
       </div>
-      <div class="uk-text-center black uk-padding-small" style="color: white;">
+      <div id="footer_end" class="uk-text-center black uk-padding-small" style="color: white;">
         <p class=" uk-margin-remove-vertical" style="font-size:0.8em; opacity: 0.8;">© Copyright 2020 Brilliant Homes
           Investment Ltd, owners of MyNextLand.com. All rights reserved.</p>
         <p class="uk-text-small uk-text-muted uk-margin-remove-vertical">Please note: All images, texts, and videos on
