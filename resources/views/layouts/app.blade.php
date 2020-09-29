@@ -257,19 +257,20 @@
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-            <a href="{{route('ad_post_pricing')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">PRICING</a>
+              <a href="{{route('ad_post_pricing')}}"
+                class="uk-button black white-text uk-width-1-1 uk-border-rounded">PRICING</a>
             </div>
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="#footer_end" uk-scroll  class="uk-button black white-text uk-width-1-1 uk-border-rounded">ABOUT
+              <a href="#footer_end" uk-scroll class="uk-button black white-text uk-width-1-1 uk-border-rounded">ABOUT
                 US
               </a>
             </div>
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="#footer_end" uk-scroll  class="uk-button black white-text uk-width-1-1 uk-border-rounded">CONTACT
+              <a href="#footer_end" uk-scroll class="uk-button black white-text uk-width-1-1 uk-border-rounded">CONTACT
                 US
               </a>
             </div>
@@ -375,18 +376,21 @@
         <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
           <ul class="uk-navbar-nav uk-flex uk-flex-middle">
             <li>
-              <a href="{{route('ad_post_pricing')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Pricing</a>
+              <a href="{{route('ad_post_pricing')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
+                style="color:white;">Pricing</a>
             </li>
             <li>
               <a href="{{route('property_listing')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
                 style="color:white;">All Properties</a>
             </li>
             <li>
-              <a href="#footer_end" uk-scroll class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">About
+              <a href="#footer_end" uk-scroll class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
+                style="color:white;">About
                 US</a>
             </li>
             <li>
-              <a href="#footer_end" uk-scroll  class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Contact
+              <a href="#footer_end" uk-scroll class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
+                style="color:white;">Contact
                 Us</a>
             </li>
             <li>
@@ -497,7 +501,11 @@
                 Call +234 818 325 1986
               </a>
             </li>
-            <li class="my-footer-text" style="color: #adf802"><span uk-icon="mail"></span> mynextland@gmail.com
+            <li class="my-footer-text" style="color: #adf802">
+              <a style="color: #adf802" href="mailto:mynextland@gmail.com">
+                <span uk-icon="mail"></span>
+                mynextland@gmail.com
+              </a>
             </li>
           </div>
 
