@@ -122,6 +122,16 @@ class HomeController extends Controller
       ->latest()
       ->take(8)->get()->append(request()->query());
     $site_home_slider = SiteConfig::where('key', 'home_slider')->firstOrFail();
-    return view('homepage', ['sub_cat'=>$sub_cat,'slider_images' => json_decode($site_home_slider->value), 'featured_properties' => $featured_properties, 'recent_properties' => $recent_properties, 'categories' => $categories, 'states' => $states]);
+    return view('homepage', ['sub_cat' => $sub_cat, 'slider_images' => json_decode($site_home_slider->value), 'featured_properties' => $featured_properties, 'recent_properties' => $recent_properties, 'categories' => $categories, 'states' => $states]);
+  }
+
+  public function pricing()
+  {
+    $property_life_span = SiteConfig::where('key', 'property_life_span')->firstOrFail();
+    $property_plan_fee = SiteConfig::where('key', 'property_plan_fee')->firstOrFail();
+    return view('pricing', [
+      'span' => json_decode($property_life_span->value),
+      'fee' => json_decode($property_plan_fee->value),
+    ]);
   }
 }

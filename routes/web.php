@@ -34,7 +34,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 Route::post('/subscribe', 'SubscriberController@store')->name('property_subscribe');
 Route::get('/unsubscribe/{subscriber_id}', 'SubscriberController@store')->middleware('verify_unsubscribe_route')->name('property_unsubscribe');
-
+Route::get('/pricing', 'HomeController@pricing')->name('ad_post_pricing');
 Route::get('/property/view/{property_slug}', 'PropertyController@show')->name('view_property');
 Route::get('/', ['uses' => 'HomeController@homepage'])->name('home');
 Route::get('/property_list', 'PropertyController@index')->name('property_listing');

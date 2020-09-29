@@ -257,7 +257,7 @@
           </li>
           <li>
             <div class="uk-padding-remove uk-margin-small">
-              <a href="#" class="uk-button black white-text uk-width-1-1 uk-border-rounded">PRICING</a>
+            <a href="{{route('ad_post_pricing')}}" class="uk-button black white-text uk-width-1-1 uk-border-rounded">PRICING</a>
             </div>
           </li>
           <li>
@@ -375,7 +375,7 @@
         <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
           <ul class="uk-navbar-nav uk-flex uk-flex-middle">
             <li>
-              <a href="#" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Pricing</a>
+              <a href="{{route('ad_post_pricing')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold" style="color:white;">Pricing</a>
             </li>
             <li>
               <a href="{{route('property_listing')}}" class="uk-button uk-width-1-1 btn-bg-none uk-text-bold"
