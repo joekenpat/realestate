@@ -488,13 +488,13 @@
             <li class="my-footer-text" style="color: #adf802">
               <a style="color: #adf802" href="https://api.whatsapp.com/send?phone=2349037031000">
                 <span uk-icon="receiver"></span>
-                +234 903 703 1000
+                Whatsapp +234 903 703 1000
               </a>
             </li>
             <li class="my-footer-text" style="color: #adf802">
               <a style="color: #adf802" href="tel:+2349037031000">
                 <span uk-icon="receiver"></span>
-                +234 818 325 1986
+                Call +234 818 325 1986
               </a>
             </li>
             <li class="my-footer-text" style="color: #adf802"><span uk-icon="mail"></span> mynextland@gmail.com
