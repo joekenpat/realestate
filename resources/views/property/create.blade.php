@@ -205,7 +205,7 @@
     object-fit: cover;
   }
 </style>
-<link href="{{asset('css/quill.snow.css')}}" rel="stylesheet">
+<link href="{{asset('css/quill.snow.min.css')}}" rel="stylesheet">
 @endpush
 <div class="uk-grid-collapse" uk-grid>
   <div class="uk-visible@m uk-width-1-4 uk-padding-small">
