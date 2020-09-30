@@ -2,7 +2,7 @@
 @section('title', 'Post Property')
 @section('content')
 <div class="uk-container uk-margin-large-top uk-margin-large-bottom">
-  <p class="uk-text-large uk-text-center">BOOST OR FEATURE YOUR PROPERTIES TO REACH A WIDER AUDIENCE IN A SHORT TIME.</p>
+  <p class="uk-text-large uk-text-center">BOOST OR FEATURE YOUR PROPERTIES TO REACH A WIDER AUDIENCE AROUND THE WORLD IN A SHORT TIME.</p>
   <div uk-grid class="uk-margin-top">
     <div class="uk-width-1-3@m uk-width-1-1@s">
       <div class="uk-card uk-card-default uk-card-body grey lighten-5">
