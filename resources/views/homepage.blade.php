@@ -246,7 +246,7 @@
         <div class=" uk-position-relative uk-position-small uk-text-center uk-light my-slide">
           <h1 class="uk-margin-remove" style="padding-top: 100px"><b>Lands, Homes & Apartments
             </b></h1>
-          <h5 class="uk-margin-remove uk-margin-small-top"><b>We make it easy for you to get all your properties
+          <h5 class="uk-margin-remove uk-margin-small-top"><b>We make it easy for you to buy or sell your properties for big turnover.
               stress-free</b></h5>
           <div class="uk-width-1-1 uk-margin-large-top" style="">
             <form action="{{route('property_listing')}}" class="uk-width-1-1" method="GET">
