@@ -667,17 +667,17 @@ class PropertyController extends Controller
         $new_trx_record->user_id = Auth::User()->id;
         $new_trx_record->save();
         $checkout_url = $paystack->getAuthorizationUrl();
-        $pcat = $new_property->category_id;
-        $pscat = $new_property->subcategory_id;
-        $pstate = $new_property->state_id;
-        $notif_subs = Subscriber::whereHas('subscribers', function ($filter) use ($pcat, $pscat, $pstate) {
-          $filter->where('state_id', $pstate)
-            ->where('category_id', $pcat)
-            ->orWhere('subcategory_id', $pscat);
-        })->get();
-        foreach ($notif_subs as $notif) {
-          $notif->notify(new SimilarProperty($notif, $new_property));
-        }
+        // $pcat = $new_property->category_id;
+        // $pscat = $new_property->subcategory_id;
+        // $pstate = $new_property->state_id;
+        // $notif_subs = Subscriber::whereHas('subscribers', function ($filter) use ($pcat, $pscat, $pstate) {
+        //   $filter->where('state_id', $pstate)
+        //     ->where('category_id', $pcat)
+        //     ->orWhere('subcategory_id', $pscat);
+        // })->get();
+        // foreach ($notif_subs as $notif) {
+        //   $notif->notify(new SimilarProperty($notif, $new_property));
+        // }
         return response()->json($checkout_url, Response::HTTP_CREATED);
       }
 

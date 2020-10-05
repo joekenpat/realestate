@@ -257,8 +257,12 @@
               @foreach ($property->images as $img)
               <li class="">
                 <div class="uk-panel">
+                  @if(count($property->images))
                   <img class="view-ad-image uk-width-1-1"
                     src="{{asset(sprintf('images/properties/%s/%s',$property->id,$img))}}" alt="">
+                  @else
+                  <img class="view-ad-image uk-width-1-1" src="{{asset(sprintf('images/misc/no-image.jpg'))}}" alt="">
+                  @endif
                 </div>
               </li>
               @endforeach
@@ -398,9 +402,9 @@
           <p class="uk-padding-small uk-margin-remove uk-padding-remove-bottom"> <a
               href="tel:{{$property->user->phone}}"> <i class="uk-icon-button uk-margin-small-right" uk-icon="receiver"
                 style="color: black"></i> <a href="tel:{{$property->user->phone}}"
-                  class="uk-button uk-button-small blue accent-2  uk-margin-small-right uk-border-pill"
-                  style="color: white;">
-                  <b>{{$property->user->phone}}</b></a></a></p>
+                class="uk-button uk-button-small blue accent-2  uk-margin-small-right uk-border-pill"
+                style="color: white;">
+                <b>{{$property->user->phone}}</b></a></a></p>
         </div>
 
         <p class="uk-padding-small">

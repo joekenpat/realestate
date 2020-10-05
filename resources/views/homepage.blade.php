@@ -246,7 +246,8 @@
         <div class=" uk-position-relative uk-position-small uk-text-center uk-light my-slide">
           <h1 class="uk-margin-remove" style="padding-top: 100px"><b>Lands, Homes & Apartments
             </b></h1>
-          <h5 class="uk-margin-remove uk-margin-small-top"><b>We make it easy for you to buy or sell your properties for big turnover.
+          <h5 class="uk-margin-remove uk-margin-small-top"><b>We make it easy for you to buy or sell your properties for
+              big turnover.
               stress-free</b></h5>
           <div class="uk-width-1-1 uk-margin-large-top" style="">
             <form action="{{route('property_listing')}}" class="uk-width-1-1" method="GET">
@@ -317,8 +318,12 @@
           <div class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text">
             <div class="uk-card-media-top ">
               <a href="{{route('view_property',['property_slug'=>$property->slug])}}" class="uk-link-reset">
+                @if(count($property->images))
                 <img class="home_ad_list_thumb"
                   src="{{asset(sprintf('images/properties/%s/%s',$property->id,$property->images[0]))}}" alt="" />
+                @else
+                <img class="home_ad_list_thumb" src="{{asset(sprintf('images/misc/no-image.jpg'))}}" alt="" />
+                @endif
               </a>
               @if($property->plan == 'featured')
               <!--featured start here-->
@@ -411,8 +416,12 @@
           <div class="uk-card uk-card-default uk-card-body uk-padding-remove uk-margin-small my-card uk-link-text">
             <div class="uk-card-media-top ">
               <a href="{{route('view_property',['property_slug'=>$property->slug])}}" class="uk-link-reset">
+                @if(count($property->images))
                 <img class="home_ad_list_thumb"
                   src="{{asset(sprintf('images/properties/%s/%s',$property->id,$property->images[0]))}}" alt="" />
+                @else
+                <img class="home_ad_list_thumb" src="{{asset(sprintf('images/misc/no-image.jpg'))}}" alt="" />
+                @endif
               </a>
 
               @if($property->plan == 'featured')

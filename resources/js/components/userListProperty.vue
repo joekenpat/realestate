@@ -71,8 +71,10 @@
             <td>
               <img
                 :src="
-                  `${base_url}/images/properties/${property.id}/${property.images[0]}`
-                "
+                          Object.keys(property.images).length > 0
+                            ? `${base_url}/images/properties/${property.id}/${property.images[0]}`
+                            : `${base_url}/images/misc/no-image.jpg`
+                        "
                 style="height: 100px; width: 100px"
               />
             </td>

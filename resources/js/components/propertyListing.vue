@@ -394,7 +394,9 @@
                       <img
                         class="home_ad_list_thumb"
                         :src="
-                          `${base_url}/images/properties/${property.id}/${property.images[0]}`
+                          Object.keys(property.images).length > 0
+                            ? `${base_url}/images/properties/${property.id}/${property.images[0]}`
+                            : `${base_url}/images/misc/no-image.jpg`
                         "
                         alt=""
                       />
