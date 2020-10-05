@@ -15,7 +15,7 @@ class AddRefererColumnToTable extends Migration
   {
     Schema::table('users', function (Blueprint $table) {
       $table->string('referer')->unique()->after('role')->nullable()->default(null);
-      $table->foreign('referer')->references('user_id')->on('users');
+      $table->foreign('referer')->references('id')->on('users');
     });
   }
 
