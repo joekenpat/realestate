@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="uk-width-1-1">
-          <label for="email" class="uk-form-label form-label">
+          <label for="c_email" class="uk-form-label form-label">
             {{ __('Confirm E-Mail *') }}
           </label>
           <div class="uk-form-control">
@@ -99,7 +99,7 @@
             @enderror
           </div>
         </div>
-        <div class="uk-width-1-1">
+        <div class="uk-width-1-2">
           <label for="password" class="uk-form-label form-label">
             {{ __('Password *') }}
           </label>
@@ -115,9 +115,24 @@
             @enderror
           </div>
         </div>
+        <div class="uk-width-1-2">
+          <label for="referer" class="uk-form-label form-label">
+            {{ __('referer') }}
+          </label>
+          <div class="uk-form-control">
+            <div class="uk-inline uk-width-1-1">
+              <span class="uk-form-icon" uk-icon="icon: user" style="color: #3D9FB9;"></span>
+              <input class="uk-input uk-width-1-1 @error('referer') uk-form-danger @enderror" id="referer"
+                name="referer" type="text" value="{{ old('referer') }}">
+            </div>
+            @error('referer')
+            <span class="uk-text-danger">{{ $message }}</span>
+            @enderror
+          </div>
+        </div>
         <div class="uk-width-1-1">
           <div class="uk-form-control">
-            {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
+            {!! NoCaptcha::display() !!}
             @error('g-recaptcha-response')
             <span class="uk-text-danger">{{ $message }}</span>
             @enderror

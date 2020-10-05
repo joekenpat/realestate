@@ -17,6 +17,7 @@
               <th>Role</th>
               <th>Email</th>
               <th>Phone</th>
+              <th>Referer</th>
               <th>Ad Count</th>
               <th>Action</th>
             </tr>
@@ -34,6 +35,7 @@
               <td>{{$user->role}}</td>
               <td>{{$user->email}}</td>
               <td>{{$user->phone}}</td>
+              <td>{{$user->refererUsername?:'NONE'}}</td>
               <td>{{$user->properties()->count()}}</td>
               <td>
                 <div>

@@ -19,7 +19,7 @@
         <div class="uk-card uk-card-default">
           <div class="uk-card-body uk-padding-remove">
             <span class="uk-padding-small uk-border-circle" uk-icon="icon:users; ratio:1.5"></span>
-          <span class="uk-label uk-float-right">{{$total_users}}</span>
+            <span class="uk-label uk-float-right">{{$total_users}}</span>
             <line-chart :width="330" :height="120" :chartdata="{{ json_encode($udata) }}"
               :options="{{ json_encode($options) }}" />
           </div>
@@ -62,6 +62,7 @@
                     <th>Avatar</th>
                     <th>Name</th>
                     <th>Phone</th>
+                    <th>Referer</th>
                     <th>Gender</th>
                   </tr>
                 </thead>
@@ -71,10 +72,12 @@
                     <td class="uk-text-small">
                       <img
                         src="{{$user->avatar != null?URL::to(sprintf("images/users/profile/%s/%s",$user->id,$user->avatar)):asset("images/misc/default_avatar.png") }}"
-                        class="uk-border-circle" style="height:40px;width:40px;object-fit:cover;" alt="{{$user->get_full_name()}} profile image">
+                        class="uk-border-circle" style="height:40px;width:40px;object-fit:cover;"
+                        alt="{{$user->get_full_name()}} profile image">
                     </td>
                     <td class="uk-text-small">{{$user->get_full_name()}}</td>
                     <td class="uk-text-small">{{$user->phone}}</td>
+                    <td class="uk-text-small">{{$user->refererUsername?:'NONE'}}</td>
                     <td class="uk-text-small">{{ucwords($user->gender)}}</td>
                   </tr>
                   @endforeach
@@ -106,7 +109,8 @@
                     <td>
                       <img
                         src="{{$property->images != []?URL::to(sprintf("images/properties/%s/%s",$property->id,$property->images[0])):asset("images/misc/default_avatar.png") }}"
-                        class="uk-border-circle" style="height:40px;width:40px;object-fit:cover;" alt="{{$property->title}} first image">
+                        class="uk-border-circle" style="height:40px;width:40px;object-fit:cover;"
+                        alt="{{$property->title}} first image">
                     </td>
                     <td>{{$property->title}}</td>
                     <td>{{$property->state->name}},{{$property->city->name}}</td>

@@ -39,7 +39,7 @@
       </div>
       <div class="uk-width-1-1">
         <div class="uk-form-control">
-          {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
+          {!! NoCaptcha::display() !!}
           @error('g-recaptcha-response')
           <span class="uk-text-danger">{{ $message }}</span>
           @enderror

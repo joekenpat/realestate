@@ -57,6 +57,8 @@ class RegisterController extends Controller
       'last_name' => 'required|alpha|max:25|min:2',
       'username' => 'required|alpha_dash|max:25|min:2',
       'email' => 'required|email|max:150|min:5|unique:users,email',
+      'c_email' => 'required|email|same:email',
+      'referer' => 'sometimes|alpha_num|exists:users,username',
       'phone' => 'required|numeric|digits:11|unique:users,phone',
       'password' => 'required|string',
       'g-recaptcha-response' => 'required|captcha',
@@ -71,6 +73,10 @@ class RegisterController extends Controller
    */
   protected function create(array $data)
   {
+    if (array_key_exists('referer', $data)) {
+      $referer = User::where('username', $data['referer'])->first();
+      $data['referer'] = $referer->id;
+    }
     $data['password'] = Hash::make($data['password']);
     $data['last_ip'] = request()->getClientIp();
     $data['media'] = [];
