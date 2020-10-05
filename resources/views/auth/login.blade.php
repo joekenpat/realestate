@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', "Login into Your account")
 @section('content')
+{!! NoCaptcha::renderJs() !!}
 <div class="uk-section uk-section-small uk-section-muted uk-flex uk-flex-center">
   <div class="uk-card uk-card-default my-card uk-card-body uk-width-large">
     <h2 class="uk-card-title" style="color:#3D9FB9;">Log In</h2>
