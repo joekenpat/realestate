@@ -9,7 +9,7 @@ use App\UuidForKey;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, UuidForKey, HasApiTokens;
 

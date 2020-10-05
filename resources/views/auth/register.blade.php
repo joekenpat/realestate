@@ -78,9 +78,24 @@
                 <div class="uk-inline uk-width-1-1">
                   <span class="uk-form-icon" uk-icon="icon: mail" style="color: #3D9FB9;"></span>
                   <input class="uk-input uk-width-1-1 @error('email') uk-form-danger @enderror" id="email" name="email"
-                    type="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    type="email" value="{{ old('email') }}" required autocomplete="email">
                 </div>
                 @error('email')
+                <span class="uk-text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <div class="uk-width-1-1">
+              <label for="email" class="uk-form-label form-label">
+                {{ __('Confirm E-Mail *') }}
+              </label>
+              <div class="uk-form-control">
+                <div class="uk-inline uk-width-1-1">
+                  <span class="uk-form-icon" uk-icon="icon: mail" style="color: #3D9FB9;"></span>
+                  <input class="uk-input uk-width-1-1 @error('c_email') uk-form-danger @enderror" id="c_email" name="c_email"
+                    type="email" required>
+                </div>
+                @error('c_email')
                 <span class="uk-text-danger">{{ $message }}</span>
                 @enderror
               </div>
@@ -97,6 +112,14 @@
                     autocomplete="new-password">
                 </div>
                 @error('password')
+                <span class="uk-text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <div class="uk-width-1-1">
+              <div class="uk-form-control">
+                {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
+                @error('g-recaptcha-response')
                 <span class="uk-text-danger">{{ $message }}</span>
                 @enderror
               </div>

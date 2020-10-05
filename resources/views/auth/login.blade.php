@@ -36,6 +36,14 @@
           @enderror
         </div>
       </div>
+      <div class="uk-width-1-1">
+        <div class="uk-form-control">
+          {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
+          @error('g-recaptcha-response')
+          <span class="uk-text-danger">{{ $message }}</span>
+          @enderror
+        </div>
+      </div>
       <div class="uk-margin">
         <div class="uk-form-control uk-text-center">
           <input class="uk-checkbox" type="checkbox" name="remember" id="remember"

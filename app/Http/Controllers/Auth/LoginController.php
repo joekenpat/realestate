@@ -53,4 +53,21 @@ class LoginController extends Controller
     ]);
     // Auth::User()->createToken('moni')->accessToken;
   }
+
+  /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha',
+        ]);
+    }
 }
