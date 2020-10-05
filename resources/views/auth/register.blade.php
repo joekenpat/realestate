@@ -131,7 +131,7 @@
           </div>
         </div>
         <div class="uk-width-1-1">
-          <div class="uk-form-control">
+          <div class="uk-form-control uk-padding-small">
             {!! NoCaptcha::display() !!}
             @error('g-recaptcha-response')
             <span class="uk-text-danger">{{ $message }}</span>
