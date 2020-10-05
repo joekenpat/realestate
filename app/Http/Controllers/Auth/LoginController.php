@@ -64,10 +64,14 @@ class LoginController extends Controller
      */
     protected function validateLogin(Request $request)
     {
+      $messages = [
+        'g-recaptcha-response.required' => 'You must check the reCAPTCHA.',
+        'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+    ];
         $request->validate([
             $this->username() => 'required|string',
             'password' => 'required|string',
             'g-recaptcha-response' => 'required|captcha',
-        ]);
+        ],$messages);
     }
 }

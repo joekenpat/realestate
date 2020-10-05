@@ -52,6 +52,10 @@ class RegisterController extends Controller
    */
   protected function validator(array $data)
   {
+    $messages = [
+      'g-recaptcha-response.required' => 'You must check the reCAPTCHA.',
+      'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+  ];
     return Validator::make($data, [
       'first_name' => 'required|alpha|max:25|min:2',
       'last_name' => 'required|alpha|max:25|min:2',
@@ -62,7 +66,7 @@ class RegisterController extends Controller
       'phone' => 'required|numeric|digits:11|unique:users,phone',
       'password' => 'required|string',
       'g-recaptcha-response' => 'required|captcha',
-    ]);
+    ], $messages);
   }
 
   /**
