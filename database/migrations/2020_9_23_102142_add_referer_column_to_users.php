@@ -14,7 +14,7 @@ class AddRefererColumnToUsers extends Migration
   public function up()
   {
     Schema::table('users', function (Blueprint $table) {
-      $table->string('referer')->unique()->after('currency_id')->nullable()->default(null);
+      $table->string('referer')->unique()->after('role')->nullable()->default(null);
       $table->foreign('referer')->references('user_id')->on('users');
     });
   }
