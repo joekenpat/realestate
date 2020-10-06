@@ -118,7 +118,7 @@ export default {
           toast.addEventListener("mouseleave", this.$swal.resumeTimer);
         }
       }),
-      plan_map: ["free", "distress", "featured"],
+      plan_map: ["free", "vip", "featured","premium"],
       status_map: [
         "active",
         "pending",

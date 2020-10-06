@@ -22,8 +22,9 @@
               >
                 <option selected value="all">All</option>
                 <option value="free">Free</option>
-                <option value="distress">Distress</option>
+                <option value="vip">Vip</option>
                 <option value="featured">Featured</option>
+                <option value="premium">Premium</option>
               </select>
             </div>
           </div>
@@ -230,8 +231,9 @@
                   >
                     <option selected value="all">All Plan</option>
                     <option value="free">Free</option>
-                    <option value="distress">Distress</option>
+                    <option value="vip">Vip</option>
                     <option value="featured">Featured</option>
+                    <option value="premium">Premium</option>
                   </select>
                 </div>
                 <div>
@@ -420,7 +422,7 @@
 
                     <!--distress start here-->
                     <div
-                      v-else-if="property.plan == 'distress'"
+                      v-else-if="property.plan == 'vip'"
                       class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
                       style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white "
                     >
@@ -430,6 +432,22 @@
                       </p>
                     </div>
                     <!--distress end here-->
+
+                    <!--premium start here-->
+                    <div
+                      v-else-if="property.plan == 'premium'"
+                      class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                      style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: purple; color: white "
+                    >
+                      <p class="uk-text-small" style="padding:0px 6px">
+                        <i
+                          uk-icon="icon:star; ratio:1"
+                          style="color:white;"
+                        ></i>
+                        For {{ property.list_as }}
+                      </p>
+                    </div>
+                    <!--premium end here-->
 
                     <!--free start here-->
                     <div

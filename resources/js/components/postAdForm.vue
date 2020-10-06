@@ -214,9 +214,9 @@
                 type="radio"
                 name="plan"
                 v-model="plan"
-                value="distress"
+                value="vip"
               />
-              Distress &#8358;{{ plan_fee.distress }}</label
+              VIP &#8358;{{ plan_fee.vip }}</label
             ><br />
             <label
               ><input
@@ -227,6 +227,16 @@
                 v-model="plan"
               />
               Featured &#8358;{{ plan_fee.featured }}</label
+            ><br />
+            <label
+              ><input
+                class="uk-radio"
+                type="radio"
+                name="plan"
+                v-model="plan"
+                value="premium"
+              />
+              Premium &#8358;{{ plan_fee.premium }}</label
             ><br />
             <span v-show="error.plan != null" class="uk-text-danger">{{
               error.plan

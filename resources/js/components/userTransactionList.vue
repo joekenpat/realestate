@@ -62,8 +62,9 @@
                 :class="[
                   'uk-label',
                   { black: transaction.plan == 'free' },
-                  { red: transaction.plan == 'distress' },
-                  { orange: transaction.plan == 'featured' }
+                  { red: transaction.plan == 'vip' },
+                  { orange: transaction.plan == 'featured' },
+                  { purple: transaction.plan == 'premium' }
                 ]"
                 >{{ transaction.plan }}</span
               >

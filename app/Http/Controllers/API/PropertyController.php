@@ -330,16 +330,17 @@ class PropertyController extends Controller
       $item_plan_map = [
         'all',
         'free',
-        'distress',
+        'vip',
         'featured',
+        'premium',
       ];
       if (in_array($plan, $item_plan_map)) {
         if ($plan == 'all') {
-          return ['free', 'distress', 'featured',];
+          return ['free', 'vip', 'featured', 'premium',];
         }
         return [$plan];
       } else {
-        return ['free', 'distress', 'featured',];
+        return ['free', 'vip', 'featured', 'premium',];
       }
     };
 
@@ -643,8 +644,10 @@ class PropertyController extends Controller
         $paystack_keys_value = json_decode($paystack_keys->value);
         $paystack_secret_key = $paystack_keys_value->secret;
 
-        if ($request->input('plan') == 'distress') {
-          $fee = $property_plan_fee->distress * 100;
+        if ($request->input('plan') == 'vip') {
+          $fee = $property_plan_fee->vip * 100;
+        } elseif ($request->input('plan') == 'premium') {
+          $fee = $property_plan_fee->premium * 100;
         } else {
           $fee = $property_plan_fee->featured * 100;
         }
@@ -861,8 +864,10 @@ class PropertyController extends Controller
                 $paystack_keys_value = json_decode($paystack_keys->value);
                 $paystack_secret_key = $paystack_keys_value->secret;
 
-                if ($request->input('plan') == 'distress') {
-                  $fee = $property_plan_fee->distress * 100;
+                if ($request->input('plan') == 'vip') {
+                  $fee = $property_plan_fee->vip * 100;
+                } elseif ($request->input('plan') == 'premium') {
+                  $fee = $property_plan_fee->premium * 100;
                 } else {
                   $fee = $property_plan_fee->featured * 100;
                 }
@@ -900,8 +905,10 @@ class PropertyController extends Controller
               $paystack_keys_value = json_decode($paystack_keys->value);
               $paystack_secret_key = $paystack_keys_value->secret;
 
-              if ($request->input('plan') == 'distress') {
-                $fee = $property_plan_fee->distress * 100;
+              if ($request->input('plan') == 'vip') {
+                $fee = $property_plan_fee->vip * 100;
+              } elseif ($request->input('plan') == 'premium') {
+                $fee = $property_plan_fee->premium * 100;
               } else {
                 $fee = $property_plan_fee->featured * 100;
               }
@@ -939,8 +946,10 @@ class PropertyController extends Controller
               $paystack_keys_value = json_decode($paystack_keys->value);
               $paystack_secret_key = $paystack_keys_value->secret;
 
-              if ($request->input('plan') == 'distress') {
-                $fee = $property_plan_fee->distress * 100;
+              if ($request->input('plan') == 'vip') {
+                $fee = $property_plan_fee->vip * 100;
+              } elseif ($request->input('plan') == 'premium') {
+                $fee = $property_plan_fee->premium * 100;
               } else {
                 $fee = $property_plan_fee->featured * 100;
               }
@@ -1225,8 +1234,10 @@ class PropertyController extends Controller
       $paystack_keys_value = json_decode($paystack_keys->value);
       $paystack_secret_key = $paystack_keys_value->secret;
 
-      if ($request->plan == 'distress') {
-        $fee = $property_plan_fee->distress * 100;
+      if ($request->plan == 'vip') {
+        $fee = $property_plan_fee->vip * 100;
+      } elseif ($request->plan == 'premium') {
+        $fee = $property_plan_fee->premium * 100;
       } else {
         $fee = $property_plan_fee->featured * 100;
       }

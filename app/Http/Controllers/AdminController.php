@@ -70,7 +70,7 @@ class AdminController extends Controller
     }
     $tcounts = DB::table('transaction_records')->selectRaw("DATE_FORMAT(created_at, '%H') as hour, count(id) as number")
       ->where('created_at', '>=', now()->subHours(24))
-      ->where('status','success')
+      ->where('status', 'success')
       ->groupBy('hour')
       ->get()->toArray();
     // return dd($counts);
@@ -150,11 +150,11 @@ class AdminController extends Controller
     ];
     $total_properties = Property::count();
     $total_users = User::count();
-    $total_transactions = TransactionRecord::where('status','success')->count();
+    $total_transactions = TransactionRecord::where('status', 'success')->count();
     $total_posts = Post::count();
     $lastest_properties = Property::latest()->take(5)->get();
     $lastest_users = User::latest()->take(5)->get();
-    return view('admin.overview', ['total_users'=>$total_users,'total_transactions'=>$total_transactions,'total_posts'=>$total_posts,'total_properties'=>$total_properties,'pdata' => $pdata,'tdata' => $tdata,'udata' => $udata, 'options' => $options, 'latest_properties' => $lastest_properties, 'latest_users' => $lastest_users]);
+    return view('admin.overview', ['total_users' => $total_users, 'total_transactions' => $total_transactions, 'total_posts' => $total_posts, 'total_properties' => $total_properties, 'pdata' => $pdata, 'tdata' => $tdata, 'udata' => $udata, 'options' => $options, 'latest_properties' => $lastest_properties, 'latest_users' => $lastest_users]);
   }
 
   public function media_settings()
@@ -202,9 +202,11 @@ class AdminController extends Controller
   {
     $this->validate($request, [
       'free_span' => 'required|numeric|',
-      'distress_span' => 'required|numeric|',
+      'vip_span' => 'required|numeric|',
+      'premium_span' => 'required|numeric|',
       'featured_span' => 'required|numeric|',
-      'distress_price' => 'required|numeric|',
+      'vip_price' => 'required|numeric|',
+      'premium_price' => 'required|numeric|',
       'featured_price' => 'required|numeric|',
       'max_media' => 'required|numeric|',
     ]);
@@ -215,9 +217,11 @@ class AdminController extends Controller
       $span = json_decode($property_life_span->value);
       $fee = json_decode($property_plan_fee->value);
       $span->free = $request->input('free_span');
-      $span->distress = $request->input('distress_span');
+      $span->vip = $request->input('vip_span');
+      $span->premium = $request->input('premium_span');
       $span->featured = $request->input('featured_span');
-      $fee->distress = $request->input('distress_price');
+      $fee->vip = $request->input('vip_price');
+      $fee->premium = $request->input('premium_price');
       $fee->featured = $request->input('featured_price');
       $property_max_media->value = $request->input('max_media');
       $property_life_span->value = json_encode($span);

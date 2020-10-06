@@ -116,8 +116,8 @@
   <div id="app">
     <nav class="uk-navbar-container  red lighten-1" uk-navbar>
       <div class="uk-navbar-let">
-        <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img src="{{asset("/images/misc/new_logo_white.png")}}"
-            style="height: 100px; "></a>
+        <a class="uk-navbar-item uk-logo" href="{{route('home')}}"><img
+            src="{{asset("/images/misc/new_logo_white.png")}}" style="height: 100px; "></a>
       </div>
       <div class=" uk-navbar-right uk-margin-small-right uk-visible@m">
         <ul class="uk-navbar-nav uk-flex uk-flex-middle">
@@ -162,11 +162,12 @@
       <div class="uk-visible@m uk-width-1-5 uk-card ">
         <div class="uk-card-default uk-card-body grey darken-1 white-text">
           <ul class="uk-nav-default uk-list-divider uk-nav-parent-icon" uk-nav>
-            <li class="uk-active"><a class="white-text" href="{{route('admin_overview')}}"><span class="uk-margin-small-right"
-                  uk-icon="icon: settings"></span>
+            <li class="uk-active"><a class="white-text" href="{{route('admin_overview')}}"><span
+                  class="uk-margin-small-right" uk-icon="icon: settings"></span>
                 Overview</a></li>
             <li class="uk-parent ">
-              <a class="white-text" href="#"><span class="uk-margin-small-right " uk-icon="icon: home"></span> Property</a>
+              <a class="white-text" href="#"><span class="uk-margin-small-right " uk-icon="icon: home"></span>
+                Property</a>
               <ul class="uk-nav-sub">
                 <li><a class="white-text" href="{{route('admin_all_properties')}}">All</a></li>
                 <li><a class="white-text" href="{{route('admin_pending_properties')}}">Pending</a></li>
@@ -190,14 +191,16 @@
               </ul>
             </li>
             <li class="uk-parent">
-              <a class="white-text" href="#"><span class="uk-margin-small-right" uk-icon="icon: grid"></span> Category</a>
+              <a class="white-text" href="#"><span class="uk-margin-small-right" uk-icon="icon: grid"></span>
+                Category</a>
               <ul class="uk-nav-sub">
                 <li><a class="white-text" href="{{route('admin_all_categories')}}">All</a></li>
                 <li><a class="white-text" href="{{route('admin_new_category')}}">Create New</a></li>
               </ul>
             </li>
             <li class="uk-parent">
-              <a class="white-text" href="#"><span class="uk-margin-small-right" uk-icon="icon: list"></span> Sub Category</a>
+              <a class="white-text" href="#"><span class="uk-margin-small-right" uk-icon="icon: list"></span> Sub
+                Category</a>
               <ul class="uk-nav-sub">
                 <li><a class="white-text" href="{{route('admin_all_subcategories')}}">All</a></li>
                 <li><a class="white-text" href="{{route('admin_new_subcategory')}}">Create New</a></li>
@@ -211,7 +214,8 @@
               </ul>
             </li>
             <li class="uk-parent">
-              <a class="white-text" href="#"><span class="uk-margin-small-right" uk-icon="icon: warning"></span> Reports</a>
+              <a class="white-text" href="#"><span class="uk-margin-small-right" uk-icon="icon: warning"></span>
+                Reports</a>
               <ul class="uk-nav-sub">
                 <li><a class="white-text" href="{{route('admin_all_reports')}}">All</a></li>
                 <li><a class="white-text" href="{{route('admin_pending_reports')}}">Pending</a></li>
@@ -219,19 +223,38 @@
               </ul>
             </li>
             <li class="uk-parent">
-              <a class="white-text" href="#"><span class="uk-margin-small-right" uk-icon="icon: cog"></span> Settings</a>
+              <a class="white-text" href="#"><span class="uk-margin-small-right" uk-icon="icon: cog"></span>
+                Settings</a>
               <ul class="uk-nav-sub">
                 <li><a class="white-text" href="{{route('admin_media_settings')}}">Media</a></li>
-                <li><a class="white-text" href="{{route('admin_property_settings')}}">Property</a></li>
+                <li><a class="white-text" href="{{route('admin_property_settings')}}">Package</a></li>
                 <li><a class="white-text" href="{{route('admin_payment_settings')}}">Payments</a>
+                </li>
+              </ul>
             </li>
-          </ul>
-          </li>
           </ul>
         </div>
       </div>
       <div class="uk-width-1-1 uk-width-4-5@m">
         <div class=" uk-padding-small">
+          @if (session('info'))
+          <div class="uk-alert-primary" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p>{{ session('info') }}</p>
+          </div>
+          @endif
+          @if(session('success'))
+          <div class="uk-alert-success" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p>{{ session('success') }}</p>
+          </div>
+          @endif
+          @if(session('error'))
+          <div class="uk-alert-danger" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p>{{session('error')}}</p>
+          </div>
+          @endif
           @yield('content')
         </div>
       </div>

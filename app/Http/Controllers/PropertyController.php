@@ -111,17 +111,23 @@ class PropertyController extends Controller
       $item_plan_map = [
         'all',
         'free',
-        'distress',
+        'vip',
         'featured',
+        'premium'
       ];
       if (in_array($plan, $item_plan_map)) {
         if ($plan == 'all') {
-          $item_plan = ['free', 'distress', 'featured',];
+          $item_plan = [
+            'free',
+            'vip',
+            'featured',
+            'premium'
+          ];
         } else {
           $item_plan = [$plan];
         }
       } else {
-        $item_plan = ['free', 'distress', 'featured',];
+        $item_plan = ['free', 'vip', 'featured', 'premium'];
       }
     } else {
       $item_plan = false;
@@ -328,17 +334,28 @@ class PropertyController extends Controller
       $item_plan_map = [
         'all',
         'free',
-        'distress',
+        'vip',
         'featured',
+        'premium'
       ];
       if (in_array($plan, $item_plan_map)) {
         if ($plan == 'all') {
-          $item_plan = ['free', 'distress', 'featured',];
+          $item_plan = [
+            'free',
+            'vip',
+            'featured',
+            'premium'
+          ];
         } else {
           $item_plan = [$plan];
         }
       } else {
-        $item_plan = ['free', 'distress', 'featured',];
+        $item_plan = [
+          'free',
+          'vip',
+          'featured',
+          'premium'
+        ];
       }
     } else {
       $item_plan = false;
@@ -502,7 +519,7 @@ class PropertyController extends Controller
    */
   public function show(Request $request, $property_slug)
   {
-    $property = Property::with(['user','amenities','specifications','tags','user.state','user.city','state','city'])->where('slug', $property_slug)->firstOrFail();
+    $property = Property::with(['user', 'amenities', 'specifications', 'tags', 'user.state', 'user.city', 'state', 'city'])->where('slug', $property_slug)->firstOrFail();
     $viewer_ip = $request->getClientIp();
     if (Auth::check()) {
       $user_id = Auth::user()->id;
@@ -571,30 +588,6 @@ class PropertyController extends Controller
   }
 
   /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Property  $property
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, Property $property)
-  {
-    //
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  \App\Property  $property
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy(Property $property)
-  {
-    //
-  }
-
-
-  /**
    * Obtain Paystack payment information
    * @return void
    */
@@ -610,8 +603,10 @@ class PropertyController extends Controller
       $property_life_span = SiteConfig::where('key', 'property_life_span')->firstOrFail();
       $property_life_span_value = json_decode($property_life_span->value);
       $plan =  $paymentDetails['data']['metadata']['plan'];
-      if ($plan == 'distress') {
-        $span = $property_life_span_value->distress;
+      if ($plan == 'vip') {
+        $span = $property_life_span_value->vip;
+      } elseif ($plan == 'premium') {
+        $span = $property_life_span_value->premium;
       } else {
         $span = $property_life_span_value->featured;
       }

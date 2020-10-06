@@ -71,10 +71,10 @@
             <td>
               <img
                 :src="
-                          Object.keys(property.images).length > 0
-                            ? `${base_url}/images/properties/${property.id}/${property.images[0]}`
-                            : `${base_url}/images/misc/no-image.jpg`
-                        "
+                  Object.keys(property.images).length > 0
+                    ? `${base_url}/images/properties/${property.id}/${property.images[0]}`
+                    : `${base_url}/images/misc/no-image.jpg`
+                "
                 style="height: 100px; width: 100px"
               />
             </td>
@@ -194,7 +194,7 @@ export default {
           toast.addEventListener("mouseleave", this.$swal.resumeTimer);
         }
       }),
-      plan_map: ["free", "distress", "featured"],
+      plan_map: ["free", "vip", "featured", "premium"],
       status_map: [
         "active",
         "pending",
@@ -248,7 +248,7 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            window.location =`${this.base_url}/user/property/edit/${property_slug}`;
+            window.location = `${this.base_url}/user/property/edit/${property_slug}`;
           }
         });
     },
@@ -332,8 +332,9 @@ export default {
           title: "Select Plan For Upgrade",
           input: "select",
           inputOptions: {
-            distress: "Distress",
-            featured: "Featured"
+            vip: "vip",
+            featured: "Featured",
+            premium: "Premium"
           },
           inputAttributes: {
             autocapitalize: "off"

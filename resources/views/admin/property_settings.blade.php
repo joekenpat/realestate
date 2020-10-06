@@ -20,8 +20,8 @@
                 <div class="uk-inline uk-width-1-1">
                   <span class="uk-form-icon" uk-icon="icon: grid" style="color: #3D9FB9;"></span>
                   <input class="uk-input uk-border-rounded uk-width-1-1 @error('free_span') uk-form-danger @enderror"
-                    id="free_span" name="free_span" type="number" value="{{ old('free_span')?:$span->free }}"
-                    required autofocus>
+                    id="free_span" name="free_span" type="number" value="{{ old('free_span')?:$span->free }}" required
+                    autofocus>
                 </div>
                 @error('free_span')
                 <span class="uk-text-danger">{{ $message }}</span>
@@ -29,18 +29,32 @@
               </div>
             </div>
             <div class=" uk-width-1-3">
-              <label for="distress_span" class="uk-form-label form-label">
-                Distress Duration (Days)
+              <label for="vip_span" class="uk-form-label form-label">
+                Vip Duration (Days)
               </label>
               <div class="uk-form-control">
                 <div class="uk-inline uk-width-1-1">
                   <span class="uk-form-icon" uk-icon="icon: grid" style="color: #3D9FB9;"></span>
-                  <input
-                    class="uk-input uk-border-rounded uk-width-1-1 @error('distress_span') uk-form-danger @enderror"
-                    id="distress_span" name="distress_span" type="number"
-                    value="{{ old('distress_span')?:$span->distress }}" required>
+                  <input class="uk-input uk-border-rounded uk-width-1-1 @error('vip_span') uk-form-danger @enderror"
+                    id="vip_span" name="vip_span" type="number" value="{{ old('vip_span')?:$span->vip }}" required>
                 </div>
-                @error('distress_span')
+                @error('vip_span')
+                <span class="uk-text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <div class=" uk-width-1-3">
+              <label for="premium_span" class="uk-form-label form-label">
+                Premium Duration (Days)
+              </label>
+              <div class="uk-form-control">
+                <div class="uk-inline uk-width-1-1">
+                  <span class="uk-form-icon" uk-icon="icon: grid" style="color: #3D9FB9;"></span>
+                  <input class="uk-input uk-border-rounded uk-width-1-1 @error('premium_span') uk-form-danger @enderror"
+                    id="premium_span" name="premium_span" type="number"
+                    value="{{ old('premium_span')?:$span->premium }}" required>
+                </div>
+                @error('premium_span')
                 <span class="uk-text-danger">{{ $message }}</span>
                 @enderror
               </div>
@@ -63,24 +77,40 @@
               </div>
             </div>
             <div class=" uk-width-1-3">
-              <label for="distress_price" class="uk-form-label form-label">
-                Distress price(N)
+              <label for="vip_price" class="uk-form-label form-label">
+                Vip price(N)
               </label>
               <div class="uk-form-control">
                 <div class="uk-inline uk-width-1-1">
                   <span class="uk-form-icon" uk-icon="icon: grid" style="color: #3D9FB9;"></span>
-                  <input
-                    class="uk-input uk-border-rounded uk-width-1-1 @error('distress_price') uk-form-danger @enderror"
-                    id="distress_price" name="distress_price" type="number"
-                    value="{{ old('distress_price')?:$fee->distress }}" required>
+                  <input class="uk-input uk-border-rounded uk-width-1-1 @error('vip_price') uk-form-danger @enderror"
+                    id="vip_price" name="vip_price" type="number" value="{{ old('vip_price')?:$fee->vip }}"
+                    required>
                 </div>
-                @error('distress_price')
+                @error('vip_price')
                 <span class="uk-text-danger">{{ $message }}</span>
                 @enderror
               </div>
             </div>
             <div class=" uk-width-1-3">
-              <label for="distress_span" class="uk-form-label form-label">
+              <label for="premium_price" class="uk-form-label form-label">
+                Premium price(N)
+              </label>
+              <div class="uk-form-control">
+                <div class="uk-inline uk-width-1-1">
+                  <span class="uk-form-icon" uk-icon="icon: grid" style="color: #3D9FB9;"></span>
+                  <input
+                    class="uk-input uk-border-rounded uk-width-1-1 @error('premium_price') uk-form-danger @enderror"
+                    id="premium_price" name="premium_price" type="number"
+                    value="{{ old('premium_price')?:$fee->premium }}" required>
+                </div>
+                @error('premium_price')
+                <span class="uk-text-danger">{{ $message }}</span>
+                @enderror
+              </div>
+            </div>
+            <div class=" uk-width-1-3">
+              <label for="vip_span" class="uk-form-label form-label">
                 Featured Price(N)
               </label>
               <div class="uk-form-control">

@@ -335,7 +335,7 @@
                 </p>
               </div>
               <!--featured end here-->
-              @elseif($property->plan == 'distress')
+              @elseif($property->plan == 'vip')
               <!--distress start here-->
               <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
                 style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white ">
@@ -345,6 +345,16 @@
                 </p>
               </div>
               <!--distress end here-->
+              @elseif($property->plan == 'premium')
+              <!--premium start here-->
+              <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: purple; color: white ">
+                <p class="uk-text-small" style="padding:0px 6px">
+                  <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
+                  For {{ $property->list_as }}
+                </p>
+              </div>
+              <!--premium end here-->
               @else
               <!--free start here-->
               <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
@@ -434,7 +444,7 @@
                 </p>
               </div>
               <!--featured end here-->
-              @elseif($property->plan == 'distress')
+              @elseif($property->plan == 'vip')
               <!--distress start here-->
               <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
                 style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: red; color: white ">
@@ -444,6 +454,16 @@
                 </p>
               </div>
               <!--distress end here-->
+              @elseif($property->plan == 'premium')
+              <!--premium start here-->
+              <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
+                style="border-radius:50px; height: 25px; padding:5px;  margin: 20px; background-color: purple; color: white ">
+                <p class="uk-text-small" style="padding:0px 6px">
+                  <i uk-icon="icon:rss; ratio:1" style="color:white;"></i>
+                  For {{ $property->list_as }}
+                </p>
+              </div>
+              <!--premium end here-->
               @else
               <!--free start here-->
               <div class="uk-overlay uk-card-default  uk-position-top-left uk-position-small uk-padding-left-remove"
