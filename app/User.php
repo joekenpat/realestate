@@ -58,7 +58,7 @@ class User extends Authenticatable
   public function getRefererUsernameAttribute()
   {
     if ($this->referer != null) {
-      return $this->referer_account()->username;
+      return $this->referer_account->username;
     } else {
       return null;
     }
