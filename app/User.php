@@ -58,10 +58,15 @@ class User extends Authenticatable
   public function getRefererUsernameAttribute()
   {
     if ($this->referer != null) {
-      return $this->belongsTo(User::class, 'referer')->pluck('username');
+      return $this->referer_account()->username;
     } else {
       return null;
     }
+  }
+
+  public function referer_account()
+  {
+    return $this->belongsTo(User::class, 'referer');
   }
 
   public function get_full_name()
