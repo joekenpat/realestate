@@ -117,13 +117,13 @@
         </div>
         <div class="uk-width-1-2">
           <label for="referer" class="uk-form-label form-label">
-            {{ __('referer') }}
+            {{ __('Referer Phone No') }}
           </label>
           <div class="uk-form-control">
             <div class="uk-inline uk-width-1-1">
               <span class="uk-form-icon" uk-icon="icon: user" style="color: #3D9FB9;"></span>
               <input class="uk-input uk-width-1-1 @error('referer') uk-form-danger @enderror" id="referer"
-                name="referer" type="text" value="{{ old('referer') }}">
+                name="referer" type="tel" value="{{ old('referer') }}">
             </div>
             @error('referer')
             <span class="uk-text-danger">{{ $message }}</span>
